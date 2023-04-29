@@ -1,2 +1,2 @@
-# mavet-platfom-app-web
-The MAVET web application repository
+# mavet-platform-app-web
+The MAVET application created with Flask and React
