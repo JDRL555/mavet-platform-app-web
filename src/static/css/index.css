@@ -1,0 +1,61 @@
+body {
+  background-color: var(--main-bg);
+  font-family: var(--main-font);
+}
+
+.header_container{
+  height: 15rem;
+  font-size: 20px;
+  color: beige;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.ibb.co/XSDPHyf/casona.jpg");
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.title_container, .buttons_container {
+  display: flex;
+  width: 40%;
+  margin: auto;
+  justify-content: center;
+}
+
+.buttons_container{
+  justify-content: space-evenly;
+}
+
+.registrate, .iniciarsesion{
+  justify-content: center;
+  align-items: center;
+  color:white;
+  border: none;
+  font-size: 20px;
+  border-radius: 10px;
+  padding: 30px;
+  width: 40%;
+  text-align:center;
+  display: flex;
+  background-color: var(--btn-bg);
+  text-align:center;
+  transition: background-color 1s;
+  cursor: pointer;
+}
+
+.registrate:hover, .iniciarsesion:hover{
+  background-color: rgba(212, 25, 25, 0.897);
+}
+
+.content_container{
+  background-color:lightgoldenrodyellow ;
+  margin: 20px;
+  border-radius: 10px;
+  padding: 30px;
+  font-size: 20px;
+}
+
+.content_container p{
+  text-align: justify;
+}

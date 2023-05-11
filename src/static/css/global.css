@@ -1,0 +1,21 @@
+:root{
+  --main-font: Calibri, sans-serif;
+  --main-size-font: lighter;
+
+  --main-bg: #fab96e;
+
+  --nav-bg: #b6262e;
+  --nav-bg-hover: #cc4e55;
+
+  --header-bg: #8a7151cc;
+
+  --post-bg: #c4a993;
+
+  --btn-bg: #b18f65;
+  --btn-bg-h: #dab180;
+}
+
+body {
+  overflow-x: hidden;
+  height: 100vh;
+}

@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
+  <main>
+    <div class="posts_container">
+      <div class="newPost">
+        <button>Add a post now!</button>
+      </div>
+      <div class="post">
+        <div class="post_header">
+          <div class="img_title">
+            <img src={{data.img}} alt="Img del autor">
+            <h1>{{ data.usuario }}</h1>
+          </div>
+          <p><b>Titulo: {{ data.titulo }}</b></p>
+          <p>Descripcion: {{ data.descripcion }}</p>
+          <p>Tipo: {{ data.tipo }}</p>
+        </div>
+        <div class="post_content">
+          <img src="https://i.ibb.co/DL4wsSt/cielito.jpg" alt="Obra">
+        </div>
+      </div>
+    </div>
+    <div class="news_container">
+      <div class="new_artists">
+        <h1>Artistas Recientes</h1>
+        <div class="artist_container">
+          <img src="{{ data.recent_img }}" alt="user_img">
+          <h2>{{ data.recent_user }}</h2>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="{{url_for('static', filename='js/posts.js')}}"></script>
+{% endblock %}
