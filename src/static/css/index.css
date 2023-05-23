@@ -34,9 +34,11 @@ body {
   border: none;
   font-size: 20px;
   border-radius: 10px;
-  padding: 30px;
-  width: 40%;
+  padding: 20px;
+  width: 35%;
   text-align:center;
+  text-decoration: none;
+  font-size: 25px;
   display: flex;
   background-color: var(--btn-bg);
   text-align:center;

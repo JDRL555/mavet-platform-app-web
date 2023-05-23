@@ -31,12 +31,20 @@ body{
   align-items: center;
 }
 
-.left_side img {
-  margin-right: 10px;
+.left_side a {
+  margin-right: 20px;
+  padding: 0;
+  width: 15%;
+  height: 100%;
 }
 
 .left_side h2{
   width: 60%;
+}
+
+.left_side h2 a{
+  text-decoration: none;
+  color: #fff;
 }
 
 .right_side {
@@ -48,5 +56,6 @@ body{
 }
 
 .logo{
-  width: 15%;
+  width: 100%;
+  height: 100%;
 }

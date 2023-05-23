@@ -9,7 +9,7 @@
 
   --header-bg: #8a7151cc;
 
-  --post-bg: #c4a993;
+  --post-bg: #c2a389;
 
   --btn-bg: #b18f65;
   --btn-bg-h: #dab180;
@@ -18,4 +18,9 @@
 body {
   overflow-x: hidden;
   height: 100vh;
+}
+
+main {
+  background-color: var(--main-bg);
+  font-family: var(--main-font);
 }
