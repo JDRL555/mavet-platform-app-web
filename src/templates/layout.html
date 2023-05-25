@@ -5,6 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MAVET</title>
+  <script src="https://kit.fontawesome.com/37e8db3e05.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{ url_for('static',filename='css/global.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/nav.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/footer.css') }}">
@@ -16,14 +17,20 @@
       <a href="/">
         <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
       </a>
-      <h2>
-        <a href="/">Museo De Artes Visuales y del Espacio del estado Táchira</a>
-      </h2>
+      <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
+      <i class="fa-solid fa-bars fa-2xl" id="barras" onclick="openSideBar()"></i>
     </div>
     <div class="right_side">
       {% for element in data.navbar %}
         <button>{{element}}</button>
       {% endfor %}
+    </div>
+    <div class="sidebar_bg" onclick="closeSideBar()">
+      <div class="sidebar">
+        {% for element in data.navbar %}
+          <button>{{element}}</button>
+        {% endfor %}
+      </div>
     </div>
   </nav>
   {% block content %}
@@ -32,4 +39,5 @@
     <p>Todos los derechos reservados para el Museo de Artes Visuales y del Espacio del Táchira</p>
   </footer>
 </body>
+<script src="{{ url_for('static',filename='js/sidebar.js') }}"></script>
 </html>

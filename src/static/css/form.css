@@ -20,7 +20,7 @@ form:hover{
 }
 
 form .logo {
-  width: 35%;
+  width: 200px;
   margin: auto;
 }
 
@@ -65,4 +65,20 @@ form input:focus{
 
 form input::placeholder{
   color: grey;
+}
+
+@media screen and (max-width: 950px) {
+  form {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  form {
+    width: 80%;
+  }
+
+  form .logo {
+    width: 150px;
+  }
 }

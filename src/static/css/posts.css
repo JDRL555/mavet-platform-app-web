@@ -67,7 +67,7 @@ main {
 }
 
 .img_title img{
-  width: 15%;
+  width: 70px;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -103,6 +103,12 @@ main {
 }
 
 .new_artists img {
-  width: 20%;
+  width: 70px;
   border-radius: 50%;
+}
+
+@media screen and (max-width: 960px) {
+  main {
+    display: block;
+  }
 }
