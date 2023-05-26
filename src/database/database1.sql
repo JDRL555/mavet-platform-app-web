@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users(
   avatar_user VARCHAR(100) DEFAULT '',
   username_user VARCHAR(50) NOT NULL,
   password_user VARCHAR(255) NOT NULL,
-  created_at DATETIME DEFAULT CURRENT_DATE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY(id),
   CONSTRAINT UNIQUE(email_user),
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS works_art(
   description_work TEXT NOT NULL,
   type_work SET("Pintura", "Dibujo", "Fotografia") NOT NULL,
   likes_work INT DEFAULT 0,
-  created_at DATETIME DEFAULT CURRENT_DATE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY(id),
   FOREIGN KEY(id_user) REFERENCES users(id)
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS comments(
   id_work INT UNSIGNED NOT NULL,
   content_comment TEXT NOT NULL,
   likes_comment INT DEFAULT 0,
-  created_at DATETIME DEFAULT CURRENT_DATE,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY(id),
   FOREIGN KEY(id_user) REFERENCES users(id),
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS events(
   title_event TEXT NOT NULL,
   description_event TEXT NOT NULL,
   likes_event INT DEFAULT 0,
-  date_event DATETIME DEFAULT CURRENT_DATE,
+  date_event DATETIME DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY(id)
 );
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS courses(
   img_course TEXT NOT NULL,
   description_course TEXT NOT NULL,
   price_course FLOAT DEFAULT 0,
-  date_course DATETIME DEFAULT CURRENT_DATE,
+  date_course DATETIME DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY(id),
   FOREIGN KEY(id_teacher) REFERENCES users(id)
