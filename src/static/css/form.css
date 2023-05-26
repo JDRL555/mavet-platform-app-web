@@ -1,0 +1,84 @@
+main {
+  padding: 20px;
+  transition: background .5s;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--post-bg);
+  width: 40%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform .5s, box-shadow .5s;
+}
+
+form:hover{
+  transform: scale(1.03);
+  box-shadow: 1px 1px 10px #fff;
+}
+
+form .logo {
+  width: 200px;
+  margin: auto;
+}
+
+form h1, form p {
+  text-align: center;
+}
+
+form p {
+  font-size: 20px;
+  margin: 0;
+  color: var(--nav-bg);
+}
+
+form input, form button {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: box-shadow .5s;
+}
+
+form input {
+  font-size: 15px;
+}
+
+form button {
+  font-size: 20px;
+  color: white;
+  background-color: var(--btn-bg);
+  transition: background-color .5s;
+  cursor: pointer;
+}
+
+form button:hover{
+  background-color: var(--btn-bg-hover);
+}
+
+form input:focus{
+  box-shadow: 1px 1px 10px var(--nav-bg);
+}
+
+form input::placeholder{
+  color: grey;
+}
+
+@media screen and (max-width: 950px) {
+  form {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  form {
+    width: 80%;
+  }
+
+  form .logo {
+    width: 150px;
+  }
+}

@@ -8,7 +8,7 @@ body {
   font-size: 20px;
   color: beige;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://i.ibb.co/XSDPHyf/casona.jpg");
-  background-size: 100%;
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   text-align: center;
@@ -18,13 +18,20 @@ body {
 
 .title_container, .buttons_container {
   display: flex;
-  width: 40%;
-  margin: auto;
+  margin: 20px;
   justify-content: center;
 }
 
+.title_container {
+  width: 40%;
+}
+
+.buttons_container {
+  width: 60%;
+}
+
 .buttons_container{
-  justify-content: space-evenly;
+  justify-content: space-around;
 }
 
 .registrate, .iniciarsesion{
@@ -34,9 +41,11 @@ body {
   border: none;
   font-size: 20px;
   border-radius: 10px;
-  padding: 30px;
-  width: 40%;
+  padding: 20px;
+  width: 35%;
   text-align:center;
+  text-decoration: none;
+  font-size: 25px;
   display: flex;
   background-color: var(--btn-bg);
   text-align:center;
@@ -58,4 +67,39 @@ body {
 
 .content_container p{
   text-align: justify;
+}
+
+@media screen and (max-width: 800px) {
+  .title_container {
+    width: 30%;
+  }
+  .buttons_container{
+    width: 70%;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .title_container, .buttons_container{
+    margin: auto;
+  }
+  .header_container{
+    display: block;
+    height: 20rem;
+  }
+  .buttons_container {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .buttons_container{
+    display: block;
+  }
+  .registrate, .iniciarsesion{
+    width: 80%;
+    margin: 10px;
+    padding: 10px;
+  }
+
 }

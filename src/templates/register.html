@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+  <main>
+    <form action="/signup" method="post">
+      <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
+      <h1>Registrate</h1>
+      <p>{{ data.msg }}</p>
+      <input type="text" placeholder="Nombres">
+      <input type="text" placeholder="Apellidos">
+      <input type="text" placeholder="Ingrese su fecha de nacimiento" onfocus="(this.type='date')">
+      <input type="text" placeholder="Nombre de usuario">
+      <input type="text" placeholder="Correo electronico">
+      <input type="text" placeholder="Contraseña">
+      <input type="password" placeholder="Confirmar contraseña">
+      <button type="submit">Crear cuenta</button>
+    </form>
+  </main>  
+{% endblock %}
