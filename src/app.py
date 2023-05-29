@@ -1,4 +1,4 @@
-from flask                import Flask
+from flask                import Flask, render_template
 from routes.index_routes  import index_router
 from routes.auth_routes   import auth_router
 from routes.user_routes   import user_router
@@ -7,8 +7,12 @@ from flask_sqlalchemy     import SQLAlchemy
 
 app = Flask(__name__)
 
+def notFound(error):
+  return render_template("404.html")
+
 app.config['SQLALCHEMY_DATABSE_URI'] = ''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.register_error_handler(404, notFound)
 
 SQLAlchemy(app)
 

@@ -1,0 +1,22 @@
+body {
+  background-color: var(--main-bg);
+  font-family: var(--main-font);
+  overflow: hidden;
+}
+
+main {
+  width: 80%;
+  margin: auto;
+  height: 58vh;
+  background-color: var(--content-bg);
+  padding: 30px;
+}
+
+main h1{
+  font-size: 35px;
+}
+
+main p{
+  font-size: 20px;
+  text-align: justify;
+}

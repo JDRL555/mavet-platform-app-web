@@ -58,7 +58,7 @@ body {
 }
 
 .content_container{
-  background-color:lightgoldenrodyellow ;
+  background-color: var(--content-bg);
   margin: 20px;
   border-radius: 10px;
   padding: 30px;
