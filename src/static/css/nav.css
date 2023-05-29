@@ -11,17 +11,17 @@ body{
   background-color: var(--nav-bg);
 }
 
-.navbar button {
-  border: none;
+.navbar .right_side a {
+  text-decoration: none;
   padding: 20px;
   background-color: var(--nav-bg);
   border-radius: 10px;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   transition: background-color 1s;
 }
 
-.navbar button:hover {
+.navbar .right_side a:hover {
   background-color: var(--nav-bg-hover);
 }
 
@@ -87,7 +87,7 @@ body{
   transition: transform .5s;
 }
 
-.sidebar button{
+.sidebar a{
   margin: 20px;
 }
 

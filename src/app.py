@@ -9,7 +9,12 @@ app = Flask(__name__)
 @app.context_processor
 def render_layout():
   data = {
-    "navbar": ["¿Quiénes somos?", "¿Qué ofrecemos?", "Iniciar Sesión", "Registrarme"],
+    "navbar": [
+      {"element": "¿Quiénes somos?", "link": "/"},
+      {"element": "¿Qué ofrecemos?", "link": "/"},
+      {"element": "Iniciar Sesión", "link": "/signin"},
+      {"element": "Registrarme", "link": "/signup"},
+    ],
     "contents": [
       {
         "title": "¿Quiénes somos?",
