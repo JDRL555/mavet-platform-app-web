@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS comments(
 DROP TABLE IF EXISTS events;
 CREATE TABLE IF NOT EXISTS events(
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  img_event TEXT NOT NULL,
+  img_event VARCHAR(100) NOT NULL,
   title_event TEXT NOT NULL,
   description_event TEXT NOT NULL,
   likes_event INT DEFAULT 0,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS courses(
   id INT UNSIGNED NOT NULL AUTO_INCREMENT,
   id_teacher INT UNSIGNED NOT NULL,
   title_course TEXT NOT NULL,
-  img_course TEXT NOT NULL,
+  img_course VARCHAR(100) NOT NULL,
   description_course TEXT NOT NULL,
   price_course FLOAT DEFAULT 0,
   date_course DATETIME DEFAULT CURRENT_TIMESTAMP,
