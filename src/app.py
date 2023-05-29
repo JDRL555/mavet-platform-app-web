@@ -3,8 +3,14 @@ from routes.index_routes  import index_router
 from routes.auth_routes   import auth_router
 from routes.user_routes   import user_router
 from routes.posts_routes  import posts_router 
+from flask_sqlalchemy     import SQLAlchemy
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABSE_URI'] = ''
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+SQLAlchemy(app)
 
 @app.context_processor
 def render_layout():
