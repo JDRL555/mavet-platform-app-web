@@ -7,7 +7,7 @@ from flask_sqlalchemy     import SQLAlchemy
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABSE_URI'] = ''
+app.config['SQLALCHEMY_DATABSE_URI'] = 'mysql://utkakmoxtialdqnv:9uRWwqQKRB6d77iszoqe@b5xhvnlvmlmy7habrfmu-mysql.services.clever-cloud.com:3306/b5xhvnlvmlmy7habrfmu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 SQLAlchemy(app)
