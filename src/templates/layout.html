@@ -20,15 +20,15 @@
       <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
       <i class="fa-solid fa-bars fa-2xl" id="barras" onclick="openSideBar()"></i>
     </div>
-    <div class="right_side">
-      {% for element in data.navbar %}
-        <button>{{element}}</button>
-      {% endfor %}
-    </div>
+      <div class="right_side">
+        {% for nav in data.navbar %}
+          <a href="{{nav.link}}">{{nav.element}}</a>
+        {% endfor %}
+      </div>
     <div class="sidebar_bg" onclick="closeSideBar()">
       <div class="sidebar">
-        {% for element in data.navbar %}
-          <button>{{element}}</button>
+        {% for nav in data.navbar %}
+          <a href="{{nav.link}}">{{nav.element}}</a>
         {% endfor %}
       </div>
     </div>

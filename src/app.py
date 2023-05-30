@@ -1,4 +1,4 @@
-from flask                import Flask
+from flask                import Flask, render_template
 from routes.index_routes  import index_router
 from routes.auth_routes   import auth_router
 from routes.user_routes   import user_router
@@ -7,15 +7,24 @@ from flask_sqlalchemy     import SQLAlchemy
 
 app = Flask(__name__)
 
+def notFound(error):
+  return render_template("404.html")
+
 app.config['SQLALCHEMY_DATABSE_URI'] = 'mysql://utkakmoxtialdqnv:9uRWwqQKRB6d77iszoqe@b5xhvnlvmlmy7habrfmu-mysql.services.clever-cloud.com:3306/b5xhvnlvmlmy7habrfmu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.register_error_handler(404, notFound)
 
 SQLAlchemy(app)
 
 @app.context_processor
 def render_layout():
   data = {
-    "navbar": ["¿Quiénes somos?", "¿Qué ofrecemos?", "Iniciar Sesión", "Registrarme"],
+    "navbar": [
+      {"element": "¿Quiénes somos?", "link": "/"},
+      {"element": "¿Qué ofrecemos?", "link": "/"},
+      {"element": "Iniciar Sesión", "link": "/signin"},
+      {"element": "Registrarme", "link": "/signup"},
+    ],
     "contents": [
       {
         "title": "¿Quiénes somos?",
