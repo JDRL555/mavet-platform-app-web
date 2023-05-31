@@ -20,11 +20,17 @@
       <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
       <i class="fa-solid fa-bars fa-2xl" id="barras" onclick="openSideBar()"></i>
     </div>
-      <div class="right_side">
-        {% for nav in data.navbar %}
+    <div class="right_side">
+      {% for nav in data.navbar %}
+        {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
           <a href="{{nav.link}}">{{nav.element}}</a>
-        {% endfor %}
-      </div>
+        {% endif %}
+      {% endfor %}
+      {% if current_user.username %}
+        <a>{{current_user.username}}</a>
+        <a href="/signout">Cerrar sesión</a>
+      {% endif %}
+    </div>
     <div class="sidebar_bg" onclick="closeSideBar()">
       <div class="sidebar">
         {% for nav in data.navbar %}
