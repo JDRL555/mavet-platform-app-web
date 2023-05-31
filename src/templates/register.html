@@ -6,14 +6,27 @@
     <form action="/signup" method="post">
       <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
       <h1>Registrate</h1>
-      <p>{{ data.msg }}</p>
-      <input type="text" placeholder="Nombres">
-      <input type="text" placeholder="Apellidos">
-      <input type="text" placeholder="Ingrese su fecha de nacimiento" onfocus="(this.type='date')">
-      <input type="text" placeholder="Nombre de usuario">
-      <input type="text" placeholder="Correo electronico">
-      <input type="text" placeholder="Contraseña">
-      <input type="password" placeholder="Confirmar contraseña">
+      {% if data.msg %}
+        <p>{{ data.msg }}</p>
+      {% endif %}
+      {% for input in data.inputs %}
+        {% if input.name == "datebirth" %}
+          <input 
+            name="{{input.name}}"
+            type="{{input.type}}" 
+            placeholder="{{input.placeholder}}"
+            onfocus="(this.type='date')" 
+            required
+          >
+        {% else %}
+          <input 
+            name="{{input.name}}"
+            type="{{input.type}}" 
+            placeholder="{{input.placeholder}}"
+            required
+          >
+        {% endif %}
+      {% endfor %}
       <button type="submit">Crear cuenta</button>
     </form>
   </main>  
