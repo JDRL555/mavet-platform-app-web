@@ -1,10 +1,33 @@
-from flask import Blueprint, render_template
+from flask            import Blueprint, render_template
+from flask_login      import current_user
+from models.Category  import Category
+from utils.db         import db
 
 posts_router = Blueprint("posts", __name__)
 
 @posts_router.route("/posts")
 def renderPosts():
+  result = Category.getAll(db=db)
   data = {
+    "inputs": [
+      {
+        "name": "title", 
+        "type": "text", 
+        "label": "Titulo de la obra"
+      },{
+        "name": "description", 
+        "type": "text", 
+        "label": "Descripción de la obra"
+      },{
+        "name": "category", 
+        "options": result, 
+        "label": "Categoría de la obra"
+      },{
+        "name": "img", 
+        "type": "file", 
+        "label": "Adjunta la imagen de la obra"
+      },
+    ],
     "posts": [
       {
         "username": "JDRL",

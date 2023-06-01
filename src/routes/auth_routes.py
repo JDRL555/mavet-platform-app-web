@@ -1,5 +1,5 @@
 from flask                import Blueprint, render_template, request, redirect
-from flask_login          import login_user, logout_user
+from flask_login          import login_user, logout_user, current_user
 from utils.db             import db
 from models.User          import User
 
@@ -7,6 +7,8 @@ auth_router = Blueprint("auth", __name__)
 
 @auth_router.route("/signup", methods=["GET", "POST"])
 def signup():
+  if current_user.is_authenticated:
+    return redirect("/posts")
   data = { 
     "msg": "",
     "inputs": [
@@ -44,6 +46,8 @@ def signup():
 
 @auth_router.route("/signin", methods=["GET", "POST"])
 def signin():
+  if current_user.is_authenticated:
+    return redirect("/posts")
   data = { 
     "msg": "",
     "inputs": [
@@ -69,7 +73,7 @@ def signin():
   
   login_user(user)
   
-  return redirect("/")
+  return redirect("/posts")
 
 @auth_router.route("/signout")
 def signout():

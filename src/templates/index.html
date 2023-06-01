@@ -5,11 +5,7 @@
   <main>
     <header class="header_container">
       <div class="title_container">
-        {% if current_user %}
-          <h2>Bienvenidos a la pagina del MAVET! {{ current_user.username }}</h2>
-        {% else %}
-          <h2>Bienvenidos a la pagina del MAVET!</h2>
-        {% endif %}
+        <h2>Bienvenidos a la pagina del MAVET!</h2>
       </div>
       <div class="buttons_container">
         <a href="/signup" class="registrate">Registrate</a>

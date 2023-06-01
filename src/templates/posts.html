@@ -5,7 +5,45 @@
   <main>
     <div class="posts_container">
       <div class="newPost">
-        <button>Add a post now!</button>
+        <div class="form_bg">
+          <form action="/new/post" method="POST">
+            <i class="fa-solid fa-xmark" onclick="closeForm()"></i>
+            {% for input in data.inputs %}
+              {% if input.name == "category" %}
+                <label for={{input.name}}>{{ input.label }}</label>  
+                <select name="{{input.name}}">
+                  {% for option in input.options %}
+                    <option value={{option[0]}}>{{option[0]}}</option>
+                  {% endfor %}
+                </select>
+              {% else %}
+                <label for={{input.name}}>{{ input.label }}</label>  
+                {% if input.name == "img" %}
+                  <div class="file_container">
+                    <p>Sube tu foto <i class="fa-solid fa-upload"></i></p>
+                    <input 
+                      class="file"
+                      name="{{input.name}}"
+                      type="{{input.type}}" 
+                      accept="image/*"
+                      onchange="changeInput()"
+                      required
+                    >
+                  </div>
+                  <p class="filename"></p>
+                {% else %}
+                  <input 
+                    name="{{input.name}}"
+                    type="{{input.type}}" 
+                    required
+                  >
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            <button>Publicar</button>
+          </form>
+        </div>
+        <button onclick="openForm()">Add a post now!</button>
       </div>
       {% for user in data.posts %}
         <div class="post">
@@ -36,4 +74,5 @@
       {% endfor %}
     </div>
   </main>
+  <script src="{{url_for('static', filename='js/post.js')}}"></script>
 {% endblock %}

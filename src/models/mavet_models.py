@@ -16,6 +16,14 @@ class Specialty_user(db.Model):
   
   def __init__(self, name):
     self.name_specialty = name
+    
+class Category(db.Model):
+  __tablename__ = "categories"
+  name_category = db.Column(db.String(50), nullable=False, primary_key=True)
+  created_at    = db.Column(db.Date, default=datetime.datetime.now())
+  
+  def __init__(self, name):
+    self.name_category = name
 
 class User(db.Model):
   __tablename__   = "users"
@@ -45,3 +53,21 @@ class User(db.Model):
     self.password_user  = password
     self.specialty_id   = "Estudiante"
     self.type_id        = "Estandar"
+    
+class Works_art(db.Model):
+  __tablename__     = "works_art"
+  
+  id                = db.Column(db.Integer, primary_key=True)
+  title_work        = db.Column(db.String(50), nullable=False)
+  description_work  = db.Column(db.String(100), nullable=False)
+  img_work          = db.Column(db.String(200), nullable=False)
+  likes_work        = db.Column(db.Integer, default=0)
+  category          = db.Column(db.String(50), db.ForeignKey("categories.name_category"), nullable=False)
+  
+  category_work_art = db.relationship("Category", backref="categories")
+  
+  def __init__(self, title, description, img, category):
+    self.title_work       = title
+    self.description_work = description
+    self.img_work         = img
+    self.category         = category

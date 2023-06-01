@@ -38,10 +38,9 @@ CREATE TABLE IF NOT EXISTS users(
   FOREIGN KEY(specialty_user) REFERENCES specialty_users(id)
 );
 
-DROP TABLE IF EXISTS type_works_art;
-CREATE TABLE IF NOT EXISTS type_works_art(
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name_type TEXT NOT NULL,
+DROP TABLE IF EXISTS categories;
+CREATE TABLE IF NOT EXISTS categories(
+  name_category VARCHAR(50) NOT NULL PRIMARY KEY,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -52,13 +51,13 @@ CREATE TABLE IF NOT EXISTS works_art(
   title_work TEXT NOT NULL,
   img_work VARCHAR(100) NOT NULL,
   description_work TEXT NOT NULL,
-  type_work INT UNSIGNED NOT NULL,
+  category VARCHAR(50) NOT NULL,
   likes_work INT DEFAULT 0,
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
   PRIMARY KEY(id),
   FOREIGN KEY(id_user) REFERENCES users(id),
-  FOREIGN KEY(type_work) REFERENCES type_works_art(id)
+  FOREIGN KEY(category) REFERENCES categories(name_category)
 );
 
 DROP TABLE IF EXISTS comments;

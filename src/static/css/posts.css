@@ -10,6 +10,92 @@ main {
   justify-content: space-between;
 }
 
+.form_bg {
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  position: fixed;
+  top: -1px;
+  left: -1px;
+  bottom: -1px;
+  right: -1px;
+  background-color: #00000080;
+  transition: opacity .5s;
+}
+
+form {
+  position: relative;
+  width: 60%;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  border-radius: 10px;
+  background-color: var(--post-bg);
+  flex-direction: column;
+}
+
+form i.fa-xmark {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: var(--nav-bg);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+form input[type="text"], form button, form select {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: box-shadow .5s;
+}
+
+form label, form .file_container p, .filename {
+  font-size: 18px;
+}
+
+form select, form input {
+  font-size: 15px;
+}
+
+form .file_container {
+  padding: 0;
+  margin: 10px;
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  transition: box-shadow .2s;
+  cursor: pointer;
+}
+
+form .file_container input{
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  opacity: 0;
+}
+
+form .file_container p {
+  text-align: center;
+  margin: 10px;
+}
+
+form button:hover{
+  background-color: var(--btn-bg-hover);
+}
+
+form input:focus, form .file_container:active, form select:focus{
+  box-shadow: 1px 1px 10px var(--nav-bg);
+}
+
+.filename {
+  text-indent: 10px;
+}
+
 .posts_container {
   width: 60%;
 }
@@ -20,6 +106,7 @@ main {
 
 .newPost {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   width: 100%;
   margin: 20px 0;

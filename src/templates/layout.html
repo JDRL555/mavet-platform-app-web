@@ -27,7 +27,7 @@
         {% endif %}
       {% endfor %}
       {% if current_user.username %}
-        <a>{{current_user.username}}</a>
+        <a href="/profile/{{current_user.id}}">{{current_user.username}}</a>
         <a href="/signout">Cerrar sesión</a>
       {% endif %}
     </div>

@@ -88,12 +88,12 @@ class User(UserMixin):
   
   @classmethod
   def getById(self, db, id):
-    sql   = text(f'SELECT username_user, email_user, type_id FROM users WHERE id = "{id}";')
+    sql   = text(f'SELECT id, username_user, email_user FROM users WHERE id = "{id}";')
     user  = db.session.execute(sql)
     user  = tuple(user)
     user  = {
-      "username": user[0][0],
-      "email": user[0][1],
-      "type": user[0][2],
+      "id": user[0][0],
+      "username": user[0][1],
+      "email": user[0][2],
     }
     return user

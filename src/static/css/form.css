@@ -11,11 +11,10 @@ form {
   margin: auto;
   padding: 20px;
   border-radius: 10px;
-  transition: transform .5s, box-shadow .5s;
+  transition: box-shadow .5s;
 }
 
 form:hover{
-  transform: scale(1.03);
   box-shadow: 1px 1px 10px #fff;
 }
 
