@@ -61,7 +61,7 @@ class User(UserMixin):
   def login(self, db, user):
     response = {"msg": "", "error": False, "user": ""}
      
-    sql = text(f'SELECT id, username_user, email_user FROM users WHERE email_user = "{user["email"]}";')
+    sql = text(f'SELECT id, username_user, email_user, password_user FROM users WHERE email_user = "{user["email"]}";')
     user_exists  = db.session.execute(sql)
     user_exists  = tuple(user_exists)
     
@@ -70,8 +70,7 @@ class User(UserMixin):
       response["error"] = True
       return response
     
-    sql               = text(f'SELECT password_user FROM users WHERE email_user = "{user["email"]}";')
-    password_hashed   = tuple(db.session.execute(sql))[0][0]
+    password_hashed   = user_exists[0][3]
     match_password    = checkpw(user["password"].encode("UTF-8"), password_hashed.encode("UTF-8"))
     
     if not match_password:

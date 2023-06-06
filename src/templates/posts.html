@@ -43,7 +43,7 @@
             <button>Publicar</button>
           </form>
         </div>
-        <button onclick="openForm()">Add a post now!</button>
+        <button onclick="openForm()">Crear una publicación</button>
       </div>
       {% for user in data.posts %}
         <div class="post">
@@ -52,9 +52,9 @@
               <img src={{user.img_user}} alt="Img del autor">
               <h1>{{ user.username }}</h1>
             </div>
-            <p><b>Titulo: {{ user.title }}</b></p>
-            <p>Descripcion: {{ user.description }}</p>
-            <p>Tipo: {{ user.type }}</p>
+            <p><b>Título: {{ user.title }}</b></p>
+            <p>Descripción: {{ user.description }}</p>
+            <p>Categoría: {{ user.type }}</p>
           </div>
           <div class="post_content">
             <img src="{{user.img_post}}" alt="Obra">

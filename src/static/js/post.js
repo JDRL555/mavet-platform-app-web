@@ -11,7 +11,9 @@ function openForm(){
 function closeForm(){
   const form_bg  = document.querySelector(".form_bg")
   const form     = document.querySelector("form")
+  const filename      = document.querySelector(".filename")
   form_bg.style.opacity = 0
+  filename.innerHTML    = ""
   form.reset()
   setTimeout(()=>form_bg.style.visibility = "hidden", 500)
 }

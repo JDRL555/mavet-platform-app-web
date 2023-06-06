@@ -1,12 +1,14 @@
-from flask            import Blueprint, render_template
-from flask_login      import current_user
+from flask            import Blueprint, render_template, redirect
+from flask_login      import current_user, login_required
 from models.Category  import Category
 from utils.db         import db
 
 posts_router = Blueprint("posts", __name__)
 
 @posts_router.route("/posts")
-def renderPosts():
+def renderPosts():  
+  if not current_user["username"]:
+    return redirect("/signin")
   result = Category.getAll(db=db)
   data = {
     "inputs": [

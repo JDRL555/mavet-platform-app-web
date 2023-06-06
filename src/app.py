@@ -1,5 +1,5 @@
-from flask                import Flask, render_template
-from flask_login          import LoginManager
+from flask                import Flask, render_template, redirect, request
+from flask_login          import LoginManager, current_user
 from models.User          import User
 from routes.index_routes  import index_router
 from routes.auth_routes   import auth_router
@@ -12,15 +12,20 @@ app = Flask(__name__)
 def notFound(error):
   return render_template("404.html")
 
+def notAuthorized(error):
+  return redirect("/signin")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://utkakmoxtialdqnv:9uRWwqQKRB6d77iszoqe@b5xhvnlvmlmy7habrfmu-mysql.services.clever-cloud.com:3306/b5xhvnlvmlmy7habrfmu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 's3cr3tk3y'
 
+app.register_error_handler(401, notAuthorized)
 app.register_error_handler(404, notFound)
 
 db.init_app(app=app)
 
 login_manager = LoginManager(app=app)
+login_manager.init_app(app=app)
 
 with app.app_context():
   db.create_all()
@@ -28,6 +33,13 @@ with app.app_context():
 @login_manager.user_loader
 def load_user(id):
   return User.getById(db, id)
+
+@login_manager.unauthorized_handler
+def handle_unauthorized():
+  if current_user.is_authenticated:
+    return redirect("/posts")
+  else:
+    return redirect("/signin")
 
 @app.context_processor
 def render_layout():
