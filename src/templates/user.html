@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+  <main>
+    <div class="user_header">
+      <div class="cover"></div>
+      {% if current_user.username %}
+        {% if current_user.avatar %}
+          <img src="{{current_user.avatar}}" alt="The user image" class="avatar">
+        {% else %}
+          <i class="fa-solid fa-user fa-xl avatar"></i>
+        {% endif %}
+      {% endif %}
+      <h1>{{ current_user.name }} {{ current_user.last_name }}</h1>
+      <h2>{{ current_user.username }}</h2>
+    </div>
+    <div class="user_content">
+      <div class="user_info">
+        <h3>Datos del usuario:</h3>
+        <p>Edad: {{ data.age_user }}</p>
+        <p>Profesión: {{ current_user.specialty }}</p>
+        <p>Teléfono: {{ current_user.phone }}</p>
+        <p>Obras publicadas: 0</p>
+      </div>
+      <div class="user_posts">
+        <h1>No tienes publicaciones. ¡Sube una ahora mismo!</h1>
+        <button onclick="openForm()">Publicar algo</button>
+      </div>
+    </div>
+  </main>
+  <div class="form_bg">
+    <form action="/new/post" method="POST">
+      <i class="fa-solid fa-xmark" onclick="closeForm()"></i>
+      {% for input in data.inputs %}
+        {% if input.name == "category" %}
+          <label for={{input.name}}>{{ input.label }}</label>  
+          <select name="{{input.name}}">
+            {% for option in input.options %}
+              <option value={{option[0]}}>{{option[0]}}</option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <label for={{input.name}}>{{ input.label }}</label>  
+          {% if input.name == "img" %}
+            <div class="file_container">
+              <p>Sube tu foto <i class="fa-solid fa-upload"></i></p>
+              <input 
+                class="file"
+                name="{{input.name}}"
+                type="{{input.type}}" 
+                accept="image/*"
+                onchange="changeInput()"
+                required
+              >
+            </div>
+            <p class="filename"></p>
+          {% else %}
+            <input 
+              name="{{input.name}}"
+              type="{{input.type}}" 
+              required
+            >
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <button>Publicar</button>
+    </form>
+  </div>
+  <script src="{{url_for('static', filename='js/post.js')}}"></script>
+{% endblock %}

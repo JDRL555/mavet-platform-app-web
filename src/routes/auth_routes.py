@@ -70,7 +70,7 @@ def signin():
     
     if response["error"]:
       data["msg"] = response["msg"]
-      return render_template("register.html", data=data)
+      return render_template("login.html", data=data)
     
     user = response["user"]
     user = User(user["id"], user["username"], user["email"])

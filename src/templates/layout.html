@@ -27,8 +27,25 @@
         {% endif %}
       {% endfor %}
       {% if current_user.username %}
-        <a href="/profile/{{current_user.id}}">{{current_user.username}}</a>
-        <a href="/signout">Cerrar sesión</a>
+        {% if current_user.avatar %}
+          <img
+            src="{{current_user.avatar}}"
+            alt="The user image" 
+            class="user_img"  
+            onclick="userOptionsHandler()"
+          >
+          </img>
+        {% else %}
+          <i 
+            class="fa-solid fa-user fa-xl user_img"  
+            onclick="userOptionsHandler()"
+          >
+          </i>
+        {% endif %}
+        <div class="subnav">
+          <a href="/user/{{current_user.id}}">Mi perfil</a>
+          <a href="/signout">Cerrar sesión</a>
+        </div>
       {% endif %}
     </div>
     <div class="sidebar_bg" onclick="closeSideBar()">
@@ -46,4 +63,5 @@
   </footer>
 </body>
 <script src="{{ url_for('static',filename='js/sidebar.js') }}"></script>
+<script src="{{ url_for('static', filename='js/user.js') }}"></script>
 </html>

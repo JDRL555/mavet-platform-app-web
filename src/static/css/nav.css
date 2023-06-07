@@ -96,6 +96,36 @@ body{
   margin: 20px;
 }
 
+.subnav {
+  position: absolute;
+  z-index: 5;
+  background-color: var(--nav-bg-hover);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  right: -1px;
+  top: 15%;
+  opacity: 0;
+  transition: opacity .5s;
+}
+
+.subnav a {
+  margin-bottom: 10px;
+}
+
+.user_img{
+  border-radius: 100%;
+  padding: 30px 20px;
+  transition: background-color .5s;
+  cursor: pointer;
+  color: white;
+}
+
+.user_img:hover {
+  background-color: var(--nav-bg-hover);
+}
+
 @media screen and (max-width: 975px) {
   .left_side{
     width: 35%;

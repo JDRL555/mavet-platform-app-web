@@ -32,14 +32,12 @@ with app.app_context():
   
 @login_manager.user_loader
 def load_user(id):
-  return User.getById(db, id)
+  response = User.getById(db, id)
+  return response["user"]
 
 @login_manager.unauthorized_handler
 def handle_unauthorized():
-  if current_user.is_authenticated:
-    return redirect("/posts")
-  else:
-    return redirect("/signin")
+  return redirect("/signin")
 
 @app.context_processor
 def render_layout():

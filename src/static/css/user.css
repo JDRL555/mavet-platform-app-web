@@ -1,0 +1,167 @@
+main{
+  background-color: var(--btn-bg);
+  margin: 0 20px;
+}
+
+main .user_header{
+  position: relative;
+  padding: 20px;
+  text-align: center;
+}
+
+main .cover{
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background-color: var(--btn-bg-h);
+}
+
+main .user_header .avatar {
+  position: relative;
+  z-index: 2;
+  border-radius: 100%;
+  padding: 90px 50px;
+  cursor: pointer;
+  color: white;
+  font-size: 100px;
+  background-color: var(--nav-bg);
+  transition: background-color .5s; 
+}
+
+main .user_header .avatar:hover {
+  background-color: var(--nav-bg-hover);
+}
+
+main .user_header h1, main .user_header h2{
+  margin: 0;
+} 
+
+main .user_header h2{
+  color: rgb(92, 92, 92);
+}
+
+main .user_content {
+  display: flex;
+}
+
+main .user_info {
+  font-size: 20px;
+  background-color: var(--post-bg);
+  width: 20%;
+  margin: 0 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+main .user_posts {
+  background-color: var(--post-bg);
+  width: 70%;
+  margin: 0 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.form_bg {
+  position: fixed;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  top: -1px;
+  left: -1px;
+  bottom: -1px;
+  right: -1px;
+  background-color: #00000080;
+  transition: opacity .5s;
+}
+
+form {
+  position: relative;
+  width: 60%;
+  padding: 20px;
+  margin: auto;
+  display: flex;
+  border-radius: 10px;
+  background-color: var(--post-bg);
+  flex-direction: column;
+}
+
+form i.fa-xmark {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: var(--nav-bg);
+  font-size: 30px;
+  cursor: pointer;
+}
+
+form input[type="text"], form select {
+  padding: 10px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: box-shadow .5s;
+}
+
+form label, form .file_container p, .filename {
+  font-size: 18px;
+}
+
+form select, form input {
+  font-size: 15px;
+}
+
+form .file_container {
+  padding: 0;
+  margin: 10px;
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  transition: box-shadow .2s;
+  cursor: pointer;
+}
+
+form .file_container input{
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: -1px;
+  right: -1px;
+  opacity: 0;
+}
+
+form .file_container p {
+  text-align: center;
+  margin: 10px;
+}
+
+form button:hover{
+  background-color: var(--btn-bg-hover);
+}
+
+form input:focus, form .file_container:active, form select:focus{
+  box-shadow: 1px 1px 10px var(--nav-bg);
+}
+
+.filename {
+  text-indent: 10px;
+}
+
+.user_posts button, form button{
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  background-color: var(--btn-bg);
+  color: white;
+  cursor: pointer;
+  transition: background-color .5s;
+}
+
+.user_posts button:hover{
+  background-color: var(--btn-bg-h);
+}
