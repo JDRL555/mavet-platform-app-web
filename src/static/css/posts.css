@@ -135,6 +135,7 @@ form input:focus, form .file_container:active, form select:focus{
   border-radius: 10px;
   background-color: var(--post-bg);
   padding: 20px;
+  margin-top: 20px;
 }
 
 .post_header {
@@ -173,6 +174,19 @@ form input:focus, form .file_container:active, form select:focus{
 
 .post_content img {
   width: 100%;
+}
+
+.avatar_user{
+  border-radius: 100%;
+  padding: 30px 20px;
+  color: white;
+  background-color: var(--header-bg);
+  transition: background-color .5s;
+  margin-right: 10px;
+}
+
+.avatar_user:hover {
+  background-color: var(--post-bg);
 }
 
 .new_artists {

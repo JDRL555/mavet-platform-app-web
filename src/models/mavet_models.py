@@ -63,11 +63,14 @@ class Works_art(db.Model):
   img_work          = db.Column(db.String(200), nullable=False)
   likes_work        = db.Column(db.Integer, default=0)
   category          = db.Column(db.String(50), db.ForeignKey("categories.name_category"), nullable=False)
+  author_id         = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
   
   category_work_art = db.relationship("Category", backref="categories")
+  author_work_art   = db.relationship("User", backref="users")
   
-  def __init__(self, title, description, img, category):
+  def __init__(self, title, description, img, category, author_id):
     self.title_work       = title
     self.description_work = description
     self.img_work         = img
     self.category         = category
+    self.author_id        = author_id
