@@ -1,7 +1,8 @@
-from flask            import Blueprint, render_template, redirect
+from flask            import Blueprint, render_template, redirect, request
 from flask_login      import current_user
 from datetime         import datetime
 from models.Category  import Category
+from models.Works_art import Works_art
 from utils.db         import db
 
 user_router = Blueprint("user", __name__)
@@ -15,13 +16,13 @@ def loadUser(id):
   # try:
   if not current_user["username"]:
     return redirect("/signin")
-  
   datebirth   = current_user["datebirth"]
   today       = datetime.today().date()
   age_user    = today.year - datebirth.year - ((today.month, today.day) < (datebirth.month, datebirth.day))
   categories  = Category.getAll(db=db)
+  works_art   = Works_art.getRelatedWith(db=db, id=id)
   data = {
-    "welcome": "Bienvenido a la página del MAVET, ",
+    "works_art": works_art,
     "age_user": age_user,
     "inputs": [
         {

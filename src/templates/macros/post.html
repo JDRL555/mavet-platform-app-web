@@ -1,0 +1,25 @@
+{% macro post(works_art) %}
+  {% for work_art in works_art %}
+    <div class="post">
+      <div class="post_header">
+        <div class="img_title">
+          {% if work_art.img_user %}
+            <img src={{work_art.img_user}} alt="Img del autor">
+          {% else %}
+            <i class="fa-solid fa-user fa-xl avatar_user"></i>
+          {% endif %}
+          <h1>{{ work_art.username }}</h1>
+          {% if current_user.username == work_art.usernmae %}
+            <i class="fa-light fa-pencil" id="edit"></i>
+          {% endif %}
+        </div>
+        <p><b>Título: {{ work_art.title }}</b></p>
+        <p>Descripción: {{ work_art.description }}</p>
+        <p>Categoría: {{ work_art.category }}</p>
+      </div>
+      <div class="post_content">
+        <img src="{{work_art.img_work}}" alt="Obra" oncontextmenu="return false">
+      </div>
+    </div>
+  {% endfor %}
+{% endmacro %}

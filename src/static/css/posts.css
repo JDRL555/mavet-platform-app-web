@@ -212,4 +212,7 @@ form input:focus, form .file_container:active, form select:focus{
   main {
     display: block;
   }
+  .posts_container, .news_container { 
+    width: 95%;
+  }
 }

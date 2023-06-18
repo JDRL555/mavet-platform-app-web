@@ -37,11 +37,11 @@ class User(db.Model):
   phone_user      = db.Column(db.String(11), nullable=False)
   password_user   = db.Column(db.String(255), nullable=False)
   created_at      = db.Column(db.Date, default=f"{datetime.datetime.now()}")
-  type_id         = db.Column(db.String(50), db.ForeignKey("type_users.name_type"), nullable=False)
-  specialty_id    = db.Column(db.String(50), db.ForeignKey("specialty_users.name_specialty"), nullable=False)
+  type_id         = db.Column(db.String(50), db.ForeignKey("type_users.name_type", ondelete="CASCADE"), nullable=False)
+  specialty_id    = db.Column(db.String(50), db.ForeignKey("specialty_users.name_specialty", ondelete="CASCADE"), nullable=False)
   
-  type_user       = db.relationship("Type_user", backref="type_users")
-  specialty_user  = db.relationship("Specialty_user", backref="specialty_users")
+  type_user       = db.relationship("Type_user", passive_deletes=True, backref="type_users")
+  specialty_user  = db.relationship("Specialty_user", passive_deletes=True, backref="specialty_users")
 
   def __init__(self, name, last_name, datebirth, username, phone, email, password):
     self.name_user      = name
@@ -62,11 +62,11 @@ class Works_art(db.Model):
   description_work  = db.Column(db.String(100), nullable=False)
   img_work          = db.Column(db.String(200), nullable=False)
   likes_work        = db.Column(db.Integer, default=0)
-  category          = db.Column(db.String(50), db.ForeignKey("categories.name_category"), nullable=False)
-  author_id         = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+  category          = db.Column(db.String(50), db.ForeignKey("categories.name_category", ondelete="CASCADE"), nullable=False)
+  author_id         = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
   
-  category_work_art = db.relationship("Category", backref="categories")
-  author_work_art   = db.relationship("User", backref="users")
+  category_work_art = db.relationship("Category", passive_deletes=True, backref="categories")
+  author_work_art   = db.relationship("User", passive_deletes=True, backref="users")
   
   def __init__(self, title, description, img, category, author_id):
     self.title_work       = title

@@ -107,6 +107,7 @@ body{
   right: -1px;
   top: 15%;
   opacity: 0;
+  visibility: hidden;
   transition: opacity .5s;
 }
 

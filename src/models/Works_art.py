@@ -17,11 +17,13 @@ class Works_art:
     file      = post_info["img"]
     
     #resize the image
-    image     = Image.open(file)
-    image     = image.resize((image.width // 2, image.height // 2))
+    image         = Image.open(file)
+    image_format  = image.format
+    print(image_format)
+    image         = image.resize((image.width // 2, image.height // 2))
     
     buffer = BytesIO()
-    image.save(buffer, "jpeg")
+    image.save(buffer, image_format)
     
     buffer.seek(0)
     
@@ -63,11 +65,11 @@ class Works_art:
   
   @classmethod
   def getAll(self, db):
-    sql = text('''
+    sql = text(f'''
         SELECT users.username_user, works_art.title_work, works_art.description_work, works_art.category, works_art.img_work, users.avatar_user 
         FROM works_art 
         INNER JOIN users 
-        ON works_art.author_id = users.id;
+        ON works_art.author_id = users.id ORDER BY users.created_at;
     ''')
     
     works_art_data = db.session.execute(sql)
@@ -85,5 +87,52 @@ class Works_art:
         "img_user": row[5]
       })
     
+    return data
+  
+  @classmethod
+  def getPaginated(self, db, page = 0):
+    sql = text(f'''
+        SELECT users.username_user, works_art.title_work, works_art.description_work, works_art.category, works_art.img_work, users.avatar_user 
+        FROM works_art 
+        INNER JOIN users 
+        ON works_art.author_id = users.id ORDER BY works_art.id DESC LIMIT {page}, 5;
+    ''')
+    
+    works_art_data = db.session.execute(sql)
+    works_art_data = list(works_art_data)
+    
+    data = []
+    
+    for row in works_art_data:
+      data.append({
+        "username": row[0],
+        "title": row[1],
+        "description": row[2],
+        "category": row[3],
+        "img_work": row[4],
+        "img_user": row[5]
+      })
+      
+    print(data)
+    
+    return data
+  
+  @classmethod
+  def getRelatedWith(self, db, id):
+    sql = text(f'SELECT * FROM works_art WHERE author_id = {id};')
+    
+    works_art_data = db.session.execute(sql)
+    works_art_data = list(works_art_data)
+    data           = []
+    
+    for row in works_art_data:
+      data.append({
+        "title": row[1],
+        "description": row[2],
+        "img": row[3],
+        "likes": row[4],
+        "category": row[5],
+        "author_id": row[6]
+      })
     return data
     

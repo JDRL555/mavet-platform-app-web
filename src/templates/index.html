@@ -1,7 +1,10 @@
 {% extends 'layout.html' %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+{% endblock %}
+
 {% block content %}
-  <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
   <main>
     <header class="header_container">
       <div class="title_container">

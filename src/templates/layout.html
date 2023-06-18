@@ -9,12 +9,13 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/global.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/nav.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/footer.css') }}">
+  {% block styles %}{% endblock %}
   <link rel="shortcut icon" href="https://i.ibb.co/j579N3p/MAVET-logo.jpg">
 </head>
 <body>
   <nav class="navbar">
     <div class="left_side">
-      <a href="/">
+      <a href="{{ '/' if not current_user else '/posts'}}">
         <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
       </a>
       <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
@@ -34,7 +35,6 @@
             class="user_img"  
             onclick="userOptionsHandler()"
           >
-          </img>
         {% else %}
           <i 
             class="fa-solid fa-user fa-xl user_img"  
@@ -43,6 +43,7 @@
           </i>
         {% endif %}
         <div class="subnav">
+          <p><b>{{ current_user.username }}</b></p>
           <a href="/user/{{current_user.id}}">Mi perfil</a>
           <a href="/signout">Cerrar sesión</a>
         </div>
@@ -51,8 +52,14 @@
     <div class="sidebar_bg" onclick="closeSideBar()">
       <div class="sidebar">
         {% for nav in data.navbar %}
-          <a href="{{nav.link}}">{{nav.element}}</a>
+          {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
+            <a href="{{nav.link}}">{{nav.element}}</a>
+          {% endif %}
         {% endfor %}
+        {% if current_user.username %}
+          <a href="/user/{{current_user.id}}">Mi perfil</a>
+          <a href="/signout">Cerrar sesión</a>
+        {% endif %}
       </div>
     </div>
   </nav>

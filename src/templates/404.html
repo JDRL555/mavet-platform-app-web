@@ -1,7 +1,10 @@
 {% extends 'layout.html' %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/404.css')}}">
+{% endblock %}
+
 {% block content %}
-  <link rel="stylesheet" href="{{url_for('static', filename='css/404.css')}}">
   <main>
     <h1>ERROR: Pagina no encontrada</h1>
     <p>El sitio al cual tratas de acceder no existe. Intente acceder a otro sitio, o, <a href="/">Haz click aqui para acceder a la página principal del MAVET</a></p>

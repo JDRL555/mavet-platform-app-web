@@ -1,0 +1,82 @@
+{% macro text_input(text_inputs) %}
+  {% for input in text_inputs %}
+    <input 
+      name="{{input.name}}"
+      type="text"
+      placeholder="{{input.placeholder}}"
+      required
+    >
+  {% endfor %}
+{% endmacro %}
+
+{% macro date_input(date_inputs) %}
+{% for input in date_inputs %}
+  <input 
+    name="{{input.name}}"
+    type="{{input.type}}" 
+    placeholder="{{input.placeholder}}"
+    onfocus="(this.type='date')" 
+    required
+  >
+{% endfor %}
+{% endmacro %}
+
+{% macro submit_input(submit_inputs) %}
+  {% for input in submit_inputs %}
+    {% if input.p %}
+      <p>Sube tu foto <i class="fa-solid fa-upload"></i></p>
+    {% else %}
+      {% if current_user.avatar %}
+        <img src="{{current_user.avatar}}">
+      {% else %}
+        <i class="fa-solid fa-user fa-xl avatar"></i>
+      {% endif %}
+    {% endif %}
+    <input 
+      class="file"
+      name="{{input.name}}"
+      type="{{input.type}}" 
+      accept="image/*"
+      required
+    >
+    {% if input.p %}<p class="filename"></p>{% endif %}
+  {% endfor %}
+{% endmacro %}
+
+{% macro select_input(select_inputs) %}
+<label for="{{input.name}}">{{ input.label }}</label>  
+{% for input in select_inputs %}
+  <select name="{{input.name}}">
+    {% for option in input.options %}
+      <option value={{option[0]}}>{{option[0]}}</option>
+    {% endfor %}
+  </select>
+{% endfor %}
+{% endmacro %}
+
+
+{% macro form(form_info) %}
+<div class="form_bg">
+  <form action="form_info.action" method="POST">
+    <i class="fa-solid fa-xmark"></i>
+
+    {% if form_info.text_inputs %}
+      {{ text_input(form_info.text_inputs) }}
+    {% endif %}
+
+    {% if form_info.date_inputs %}
+      {{ text_input(form_info.date_inputs) }}
+    {% endif %}
+
+    {% if form_info.submit_inputs %}
+      {{ submit_input(form_info.submit_inputs) }}
+    {% endif %}
+
+    {% if form_info.select_inputs %}
+      {{ submit_input(form_info.select_inputs) }}
+    {% endif %}
+    
+    <button>{{ input.btn }}</button>
+  </form>
+</div>
+{% endmacro %}

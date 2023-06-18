@@ -1,0 +1,50 @@
+{% macro navbar(navbar_data) %}
+<nav class="navbar">
+  <div class="left_side">
+    <a href="{{ '/' if not current_user else '/posts'}}">
+      <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
+    </a>
+    <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
+    <i class="fa-solid fa-bars fa-2xl" id="barras"></i> <!-- onclick="openSideBar()"  -->
+  </div>
+  <div class="right_side">
+    {% for nav in data.navbar %}
+      {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
+        <a href="{{nav.link}}">{{nav.element}}</a>
+      {% endif %}
+    {% endfor %}
+    {% if current_user.username %}
+      {% if current_user.avatar %}
+        <img
+          src="{{current_user.avatar}}"
+          alt="The user image" 
+          class="user_img"   
+        > <!-- onclick="userOptionsHandler()"  -->
+      {% else %}
+        <i 
+          class="fa-solid fa-user fa-xl user_img"  
+        >
+        </i> <!-- onclick="userOptionsHandler()"  -->
+      {% endif %}
+      <div class="subnav">
+        <p><b>{{ current_user.username }}</b></p>
+        <a href="/user/{{current_user.id}}">Mi perfil</a>
+        <a href="/signout">Cerrar sesión</a>
+      </div>
+    {% endif %}
+  </div>
+  <div class="sidebar_bg"> <!-- onclick="closeSideBar()"  -->
+    <div class="sidebar">
+      {% for nav in data.navbar %}
+        {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
+          <a href="{{nav.link}}">{{nav.element}}</a>
+        {% endif %}
+      {% endfor %}
+      {% if current_user.username %}
+        <a href="/user/{{current_user.id}}">Mi perfil</a>
+        <a href="/signout">Cerrar sesión</a>
+      {% endif %}
+    </div>
+  </div>
+</nav>
+{% endmacro %}

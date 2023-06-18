@@ -165,3 +165,62 @@ form input:focus, form .file_container:active, form select:focus{
 .user_posts button:hover{
   background-color: var(--btn-bg-h);
 }
+
+.post {
+  width: 95%;
+  border-radius: 10px;
+  background-color: var(--post-bg);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.post_header {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.img_title {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.img_title h1 {
+  font-size: 25px;
+}
+
+.img_title img{
+  width: 70px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post_header p{
+  font-size: 20px;
+  margin: 5px;
+}
+
+.post_content{
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.post_content img {
+  width: 100%;
+}
+
+.avatar_user{
+  border-radius: 100%;
+  padding: 30px 20px;
+  color: white;
+  background-color: var(--header-bg);
+  transition: background-color .5s;
+  margin-right: 10px;
+}
+
+.avatar_user:hover {
+  background-color: var(--post-bg);
+}

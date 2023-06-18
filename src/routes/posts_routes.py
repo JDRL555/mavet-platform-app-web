@@ -1,8 +1,9 @@
-from flask                import Blueprint, render_template, redirect, request, flash
+from flask                import Blueprint, render_template, redirect, request, flash, get_template_attribute, Response
 from flask_login          import current_user
 from models.Category      import Category
 from models.Works_art     import Works_art
 from utils.db             import db
+import json
 
 posts_router = Blueprint("posts", __name__)
 
@@ -12,7 +13,7 @@ def renderPosts():
     if not current_user["username"]:
       return redirect("/signin")
     categories  = Category.getAll(db=db)
-    works_art   = Works_art.getAll(db=db)
+    works_art   = Works_art.getPaginated(db=db)
     data = {
       "inputs": [
         {
@@ -67,3 +68,17 @@ def createPost():
     return redirect("/posts")
   except TypeError:
     return redirect("/signin")
+
+@posts_router.route("/post", methods=["POST"])
+def post():
+  page          = request.get_json()
+  all_works_art = Works_art.getAll(db=db)
+  if len(all_works_art) > page:
+    post      = get_template_attribute("macros/post.html", "post")
+    works_art = Works_art.getPaginated(db=db, page=page)
+    res       = post(works_art)
+    response  = Response(res, headers={'Access-Control-Allow-Origin': "*"})
+    return response
+  else:
+    return []
+    
