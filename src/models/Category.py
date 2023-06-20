@@ -4,12 +4,23 @@ from models.mavet_models import Category as Category_model
 class Category:
   @classmethod
   def getAll(self, db):
+    
     sql = text("SELECT * FROM categories;")
     categories = db.session.execute(sql)
     categories = tuple(categories)
-    return categories
+    
+    data = []
+    
+    for row in categories:
+      data.append({
+        "name": row[0],
+        "created_at": row[1]
+      })
+      
+    return data
+  
   @classmethod
-  def insertOne(self, db, category):
+  def createCategory(self, db, category):
     sql             = text(f"SELECT * FROM categories WHERE name_category = '{category}';")
     category_exists = db.session.execute(sql)
     category_exists = tuple(category_exists)

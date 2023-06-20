@@ -73,10 +73,11 @@ def createPost():
 def post():
   page          = request.get_json()
   all_works_art = Works_art.getAll(db=db)
+
   if len(all_works_art) > page:
     post      = get_template_attribute("macros/post.html", "post")
     works_art = Works_art.getPaginated(db=db, page=page)
-    res       = post(works_art)
+    res       = post(works_art, current_user)
     response  = Response(res, headers={'Access-Control-Allow-Origin': "*"})
     return response
   else:

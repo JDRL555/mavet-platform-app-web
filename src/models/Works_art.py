@@ -112,8 +112,6 @@ class Works_art:
         "img_work": row[4],
         "img_user": row[5]
       })
-      
-    print(data)
     
     return data
   

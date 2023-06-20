@@ -1,4 +1,4 @@
-{% macro post(works_art) %}
+{% macro post(works_art, current_user) %}
   {% for work_art in works_art %}
     <div class="post">
       <div class="post_header">
@@ -9,7 +9,7 @@
             <i class="fa-solid fa-user fa-xl avatar_user"></i>
           {% endif %}
           <h1>{{ work_art.username }}</h1>
-          {% if current_user.username == work_art.usernmae %}
+          {% if current_user.username == work_art.username %}
             <i class="fa-light fa-pencil" id="edit"></i>
           {% endif %}
         </div>

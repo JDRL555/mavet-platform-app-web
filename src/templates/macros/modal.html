@@ -1,0 +1,96 @@
+{% macro modal(modal_info) %}
+<div class="modal">
+  <i class="fa-solid fa-xmark close_btn"></i>
+  <h1>{{modal_info.title}}</h1>
+
+  {% if modal_info.filters %}           
+    {{ modal_filter(modal_info.filters) }}
+  {% endif %}
+
+  {% if modal_info.data %}
+    {{ modal_content(modal_info.data) }}
+  {% endif %}
+
+  {% if modal_info.inputs %}
+    {{ modal_form(modal_info.inputs) }}
+  {% endif %}
+</div>
+{% endmacro %}
+
+{% macro modal_info(modal_infos) %}
+<div class="modal">
+  <i class="fa-solid fa-xmark close_btn"></i>
+  <div class="modal_infos">
+    {% for modal_info in modal_infos %}
+      <button class="modal_info">{{modal_info.title}}</button>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro modal_filter(filters) %}
+<div class="modal_filters">
+  <span>Selecciona un filtro</span>
+  <select name="filter">
+    {% for filter_name in filters %} <option>{{ filter_name }}</option> {% endfor %}
+  </select>
+  <input type="text" placeholder="Escribe el valor del filtro">
+  <button class="search_btn">Buscar</button>
+</div>
+{% endmacro %}
+
+{% macro modal_content(data) %}
+{% if not data %}
+  <h1>No hay usuarios registrados:(</h1>
+{% else %}
+  <table class="modal_content" cellspacing="0" cellpadding="0">
+    <thead>
+      <tr>
+        {% for col in data.cols %} <th>{{ col }}</th> {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data.rows %} 
+        <tr>
+          {% for register in row.register %} 
+            <td>{{ register }}</td> 
+          {% endfor %}
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+{% endmacro %}
+
+{% macro modal_form(inputs) %}
+<form class="modal_form" action="{{inputs[0].action}}" method="POST">
+  {% for input in inputs %}
+    {% if input.name %}
+      {% if input.type != 'text' and input.type != 'email' and input.type != 'number' and input.type != 'select'  %}
+        <input 
+          name="{{input.name}}"
+          placeholder="{{input.placeholder}}"
+          value="{{input.value}}"
+          onfocus="(this.type='{{input.type}}')"
+          required
+        >
+      {% elif input.type == 'select' %}
+        <select name="{{input.name}}">
+          {% for option in input.options %}
+            <option value="{{option}}">{{ option }}</option>
+          {% endfor %}
+        </select>
+      {% else %}
+        <input 
+          name="{{input.name}}"
+          type="{{input.type}}"
+          placeholder="{{input.placeholder}}"
+          value="{{input.value}}"
+          required
+        >
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+  <button class="register_btn">Guardar</button>
+</form>
+{% endmacro %}

@@ -1,7 +1,8 @@
 from flask                import Blueprint, render_template, request, redirect
 from flask_login          import login_user, logout_user, login_required, current_user
-from utils.db             import db
 from models.User          import User
+from utils.db             import db
+from utils.data           import data 
 
 auth_router = Blueprint("auth", __name__)
 
@@ -10,21 +11,8 @@ def signup():
   try:
     if current_user.is_authenticated:
       return redirect("/posts")
-    data = { 
-      "msg": "",
-      "inputs": [
-        {"name": "name", "type": "text", "placeholder": "Nombres"},
-        {"name": "lastname", "type": "text", "placeholder": "Apellidos"},
-        {"name": "datebirth", "type": "text", "placeholder": "Fecha de nacimiento"},
-        {"name": "username", "type": "text", "placeholder": "Nombre de usuario"},
-        {"name": "phone", "type": "number", "placeholder": "Número de teléfono"},
-        {"name": "email", "type": "email", "placeholder": "Correo electrónico"},
-        {"name": "password", "type": "password", "placeholder": "Contraseña"},
-        {"name": "confirm", "type": "password", "placeholder": "Confirmar contraseña"},
-      ]
-    }
     if request.method == "GET":
-      return render_template("register.html", data=data)
+      return render_template("register.html", data=data['register'])
     
     user_info = {
       "name": request.form["name"],
@@ -52,15 +40,8 @@ def signin():
   try:
     if current_user.is_authenticated:
       return redirect("/posts")
-    data = { 
-      "msg": "",
-      "inputs": [
-        {"name": "email", "type": "email", "placeholder": "Correo electrónico"},
-        {"name": "password", "type": "password", "placeholder": "Contraseña"}
-      ]
-    }
     if request.method == "GET":
-      return render_template("login.html", data=data)
+      return render_template("login.html", data=data['login'])
 
     user_info = {
       "email": request.form["email"],

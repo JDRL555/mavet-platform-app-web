@@ -41,7 +41,10 @@ class User(UserMixin):
         return response
       
       hashed_password = hashpw(bytes(user["password"], "utf8"), gensalt())
-        
+      
+      if not user["specialty"]: user["specialty"] = "Estudiante"
+      if not user["type"]:      user["type"]      = "Estandar"
+      
       new_user = User_model(
         name=user["name"], 
         last_name=user["lastname"], 
@@ -49,7 +52,9 @@ class User(UserMixin):
         username=user["username"], 
         phone=user["phone"], 
         email=user["email"], 
-        password=hashed_password
+        password=hashed_password,
+        specialty_user=user["specialty"],
+        type_user=user["type"]
       )
       
       db.session.add(new_user)
@@ -98,6 +103,31 @@ class User(UserMixin):
       print(error)
       response["error"] = error
       return response
+  @classmethod
+  def getAll(self, db):
+    sql = text('''
+      SELECT name_user, last_name_user, datebirth, email_user, username_user, phone_user, specialty_id, type_id, created_at FROM users;
+    ''')
+    
+    works_art_data = db.session.execute(sql)
+    works_art_data = list(works_art_data)
+    
+    data = []
+    
+    for row in works_art_data:
+      data.append({
+        "name": row[0],
+        "last_name": row[1],
+        "datebirth": row[2],
+        "email": row[3],
+        "username": row[4],
+        "phone": row[5],
+        "specialty": row[6],
+        "type": row[7],
+        "created_at": row[8]
+      })
+    
+    return data
   
   @classmethod
   def getById(self, db, id):

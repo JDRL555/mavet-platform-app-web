@@ -1,10 +1,27 @@
 {% extends 'layout.html' %}
 
+{% block styles %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/admin.css')}}">
+{% endblock %}
+
 {% block content %}
 <main>
-  <button>Usuario</button>
-  <button>Eventos</button>
-  <button>Cursos</button>
-  <button>Categorías</button>
+  {% for button in data.buttons %}
+    <div class="btn_container">
+      <button class="admin_option">
+        {{ button }}
+      </button>
+      <div class="options">
+        {% for option in data.options %}
+          <p>{{ option }}</p>
+        {% endfor %}
+      </div>
+    </div>
+  {% endfor %}
+  <div class="modal_bg"></div>
 </main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
 {% endblock %}

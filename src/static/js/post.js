@@ -1,3 +1,4 @@
+let   page = 0
 const form_bg  = document.querySelector(".form_bg")
 form_bg.style.opacity = 0
 
@@ -24,12 +25,11 @@ function changeInput(){
   filename.innerHTML  = `Imagen seleccionada: ${inputFile.value}`
 }
 
-let page = 0
 window.onscroll = async () => {
   const totalPageHeight = document.body.scrollHeight
   const scrollPoint     = (window.scrollY + window.innerHeight) - 120
-  page+=5
   if(scrollPoint >= totalPageHeight){
+    page+=5
     let response = await fetch("/post", {
       method: "POST",
       body: JSON.stringify(page),
@@ -40,6 +40,7 @@ window.onscroll = async () => {
     })
     
     if(response) {
+      console.log(response)
       let posts     = await response.text()
       const parser  = new DOMParser()
       posts         = parser.parseFromString(posts, "text/html")
