@@ -153,3 +153,37 @@ class User(UserMixin):
     except Exception as error:
       response["error"] = error
       return response
+  @classmethod
+  def getRecent(self, db):
+    try:
+      response = {"msg": "", "error": False, "users": []}
+      sql = text('''
+        SELECT * FROM users ORDER BY created_at LIMIT 3;
+      ''')
+      users  = db.session.execute(sql)
+      users  = tuple(users)
+      
+      data = []
+      
+      for row in users:
+        data.append({
+          "id": row[0],
+          "name": row[1],
+          "last_name": row[2],
+          "datebirth": row[3],
+          "email": row[4],
+          "avatar": row[5],
+          "username": row[6],
+          "phone": row[7],
+          "type": row[10],
+          "specialty": row[11]
+        })
+      
+      response["users"] = data
+      return response
+    except Exception as error:
+      response["error"] = error
+      return response
+    
+    
+    

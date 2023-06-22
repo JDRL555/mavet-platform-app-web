@@ -1,14 +1,14 @@
 body {
-  background-color: var(--main-bg);
+  background-color: var(--content-bg);
   font-family: var(--main-font);
   overflow: hidden;
 }
 
 main {
+  background-color: var(--content-bg);
   width: 80%;
   margin: auto;
   height: 58vh;
-  background-color: var(--content-bg);
   padding: 30px;
 }
 

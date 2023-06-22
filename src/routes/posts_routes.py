@@ -2,8 +2,9 @@ from flask                import Blueprint, render_template, redirect, request, 
 from flask_login          import current_user
 from models.Category      import Category
 from models.Works_art     import Works_art
+from models.User          import User
 from utils.db             import db
-import json
+from utils.data           import data
 
 posts_router = Blueprint("posts", __name__)
 
@@ -12,39 +13,15 @@ def renderPosts():
   try:
     if not current_user["username"]:
       return redirect("/signin")
-    categories  = Category.getAll(db=db)
-    works_art   = Works_art.getPaginated(db=db)
-    data = {
-      "inputs": [
-        {
-          "name": "title", 
-          "type": "text", 
-          "label": "Titulo de la obra"
-        },{
-          "name": "description", 
-          "type": "text", 
-          "label": "Descripción de la obra"
-        },{
-          "name": "category", 
-          "options": categories, 
-          "label": "Categoría de la obra"
-        },{
-          "name": "img", 
-          "type": "file", 
-          "label": "Adjunta la imagen de la obra"
-        },
-      ],
-      "posts": works_art,
-      "new": {
-        "recent_artists": [
-          {
-            "username": "Carlos07",
-            "img_user": "https://i.ibb.co/FzFcMT1/carlos.png"
-          }
-        ]
-      }
-    }
-    return render_template("posts.html", data=data)
+    categories      = Category.getAll(db=db)
+    works_art       = Works_art.getPaginated(db=db)
+    recent_artists  = User.getRecent(db=db)
+    
+    data["posts"]["inputs"][2]["options"]   = categories
+    data["posts"]["works_art"]              = works_art
+    data["posts"]["new"]["recent_artists"]  = recent_artists["users"]
+    
+    return render_template("posts.html", data=data["posts"])
   except TypeError:
     return redirect("/signin")
 

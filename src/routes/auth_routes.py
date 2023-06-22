@@ -1,4 +1,4 @@
-from flask                import Blueprint, render_template, request, redirect
+from flask                import Blueprint, render_template, request, redirect, flash
 from flask_login          import login_user, logout_user, login_required, current_user
 from models.User          import User
 from utils.db             import db
@@ -28,8 +28,8 @@ def signup():
     response = User.register(db=db, user=user_info)
     
     if response["error"]:
-      data["msg"] = response["msg"]
-      return render_template("register.html", data=data)
+      flash(response["msg"])
+      return redirect("/signup")
     
     return redirect("/signin")
   except AttributeError:
@@ -50,8 +50,9 @@ def signin():
     response = User.login(db=db, user=user_info)
     
     if response["error"]:
-      data["msg"] = response["msg"]
-      return render_template("login.html", data=data)
+      print("oh no")
+      flash(response["msg"])
+      return redirect("/signin")
     
     user = response["user"]
     user = User(user["id"], user["username"], user["email"])

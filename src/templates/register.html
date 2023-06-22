@@ -9,9 +9,6 @@
     <form action="/signup" method="post">
       <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
       <h1>Registrate</h1>
-      {% if data.msg %}
-        <p>{{ data.msg }}</p>
-      {% endif %}
       {% for input in data.inputs %}
         {% if input.name == "datebirth" %}
           <input 

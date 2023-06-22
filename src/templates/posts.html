@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% import 'macros/post.html' as posts %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
@@ -7,84 +8,32 @@
 {% block content %}
   <main>
     <div class="posts_container">
-      <div class="newPost">
-        <div class="form_bg">
-          <form action="/new/post" method="POST" enctype="multipart/form-data">
-            <i class="fa-solid fa-xmark" onclick="closeForm()"></i>
-            {% for input in data.inputs %}
-              {% if input.name == "category" %}
-                <label for={{input.name}}>{{ input.label }}</label>  
-                <select name="{{input.name}}">
-                  {% for option in input.options %}
-                    <option value={{option[0]}}>{{option[0]}}</option>
-                  {% endfor %}
-                </select>
-              {% else %}
-                <label for={{input.name}}>{{ input.label }}</label>  
-                {% if input.name == "img" %}
-                  <div class="file_container">
-                    <p>Sube tu foto <i class="fa-solid fa-upload"></i></p>
-                    <input 
-                      class="file"
-                      name="{{input.name}}"
-                      type="{{input.type}}" 
-                      accept="image/*"
-                      onchange="changeInput()"
-                      required
-                    >
-                  </div>
-                  <p class="filename"></p>
-                {% else %}
-                  <input 
-                    name="{{input.name}}"
-                    type="{{input.type}}" 
-                    required
-                  >
-                {% endif %}
-              {% endif %}
-            {% endfor %}
-            <button>Publicar</button>
-          </form>
-        </div>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %} <h1>{{ message }}</h1> {% endfor %} 
-          {% endif %}
-        {% endwith %}
-        <button onclick="openForm()">Crear una publicación</button>
+        {{ posts.new_post(data.inputs) }}
+      {% if not data.works_art %}
+        <h1>No hay publicaciones aun...</h1>
+      {% else %}
+        {{ posts.post(data.works_art, current_user) }}
+      {% endif %}
       </div>
-      {% for work_art in data.posts %}
-        <div class="post">
-          <div class="post_header">
-            <div class="img_title">
-              {% if work_art.img_user %}
-                <img src={{work_art.img_user}} alt="Img del autor">
-              {% else %}
-                <i class="fa-solid fa-user fa-xl avatar_user"></i>
-              {% endif %}
-              <h1>{{ work_art.username }}</h1>
-            </div>
-            <p><b>Título: {{ work_art.title }}</b></p>
-            <p>Descripción: {{ work_art.description }}</p>
-            <p>Categoría: {{ work_art.category }}</p>
-          </div>
-          <div class="post_content">
-            <img src="{{work_art.img_work}}" alt="Obra" oncontextmenu="return false">
-          </div>
-        </div>
-      {% endfor %}
-    </div>
     <div class="news_container">
-      {% for artist in data.new.recent_artists %}
-        <div class="new_artists">
-          <h1>Artistas Recientes</h1>
-          <div class="artist_container">
-            <img src="{{ artist.img_user }}" alt="user_img">
+      <div class="new_artists">
+        <h1>Artistas Recientes</h1>
+        {% for artist in data.new.recent_artists %}
+          <div class="artist_container" onclick="window.location.href = '/user/{{artist.id}}'" >
+            {% if artist.avatar %}
+              <img src="{{artist.avatar}}" alt="user_img">
+            {% else %}
+              <i class="fa-solid fa-user fa-xl avatar_user"></i>
+            {% endif %}
             <h2>{{ artist.username }}</h2>
           </div>
-        </div>
-      {% endfor %}
+        {% endfor %}
+      </div>
     </div>
   </main>
-  <script src="{{url_for('static', filename='js/post.js')}}"></script>
+  {% endblock %}
+  
+{% block scripts %}  
+<script src="{{url_for('static', filename='js/post.js')}}"></script>
+<script src="{{url_for('static', filename='js/charge_posts.js')}}"></script>
 {% endblock %}

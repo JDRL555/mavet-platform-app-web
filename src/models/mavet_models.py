@@ -75,6 +75,27 @@ class Works_art(db.Model):
     self.img_work         = img
     self.category         = category
     self.author_id        = author_id
+
+class Preview_works_art(db.Model):
+  __tablename__     = "previews"
+  
+  id                = db.Column(db.Integer, primary_key=True)
+  title_work        = db.Column(db.String(50), nullable=False)
+  description_work  = db.Column(db.String(100), nullable=False)
+  img_work          = db.Column(db.String(200), nullable=False)
+  category          = db.Column(db.String(50), db.ForeignKey("categories.name_category", ondelete="CASCADE"), nullable=False)
+  author_id         = db.Column(db.Integer, db.ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+  created_at        = db.Column(db.Date, default=f"{datetime.datetime.now()}")
+  
+  category_work_art = db.relationship("Category", passive_deletes=True, backref="categories_preview")
+  author_work_art   = db.relationship("User", passive_deletes=True, backref="users_preview")
+  
+  def __init__(self, title, description, img, category, author_id):
+    self.title_work       = title
+    self.description_work = description
+    self.img_work         = img
+    self.category         = category
+    self.author_id        = author_id
     
 class Event(db.Model):
   __tablename__     = "events"

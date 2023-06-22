@@ -1,8 +1,10 @@
-const btns      = document.querySelectorAll(".admin_option")
-const options   = document.querySelectorAll(".options")
-const actions   = document.querySelectorAll("p")
-const modal_bg  = document.querySelector(".modal_bg")
+const btns            = document.querySelectorAll(".admin_option")
+const request_option  = document.querySelector(".request_option")
+const options         = document.querySelectorAll(".options")
+const actions         = document.querySelectorAll("p")
+const modal_bg        = document.querySelector(".modal_bg")
 
+request_option.addEventListener("click", () => window.location = "/post/request")
 
 for (let i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", () => {

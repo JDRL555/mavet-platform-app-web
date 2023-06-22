@@ -7,7 +7,7 @@
   <title>MAVET</title>
   <script src="https://kit.fontawesome.com/37e8db3e05.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{{ url_for('static',filename='css/global.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/nav.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/layout.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/footer.css') }}">
   {% block styles %}{% endblock %}
   <link rel="shortcut icon" href="https://i.ibb.co/j579N3p/MAVET-logo.jpg">
@@ -63,6 +63,11 @@
       </div>
     </div>
   </nav>
+  {% with messages = get_flashed_messages()  %}
+        {% if messages %} 
+          {% for message in messages %} <p class="msg">{{ message }}</p> {% endfor %} 
+        {% endif %}
+      {% endwith %} 
   {% block content %}
   {% endblock %}
   <footer>

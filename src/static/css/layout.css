@@ -127,6 +127,31 @@ body{
   background-color: var(--nav-bg-hover);
 }
 
+.msg {
+  position: absolute;
+  width: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: rgb(238, 238, 74);
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  transition: .5s;
+  opacity: 0;
+  visibility: hidden;
+  animation-name: message;
+  animation-duration: 5s;
+  animation-timing-function: cubic-bezier(1,-0.35,.99,.94);
+}
+
+@keyframes message {
+  from { top: 10%; opacity: 1; visibility: visible; }
+  to { top: 0; opacity: 0; visibility: hidden; }
+}
+
 @media screen and (max-width: 975px) {
   .left_side{
     width: 35%;

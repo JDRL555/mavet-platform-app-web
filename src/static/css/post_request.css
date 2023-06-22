@@ -1,0 +1,119 @@
+body{
+  font-family: var(--main-font);
+  font-weight: var(--main-size-font);
+  background-color: var(--main-bg);
+}
+
+main {
+  margin: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h1 {
+  height: 54.3vh;
+}
+
+.posts_container {
+  width: 90%;
+  margin: auto;
+}
+
+
+.post {
+  width: 100%;
+  border-radius: 10px;
+  background-color: var(--post-bg);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.post_header {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.img_title {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.img_title h1 {
+  font-size: 25px;
+}
+
+.img_title img{
+  width: 70px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.post_header .img_title { width: 100%; display: flex; }
+
+.post_header p{
+  font-size: 20px;
+  margin: 5px;
+}
+
+.post_header .img_title .edit {
+  color: var(--header-bg);
+  font-size: 30px;
+  text-align: end;
+  cursor: pointer;
+  margin-left: auto;
+  transition: .5s;
+}
+
+.post_header .img_title .edit:hover { color: var(--header-bg-dark); }
+
+.post_content{
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.post_content img {
+  width: 100%;
+}
+
+.avatar_user{
+  border-radius: 100%;
+  padding: 30px 20px;
+  color: white;
+  background-color: var(--header-bg);
+  transition: background-color .5s;
+  margin-right: 10px;
+}
+
+.avatar_user:hover {
+  background-color: var(--post-bg);
+}
+
+.btn_container {
+  padding: 20px 0;
+  background-color: var(--header-bg);
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btn_container button {
+  width: 30%;
+  padding: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  transition: .5s;
+  cursor: pointer;
+}
+
+.btn_container button:hover { box-shadow: 1px 1px 5px var(--nav-bg); }
+
+.btn_container button:first-child:hover { background-color: rgb(58, 216, 58); }
+
+.btn_container button:last-child:hover { background-color: rgb(228, 51, 51); }

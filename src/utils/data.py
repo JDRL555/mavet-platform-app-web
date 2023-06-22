@@ -73,6 +73,34 @@ data = {
       {"name": "password", "type": "password", "placeholder": "Contraseña"}
     ]
   },
+  'posts': {
+    "inputs": [
+      {
+        "name": "title", 
+        "type": "text", 
+        "label": "Titulo de la obra"
+      },
+      {
+        "name": "description", 
+        "type": "text", 
+        "label": "Descripción de la obra"
+      },
+      {
+        "name": "category", 
+        "options": [], 
+        "label": "Categoría de la obra"
+      },
+      {
+        "name": "img", 
+        "type": "file", 
+        "label": "Adjunta la imagen de la obra"
+      },
+    ],
+    "works_art": [],
+    "new": {
+      "recent_artists": []
+    }
+  },
   'modal': {
     "Usuarios": {
       "Crear": { 

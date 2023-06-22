@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+{% import 'macros/post.html' as posts %}
+
+{% block styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/post_request.css') }}">
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="posts_container">
+    {% if not posts_request %}
+      <h1>No hay peticiones aun...</h1>
+    {% else %}
+      {{ posts.post(posts_request, current_user, admin) }}
+    {% endif %}
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{url_for('static', filename='js/charge_posts.js')}}"></script>
+<script src="{{url_for('static', filename='js/admin_res.js')}}"></script>
+{% endblock %}

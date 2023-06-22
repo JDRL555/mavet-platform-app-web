@@ -1,4 +1,4 @@
-{% macro post(works_art, current_user) %}
+{% macro post(works_art, current_user, admin) %}
   {% for work_art in works_art %}
     <div class="post">
       <div class="post_header">
@@ -8,9 +8,9 @@
           {% else %}
             <i class="fa-solid fa-user fa-xl avatar_user"></i>
           {% endif %}
-          <h1>{{ work_art.username }}</h1>
+          <h2>{{ work_art.username }}</h2>
           {% if current_user.username == work_art.username %}
-            <i class="fa-light fa-pencil" id="edit"></i>
+            <i class="fa-sharp fa-solid fa-pencil edit"></i>
           {% endif %}
         </div>
         <p><b>Título: {{ work_art.title }}</b></p>
@@ -20,6 +20,65 @@
       <div class="post_content">
         <img src="{{work_art.img_work}}" alt="Obra" oncontextmenu="return false">
       </div>
+      {% if admin %}
+        <div class="btn_container">
+          <button 
+            onclick="window.location.href = '/post/response?id={{work_art.id}}&res=accept'" 
+            class="res_btn"
+          >
+            Aceptar
+          </button>
+          <button 
+            onclick="window.location.href = '/post/response?id={{work_art.id}}&res=deny'" 
+            class="res_btn"
+          >
+            Denegar
+          </button>
+        </div>
+      {% endif %}
     </div>
   {% endfor %}
+{% endmacro %}
+
+{% macro new_post(inputs) %}
+<div class="newPost">
+  <div class="form_bg">
+    <form action="/new/post/request" method="POST" enctype="multipart/form-data">
+      <i class="fa-solid fa-xmark close_btn"></i>  
+      {% for input in inputs %}
+        {% if input.name == "category" %}
+          <label for={{input.name}}>{{ input.label }}</label>  
+          <select name="{{input.name}}">
+            {% for option in input.options %}
+              <option value='{{option["name"]}}'>{{option['name']}}</option>
+            {% endfor %}
+          </select>
+        {% else %}
+          <label for={{input.name}}>{{ input.label }}</label>  
+          {% if input.name == "img" %}
+            <div class="file_container">
+              <p>Sube tu foto <i class="fa-solid fa-upload"></i></p>
+              <input 
+                class="file"
+                name="{{input.name}}"
+                type="{{input.type}}" 
+                accept="image/*"
+                required
+              >
+            </div>
+            <p class="filename"></p>
+          {% else %}
+            <input 
+              name="{{input.name}}"
+              type="{{input.type}}" 
+              required
+            >
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      <button>Publicar</button>
+    </form>
+  </div>
+  <button class="create_post">Crear una publicación</button>
+</div>
 {% endmacro %}

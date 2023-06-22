@@ -11,6 +11,7 @@ admin_router = Blueprint("admin", __name__)
 @admin_router.route("/admin")
 def admin():
   data = {
+    "request": "Ver publicaciones solicitadas",
     "buttons": ["Usuarios", "Eventos", "Cursos", "Categorias"],
     "options": ["Crear", "Listar", "Actualizar", "Eliminar"],
   }

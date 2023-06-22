@@ -160,10 +160,23 @@ form input:focus, form .file_container:active, form select:focus{
   margin-right: 10px;
 }
 
+.post_header .img_title { width: 100%; display: flex; }
+
 .post_header p{
   font-size: 20px;
   margin: 5px;
 }
+
+.post_header .img_title .edit {
+  color: var(--header-bg);
+  font-size: 30px;
+  text-align: end;
+  cursor: pointer;
+  margin-left: auto;
+  transition: .5s;
+}
+
+.post_header .img_title .edit:hover { color: var(--header-bg-dark); }
 
 .post_content{
   padding: 10px;
@@ -192,20 +205,37 @@ form input:focus, form .file_container:active, form select:focus{
 .new_artists {
   background-color: var(--post-bg);
   padding: 20px;
-  margin-top: 4%;
   border-radius: 10px;
+  margin-top: 4%;
 }
 
 .artist_container {
   background: #fff;
-  border-radius: 10px;
+  padding: 10px;
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
+
+.artist_container:first-of-type { border-top-left-radius: 10px; border-top-right-radius: 10px; }
+.artist_container:last-of-type { border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
 
 .new_artists img {
   width: 70px;
   border-radius: 50%;
+}
+
+.avatar_user{
+  border-radius: 100%;
+  padding: 30px 20px;
+  color: white;
+  background-color: var(--header-bg);
+  transition: background-color .5s;
+  margin-right: 10px;
+}
+
+.avatar_user:hover {
+  background-color: var(--post-bg);
 }
 
 @media screen and (max-width: 960px) {
