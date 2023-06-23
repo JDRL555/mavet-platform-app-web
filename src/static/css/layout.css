@@ -147,6 +147,17 @@ body{
   animation-timing-function: cubic-bezier(1,-0.35,.99,.94);
 }
 
+.edit {
+  color: var(--header-bg);
+  font-size: 30px;
+  text-align: end;
+  cursor: pointer;
+  margin-left: auto;
+  transition: .5s;
+}
+
+.edit:hover { color: var(--header-bg-dark); }
+
 @keyframes message {
   from { top: 10%; opacity: 1; visibility: visible; }
   to { top: 0; opacity: 0; visibility: hidden; }

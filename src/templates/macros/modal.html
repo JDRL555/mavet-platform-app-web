@@ -77,7 +77,9 @@
       {% elif input.type == 'select' %}
         <select name="{{input.name}}">
           {% for option in input.options %}
-            <option value="{{option}}">{{ option }}</option>
+            <option value="{{option if not option.name else option.name}}">
+              {{ option if not option.name else option.name }}
+            </option>
           {% endfor %}
         </select>
       {% else %}

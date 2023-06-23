@@ -1,4 +1,5 @@
 {% extends 'layout.html' %}
+{% import 'macros/post.html' as posts %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
@@ -8,90 +9,39 @@
 <main>
   <div class="user_header">
     <div class="cover"></div>
-    {% if current_user.username %}
-      {% if current_user.avatar %}
-        <img src="{{current_user.avatar}}" alt="The user image" class="avatar">
-      {% else %}
-        <i class="fa-solid fa-user fa-xl avatar"></i>
-      {% endif %}
+    {% if data.user.avatar %}
+      <img src="{{data.user.avatar}}" alt="The user image" class="avatar">
+    {% else %}
+      <i class="fa-solid fa-user fa-xl avatar"></i>
     {% endif %}
-    <h1>{{ current_user.name }} {{ current_user.last_name }}</h1>
-    <h2>{{ current_user.username }}</h2>
+    <h1>{{ data.user.name }} {{ data.user.last_name }}</h1>
+    <h2>{{ data.user.username }}</h2>
   </div>
   <div class="user_content">
     <div class="user_info">
       <h3>Datos del usuario:</h3>
-      <p>Edad: {{ data.age_user }}</p>
-      <p>Profesión: {{ current_user.specialty }}</p>
-      <p>Teléfono: {{ current_user.phone }}</p>
-      <p>Obras publicadas: 0</p>
+      <p>Edad: {{ data.user.age_user }}</p>
+      <p>Profesión: {{ data.user.specialty }}</p>
+      <p>Teléfono: {{ data.user.phone }}</p>
+      <p>Obras publicadas: {{ data.posts.works_art|length }}</p>
     </div>
-    <div class="user_posts">
-      {% if data.works_art|length %}
-        {% for work_art in data.works_art %}
-          <div class="post">
-            <div class="post_header">
-              <div class="img_title">
-                {% if current_user.avatar %}
-                  <img src={{current_user.avatar}} alt="Img del autor">
-                {% else %}
-                  <i class="fa-solid fa-user fa-xl avatar_user"></i>
-                {% endif %}
-                <h1>{{ current_user.username }}</h1>
-              </div>
-              <p><b>Título: {{ work_art.title }}</b></p>
-              <p>Descripción: {{ work_art.description }}</p>
-              <p>Categoría: {{ work_art.category }}</p>
-            </div>
-            <div class="post_content">
-              <img src="{{work_art.img}}" alt="Obra" oncontextmenu="return false">
-            </div>
-          </div>
-        {% endfor %}
+    <div class="user_posts posts_container">
+      {% if data.posts.works_art|length %}
+        {{ posts.post( data.posts.works_art, current_user ) }}
       {% else %}
-        <h1>No tienes publicaciones. ¡Sube una ahora mismo!</h1>
-        <button onclick="openForm()">Publicar algo</button>
+        {% if data.user.username == current_user.username %}
+          <h1>No tienes publicaciones. ¡Sube una ahora mismo!</h1>
+          {{ posts.new_post( data.posts.inputs ) }}
+        {% else %}
+          <h1>No tiene publicaciones...</h1>
+        {% endif %}
       {% endif %}
     </div>
   </div>
 </main>
-<div class="form_bg">
-  <form action="/new/post" method="POST" enctype="multipart/form-data">
-    <i class="fa-solid fa-xmark" onclick="closeForm()"></i>
-    {% for input in data.inputs %}
-      {% if input.name == "category" %}
-        <label for={{input.name}}>{{ input.label }}</label>  
-        <select name="{{input.name}}">
-          {% for option in input.options %}
-            <option value={{option[0]}}>{{option[0]}}</option>
-          {% endfor %}
-        </select>
-      {% else %}
-        <label for={{input.name}}>{{ input.label }}</label>  
-        {% if input.name == "img" %}
-          <div class="file_container">
-            <p>Sube tu foto <i class="fa-solid fa-upload"></i></p>
-            <input 
-              class="file"
-              name="{{input.name}}"
-              type="{{input.type}}" 
-              accept="image/*"
-              onchange="changeInput()"
-              required
-            >
-          </div>
-          <p class="filename"></p>
-        {% else %}
-          <input 
-            name="{{input.name}}"
-            type="{{input.type}}" 
-            required
-          >
-        {% endif %}
-      {% endif %}
-    {% endfor %}
-    <button>Publicar</button>
-  </form>
-</div>
+<script>
+  const user = '{{ data.user|tojson }}'
+</script>
 <script src="{{url_for('static', filename='js/post.js')}}"></script>
+<script src="{{url_for('static', filename='js/charge_posts.js')}}"></script>
 {% endblock %}

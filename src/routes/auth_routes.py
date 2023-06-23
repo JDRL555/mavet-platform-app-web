@@ -8,11 +8,14 @@ auth_router = Blueprint("auth", __name__)
 
 @auth_router.route("/signup", methods=["GET", "POST"])
 def signup():
-  try:
-    if current_user.is_authenticated:
-      return redirect("/posts")
+  # try:
+    # if current_user.is_authenticated:
+    #   return redirect("/posts")
     if request.method == "GET":
       return render_template("register.html", data=data['register'])
+    
+    if not request.form["type"]: request.form["type"] = None
+    if not request.form["specialty"]: request.form["specialty"] = None
     
     user_info = {
       "name": request.form["name"],
@@ -21,6 +24,8 @@ def signup():
       "username": request.form["username"],
       "phone": request.form["phone"],
       "email": request.form["email"],
+      "type": request.form["type"],
+      "specialty": request.form["specialty"],
       "password": request.form["password"],
       "confirm": request.form["confirm"],
     }
@@ -32,8 +37,8 @@ def signup():
       return redirect("/signup")
     
     return redirect("/signin")
-  except AttributeError:
-    return redirect("/posts")
+  # except AttributeError:
+  #   return redirect("/posts")
 
 @auth_router.route("/signin", methods=["GET", "POST"])
 def signin():

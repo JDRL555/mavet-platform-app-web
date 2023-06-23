@@ -47,6 +47,7 @@ for (let i = 1; i < actions.length; i++) {
     modal         = modal.body.querySelector(".modal")
     
     if(modal.querySelector(".modal_content")) modal.style.width = "auto" 
+    if(modal.querySelector(".modal_form")) modal.style.height = "80vh" 
     
     modal_bg.appendChild(modal)
 

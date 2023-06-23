@@ -101,6 +101,9 @@ data = {
       "recent_artists": []
     }
   },
+  'user': {
+  
+  },
   'modal': {
     "Usuarios": {
       "Crear": { 
@@ -108,7 +111,7 @@ data = {
         "inputs": [
           {"action": "/signup"},
           {"name": "name", "placeholder": "Nombres", "type": "text"},
-          {"name": "last_name", "placeholder": "Apellidos", "type": "text"},
+          {"name": "lastname", "placeholder": "Apellidos", "type": "text"},
           {"name": "datebirth", "placeholder": "Fecha de nacimiento", "type": "date"},
           {"name": "email", "placeholder": "Correo electronico", "type": "email"},
           {"name": "username", "placeholder": "Nombre de usuario", "type": "text"},
@@ -116,6 +119,7 @@ data = {
           {"name": "specialty", "placeholder": "Especialidad", "type": "select", "options": []},
           {"name": "type", "placeholder": "Tipo de usuario", "type": "select", "options": []},
           {"name": "password", "placeholder": "Clave", "type": "password"},
+          {"name": "confirm", "placeholder": "Confirmar clave", "type": "password"},
         ] 
       },
       "Listar": {

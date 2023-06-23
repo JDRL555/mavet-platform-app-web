@@ -24,6 +24,8 @@ def renderPosts():
     return render_template("posts.html", data=data["posts"])
   except TypeError:
     return redirect("/signin")
+  except KeyError:
+    return redirect("/posts")
 
 @posts_router.route("/new/post", methods=['POST'])
 def createPost():
@@ -48,12 +50,15 @@ def createPost():
 
 @posts_router.route("/post", methods=["POST"])
 def post():
-  page          = request.get_json()
+  data          = request.get_json()
   all_works_art = Works_art.getAll(db=db)
 
-  if len(all_works_art) > page:
+  if len(all_works_art) > data["page"]:
     post      = get_template_attribute("macros/post.html", "post")
-    works_art = Works_art.getPaginated(db=db, page=page)
+    
+    if data["user"]:  works_art = Works_art.getPaginated(db=db, id=data["user"]["id"], page=data["page"])
+    else:             works_art = Works_art.getPaginated(db=db, page=data["page"])
+    
     res       = post(works_art, current_user)
     response  = Response(res, headers={'Access-Control-Allow-Origin': "*"})
     return response

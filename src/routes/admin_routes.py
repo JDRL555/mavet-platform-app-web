@@ -3,6 +3,8 @@ from models.User      import User
 from models.Event     import Event
 from models.Course    import Course
 from models.Category  import Category
+from models.Type      import Type_user
+from models.Specialty import Specialty_user
 from utils.db         import db
 from utils.data       import data
 
@@ -39,7 +41,13 @@ def modal():
           data["modal"]["Usuarios"]["Listar"]["data"] = users_data
   
         modal = modal(data["modal"]["Usuarios"]["Listar"])
-      if req["option"] == "Crear":      modal = modal(data["modal"]["Usuarios"]["Crear"])
+      if req["option"] == "Crear":      
+        types       = Type_user.getAll(db=db)
+        specialties = Specialty_user.getAll(db=db)
+        data["modal"]["Usuarios"]["Crear"]["inputs"][7]["options"] = specialties
+        data["modal"]["Usuarios"]["Crear"]["inputs"][8]["options"] = types
+        print(data["modal"]["Usuarios"]["Crear"]["inputs"][8]["options"])
+        modal = modal(data["modal"]["Usuarios"]["Crear"])
       if req["option"] == "Actualizar": modal = modal(data["modal"]["Usuarios"]["Actualizar"])
       if req["option"] == "Eliminar":   modal = modal(data["modal"]["Usuarios"]["Eliminar"])
       

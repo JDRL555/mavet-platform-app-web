@@ -62,7 +62,8 @@ class User(UserMixin):
     
       return response
     except Exception as error:
-      response["error"] = error
+      response["msg"]   = error
+      response["error"] = True
       return response
   
   @classmethod
@@ -103,6 +104,7 @@ class User(UserMixin):
       print(error)
       response["error"] = error
       return response
+    
   @classmethod
   def getAll(self, db):
     sql = text('''
@@ -153,12 +155,13 @@ class User(UserMixin):
     except Exception as error:
       response["error"] = error
       return response
+    
   @classmethod
   def getRecent(self, db):
     try:
       response = {"msg": "", "error": False, "users": []}
       sql = text('''
-        SELECT * FROM users ORDER BY created_at LIMIT 3;
+        SELECT * FROM users ORDER BY created_at DESC LIMIT 3;
       ''')
       users  = db.session.execute(sql)
       users  = tuple(users)
