@@ -108,25 +108,26 @@ class User(UserMixin):
   @classmethod
   def getAll(self, db):
     sql = text('''
-      SELECT name_user, last_name_user, datebirth, email_user, username_user, phone_user, specialty_id, type_id, created_at FROM users;
+      SELECT id, name_user, last_name_user, datebirth, email_user, username_user, phone_user, specialty_id, type_id, created_at FROM users;
     ''')
     
-    works_art_data = db.session.execute(sql)
-    works_art_data = list(works_art_data)
+    users = db.session.execute(sql)
+    users = list(users)
     
     data = []
     
-    for row in works_art_data:
+    for row in users:
       data.append({
-        "name": row[0],
-        "last_name": row[1],
-        "datebirth": row[2],
-        "email": row[3],
-        "username": row[4],
-        "phone": row[5],
-        "specialty": row[6],
-        "type": row[7],
-        "created_at": row[8]
+        "id": row[0],
+        "name": row[1],
+        "last_name": row[2],
+        "datebirth": row[3],
+        "email": row[4],
+        "username": row[5],
+        "phone": row[6],
+        "specialty": row[7],
+        "type": row[8],
+        "created_at": row[9]
       })
     
     return data
@@ -187,6 +188,43 @@ class User(UserMixin):
     except Exception as error:
       response["error"] = error
       return response
+    
+  @classmethod
+  def getByFilter(self, db, filter_data):
+    try:
+      response = {"msg": "", "error": False, "users": []}
+      sql = text(f'''
+        SELECT id, name_user, last_name_user, datebirth, email_user, username_user, phone_user, specialty_id, type_id, created_at 
+        FROM users
+        WHERE {filter_data["filter_selected"]} 
+        LIKE '%{filter_data["filter_value"]}%'
+        ;
+      ''')
+      users = db.session.execute(sql)
+      users = list(users)
+      
+      data = []
+      
+      for row in users:
+        data.append({
+          "id": row[0],
+          "name": row[1],
+          "last_name": row[2],
+          "datebirth": row[3],
+          "email": row[4],
+          "username": row[5],
+          "phone": row[6],
+          "specialty": row[7],
+          "type": row[8],
+          "created_at": row[9]
+        })
+      
+      response["users"] = data
+      
+      return response
+      
+    except Exception as error:
+      return {"msg": error, "error": True}
     
     
     

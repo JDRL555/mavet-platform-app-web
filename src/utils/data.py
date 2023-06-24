@@ -125,6 +125,7 @@ data = {
       "Listar": {
         "title": "Listar",
         "filters": [
+          "ID",
           "Nombres", 
           "Apellidos", 
           "Fecha de Nacimiento", 

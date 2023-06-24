@@ -42,11 +42,12 @@ def modal():
   
         modal = modal(data["modal"]["Usuarios"]["Listar"])
       if req["option"] == "Crear":      
+        
         types       = Type_user.getAll(db=db)
         specialties = Specialty_user.getAll(db=db)
         data["modal"]["Usuarios"]["Crear"]["inputs"][7]["options"] = specialties
         data["modal"]["Usuarios"]["Crear"]["inputs"][8]["options"] = types
-        print(data["modal"]["Usuarios"]["Crear"]["inputs"][8]["options"])
+
         modal = modal(data["modal"]["Usuarios"]["Crear"])
       if req["option"] == "Actualizar": modal = modal(data["modal"]["Usuarios"]["Actualizar"])
       if req["option"] == "Eliminar":   modal = modal(data["modal"]["Usuarios"]["Eliminar"])

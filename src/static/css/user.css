@@ -57,12 +57,11 @@ main .user_info {
 }
 
 main .user_posts {
-  background-color: var(--post-bg);
-  width: 70%;
-  margin: 0 20px;
-  padding: 10px;
+  width: 75%;
   border-radius: 10px;
 }
+
+main .user_posts .post { margin: 0; }
 
 .form_bg {
   position: fixed;

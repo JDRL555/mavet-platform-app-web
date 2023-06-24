@@ -31,10 +31,10 @@
 {% macro modal_filter(filters) %}
 <div class="modal_filters">
   <span>Selecciona un filtro</span>
-  <select name="filter">
+  <select name="filter" class="filter">
     {% for filter_name in filters %} <option>{{ filter_name }}</option> {% endfor %}
   </select>
-  <input type="text" placeholder="Escribe el valor del filtro">
+  <input type="text" class="filter_value" placeholder="Escribe el valor del filtro">
   <button class="search_btn">Buscar</button>
 </div>
 {% endmacro %}

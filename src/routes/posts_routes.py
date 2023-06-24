@@ -56,9 +56,11 @@ def post():
   if len(all_works_art) > data["page"]:
     post      = get_template_attribute("macros/post.html", "post")
     
-    if data["user"]:  works_art = Works_art.getPaginated(db=db, id=data["user"]["id"], page=data["page"])
-    else:             works_art = Works_art.getPaginated(db=db, page=data["page"])
-    
+    try:
+      works_art = Works_art.getPaginated(db=db, id=data["user"]["id"], page=data["page"])             
+    except KeyError:
+      works_art = Works_art.getPaginated(db=db, page=data["page"])
+        
     res       = post(works_art, current_user)
     response  = Response(res, headers={'Access-Control-Allow-Origin': "*"})
     return response

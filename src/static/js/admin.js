@@ -55,7 +55,38 @@ for (let i = 1; i < actions.length; i++) {
     modal_bg.style.opacity      = 1
     modal_bg.style.visibility   = "visible"
     
+    if(modal.querySelector(".modal_filters")){
+      const search_btn    = modal.querySelector(".search_btn")
+      const filter        = modal.querySelector(".filter")
+      let filter_value    = modal.querySelector(".filter_value")
+      let filter_selected = filter.options[0].value
+
+      filter.addEventListener("change", ()=>filter_selected = filter.options[filter.selectedIndex].value)
+
+      search_btn.addEventListener("click", async () => {
+        let data = {filter_selected, filter_value: filter_value.value}
+        const response = await fetch("/users/filter", {
+          method: "POST",
+          body: JSON.stringify(data),
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        if(response.status == "200"){
+          let new_table   = await response.text()
+          const parser    = new DOMParser()
+          const old_table = modal.querySelector(".modal_content") 
+          new_table       = parser.parseFromString(new_table, "text/html")
+          new_table       = new_table.body.querySelector(".modal_content")
+          
+          old_table.parentNode.replaceChild(new_table, old_table)
+        }
+      })
+    }
+
     const close_btn = modal.querySelector(".close_btn")
+    
     close_btn.addEventListener("click", () => {
       modal.style.transform   = "translateY(-200px)"
       modal_bg.style.opacity  = 0
@@ -64,6 +95,7 @@ for (let i = 1; i < actions.length; i++) {
         modal_bg.innerHTML        = ""
       }, 350)
     })
+
 
   })
 }
