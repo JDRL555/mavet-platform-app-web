@@ -1,4 +1,4 @@
-from utils.db import db
+from src.utils.db import db
 import datetime
 
 class Type_user(db.Model):
