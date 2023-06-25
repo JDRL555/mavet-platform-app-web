@@ -1,5 +1,5 @@
-from sqlalchemy.sql import text
-from models.mavet_models import Category as Category_model
+from sqlalchemy.sql           import text
+from src.models.mavet_models  import Category as Category_model
 
 class Category:
   @classmethod

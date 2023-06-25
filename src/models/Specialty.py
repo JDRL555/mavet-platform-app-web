@@ -1,5 +1,5 @@
-from sqlalchemy.sql import text
-from models.mavet_models import Specialty_user as Specialty_model
+from sqlalchemy.sql           import text
+from src.models.mavet_models  import Specialty_user as Specialty_model
 
 class Specialty_user:
   @classmethod

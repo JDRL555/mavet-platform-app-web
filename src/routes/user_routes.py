@@ -1,11 +1,11 @@
-from flask            import Blueprint, render_template, redirect, flash, request, get_template_attribute, Response
-from flask_login      import current_user
-from datetime         import datetime
-from models.Category  import Category
-from models.Works_art import Works_art
-from models.User      import User
-from utils.db         import db
-from utils.data       import data
+from flask                import Blueprint, render_template, redirect, flash, request, get_template_attribute, Response
+from flask_login          import current_user
+from datetime             import datetime
+from src.models.Category  import Category
+from src.models.Works_art import Works_art
+from src.models.User      import User
+from src.utils.db         import db
+from src.utils.data       import data
 
 user_router = Blueprint("user", __name__)
 

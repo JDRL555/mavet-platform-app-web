@@ -1,5 +1,5 @@
-from sqlalchemy.sql import text
-from models.mavet_models import Type_user as Type_model
+from sqlalchemy.sql           import text
+from src.models.mavet_models  import Type_user as Type_model
 
 class Type_user:
   @classmethod

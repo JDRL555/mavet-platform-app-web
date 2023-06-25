@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, redirect
-from flask_login import current_user
+from flask        import Blueprint, render_template, redirect
+from flask_login  import current_user
 
 index_router = Blueprint("index", __name__)
 

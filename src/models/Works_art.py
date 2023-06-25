@@ -1,6 +1,6 @@
-from models.mavet_models  import Works_art as Works_art_model
-from sqlalchemy.sql       import text
-from utils.var            import *
+from src.models.mavet_models  import Works_art as Works_art_model
+from sqlalchemy.sql           import text
+from src.utils.var            import *
 
 
 class Works_art:

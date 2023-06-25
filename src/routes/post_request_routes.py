@@ -1,8 +1,8 @@
-from flask                    import Blueprint, render_template, request, redirect, flash
-from flask_login              import current_user
-from models.Preview_works_art import Preview_works_art
-from models.Works_art         import Works_art 
-from utils.db                 import db
+from flask                        import Blueprint, render_template, request, redirect, flash
+from flask_login                  import current_user
+from src.models.Preview_works_art import Preview_works_art
+from src.models.Works_art         import Works_art 
+from src.utils.db                 import db
 
 post_request_router = Blueprint("post_request", __name__)
 

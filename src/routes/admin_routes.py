@@ -1,12 +1,12 @@
 from flask            import Blueprint, render_template, get_template_attribute, request, Response
-from models.User      import User
-from models.Event     import Event
-from models.Course    import Course
-from models.Category  import Category
-from models.Type      import Type_user
-from models.Specialty import Specialty_user
-from utils.db         import db
-from utils.data       import data
+from src.models.User      import User
+from src.models.Event     import Event
+from src.models.Course    import Course
+from src.models.Category  import Category
+from src.models.Type      import Type_user
+from src.models.Specialty import Specialty_user
+from src.utils.db         import db
+from src.utils.data       import data
 
 admin_router = Blueprint("admin", __name__)
 

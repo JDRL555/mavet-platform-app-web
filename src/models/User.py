@@ -1,7 +1,7 @@
-from bcrypt               import hashpw, checkpw, gensalt
-from sqlalchemy.sql       import text
-from flask_login          import UserMixin 
-from models.mavet_models  import User as User_model
+from bcrypt                   import hashpw, checkpw, gensalt
+from sqlalchemy.sql           import text
+from flask_login              import UserMixin 
+from src.models.mavet_models  import User as User_model
 
 class User(UserMixin):
   def __init__(self, id, username, email):

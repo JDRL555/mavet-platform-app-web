@@ -1,8 +1,8 @@
 from flask                import Blueprint, render_template, request, redirect, flash
 from flask_login          import login_user, logout_user, login_required, current_user
-from models.User          import User
-from utils.db             import db
-from utils.data           import data 
+from src.models.User      import User
+from src.utils.db         import db
+from src.utils.data       import data 
 
 auth_router = Blueprint("auth", __name__)
 

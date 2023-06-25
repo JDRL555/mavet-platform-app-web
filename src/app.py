@@ -1,16 +1,16 @@
 from flask                      import Flask, render_template, redirect
 from flask_login                import LoginManager
 from cloudinary                 import config
-from models.User                import User
-from routes.index_routes        import index_router
-from routes.auth_routes         import auth_router
-from routes.user_routes         import user_router
-from routes.posts_routes        import posts_router 
-from routes.post_request_routes import post_request_router
-from routes.admin_routes        import admin_router
-from utils.db                   import db
-from utils.data                 import data 
-from utils.var                  import *
+from .models.User                import User
+from .routes.index_routes        import index_router
+from .routes.auth_routes         import auth_router
+from .routes.user_routes         import user_router
+from .routes.posts_routes        import posts_router 
+from .routes.post_request_routes import post_request_router
+from .routes.admin_routes        import admin_router
+from .utils.db                   import db
+from .utils.data                 import data 
+from .utils.var                  import *
 
 def create_app():
   app = Flask(__name__)

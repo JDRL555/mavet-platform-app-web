@@ -1,10 +1,10 @@
-from flask                import Blueprint, render_template, redirect, request, flash, get_template_attribute, Response
-from flask_login          import current_user
-from models.Category      import Category
-from models.Works_art     import Works_art
-from models.User          import User
-from utils.db             import db
-from utils.data           import data
+from flask                    import Blueprint, render_template, redirect, request, flash, get_template_attribute, Response
+from flask_login              import current_user
+from src.models.Category      import Category
+from src.models.Works_art     import Works_art
+from src.models.User          import User
+from src.utils.db             import db
+from src.utils.data           import data
 
 posts_router = Blueprint("posts", __name__)
 
