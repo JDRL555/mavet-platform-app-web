@@ -1,59 +1,71 @@
 const btns            = document.querySelectorAll(".admin_option")
 const request_option  = document.querySelector(".request_option")
-const options         = document.querySelectorAll(".options")
-const actions         = document.querySelectorAll("p")
 const modal_bg        = document.querySelector(".modal_bg")
 
 request_option.addEventListener("click", () => window.location = "/post/request")
 
 for (let i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", () => {
-    if(options[i].style.opacity == 0){
-      i == 2 || i == 3 ? options[i].style.top = "-40%" : options[i].style.top = "40%"
-      options[i].style.opacity      = 1
-      options[i].style.visibility   = "visible"
-    }else{
-      options[i].style.top          = 0
-      options[i].style.opacity      = 0
-      setTimeout(() => options[i].style.visibility  = "hidden", 1)
-    }
-  })
-}
-
-for (let i = 1; i < actions.length; i++) {
-  actions[i].addEventListener("click", async () => {
-    for (let j = 0; j < btns.length; j++) {
-      options[j].style.top          = 0
-      options[j].style.opacity      = 0
-      setTimeout(() => options[j].style.visibility  = "hidden", 1)
-    }
+  btns[i].addEventListener("click", async () => {
+    
     let from = ""
-    if(i >= 1  && i <= 4 ) from = "Usuarios" 
-    if(i >= 5  && i <= 8 ) from = "Eventos" 
-    if(i >= 9  && i <= 12) from = "Cursos" 
-    if(i >= 13 && i <= 16) from = "Categorias" 
-    const data      = { from, option: actions[i].innerHTML }
+    if(i == 0 ) from = "Usuarios" 
+    if(i == 1 ) from = "Eventos" 
+    if(i == 2 ) from = "Cursos" 
+    if(i == 3 ) from = "Categorias" 
+    
     const response  = await fetch("/modal", {
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify(from),
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
       },
     })
+
     let modal     = await response.text()
     const parser  = new DOMParser()
+
     modal         = parser.parseFromString(modal, "text/html")
     modal         = modal.body.querySelector(".modal")
     
-    if(modal.querySelector(".modal_content")) modal.style.width = "auto" 
-    if(modal.querySelector(".modal_form")) modal.style.height = "80vh" 
+    modal.style.width = "auto" 
     
     modal_bg.appendChild(modal)
 
     modal.style.transform       = "translateY(0px)"
     modal_bg.style.opacity      = 1
     modal_bg.style.visibility   = "visible"
+
+    const table = modal.querySelector(".modal_content")
+    const edit_btn = table.querySelectorAll(".edit_col")
+    const delete_btn = table.querySelectorAll(".delete_col")
+    
+    for(let e = 0; e < edit_btn.length; e++){
+      edit_btn[e].addEventListener("click", () => {
+        const rows = table.querySelectorAll(".register_rows")
+        const cols = rows[e].querySelectorAll(".register_cols")
+        for (let c = 1; c < cols.length; c++) {
+          let input = document.createElement("input")
+          
+          if(i == 6 || i == 7){
+            input = document.createElement("select")
+          }
+          
+          input.value       = cols[c].innerHTML
+          cols[c].innerHTML = ""
+          cols[c].appendChild(input)
+          edit_btn[e].innerHTML = "Guardar"
+          delete_btn[e].innerHTML = "Cancelar"
+        }
+      })
+    }
+    
+    for(let i = 0; i < delete_btn.length; i++){
+      delete_btn[i].addEventListener("click", () => {
+        const rows = table.querySelectorAll(".register_rows")
+      })
+    }
+
     
     if(modal.querySelector(".modal_filters")){
       const search_btn    = modal.querySelector(".search_btn")
@@ -73,15 +85,17 @@ for (let i = 1; i < actions.length; i++) {
             "Content-Type": "application/json",
           },
         })
-        if(response.status == "200"){
-          let new_table   = await response.text()
-          const parser    = new DOMParser()
-          const old_table = modal.querySelector(".modal_content") 
-          new_table       = parser.parseFromString(new_table, "text/html")
-          new_table       = new_table.body.querySelector(".modal_content")
-          
-          old_table.parentNode.replaceChild(new_table, old_table)
-        }
+        let new_table   = await response.text()
+        const parser    = new DOMParser()
+        const old_table = modal.querySelector(".modal_content") 
+        new_table       = parser.parseFromString(new_table, "text/html")
+        new_table       = new_table.body.querySelector(".modal_content")
+
+        console.log(new_table)
+        
+        old_table.parentNode.replaceChild(new_table, old_table)
+
+        
       })
     }
 
@@ -94,8 +108,7 @@ for (let i = 1; i < actions.length; i++) {
         modal_bg.style.visibility = "hidden"
         modal_bg.innerHTML        = ""
       }, 350)
-    })
-
+    })  
 
   })
 }

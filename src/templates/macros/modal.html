@@ -47,16 +47,22 @@
     <thead>
       <tr>
         {% for col in data.cols %} <th>{{ col }}</th> {% endfor %}
+        <th colspan="2">Acciones</th>
       </tr>
     </thead>
     <tbody>
       {% for row in data.rows %} 
-        <tr>
+        <tr class="register_rows">
           {% for register in row.register %} 
-            <td>{{ register }}</td> 
+            <td class="register_cols">{{ register }}</td> 
           {% endfor %}
+          <td class="edit_col">Editar</td>
+          <td class="delete_col">Eliminar</td>
         </tr>
       {% endfor %}
+      <tr>
+        <td class="create_col" colspan="{{ data.cols|length + 2 }}">Crear</td>
+      </tr>
     </tbody>
   </table>
 {% endif %}
