@@ -69,7 +69,7 @@ def users_filter():
     if filter_data["filter_selected"] == "Nombre de usuario": filter_data["filter_selected"]  = "username_user" 
     if filter_data["filter_selected"] == "Telefono": filter_data["filter_selected"]  = "phone_user" 
     if filter_data["filter_selected"] == "Tipo de Usuario": filter_data["filter_selected"]  = "type_id" 
-    if filter_data["filter_selected"] == "Especialidad de Usuario": filter_data["filter_selected"]  = "specialty_id" 
+    if filter_data["filter_selected"] == "Especialidad del usuario": filter_data["filter_selected"]  = "specialty_id" 
     if filter_data["filter_selected"] == "Fecha de creacion": filter_data["filter_selected"]  = "created_at" 
     
     users = User.getByFilter(db=db, filter_data=filter_data)

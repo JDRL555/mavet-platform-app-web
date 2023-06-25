@@ -132,8 +132,8 @@ data = {
           "Correo", 
           "Nombre de usuario",
           "Telefono",
-          "Tipo de usuario",
           "Especialidad del usuario",
+          "Tipo de usuario",
           "Fecha de creacion"
         ],
         "data": [] 

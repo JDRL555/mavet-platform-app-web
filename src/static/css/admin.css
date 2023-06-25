@@ -155,13 +155,25 @@ button:hover{
   cursor: pointer;
 }
 
-.modal table td.edit_col, .modal table td.delete_col, .modal table td.create_col { transition: .3s; } 
+.modal table td.edit_col, 
+.modal table td.delete_col, 
+.modal table td.create_col,  
+.modal table td.save_btn,  
+.modal table td.cancel_btn { 
+  transition: .3s; 
+} 
 
 .modal table td.create_col { text-align: center; }
 
 .modal table td.create_col:hover { background-color: rgb(89, 196, 68); }
-.modal table td.edit_col:hover { background-color: rgb(45, 73, 201); }
-.modal table td.delete_col:hover { background-color: rgb(201, 45, 45); }
+
+.modal table td.edit_col:hover, .modal table td.save_btn:hover { 
+  background-color: rgb(45, 73, 201); 
+}
+
+.modal table td.delete_col:hover, .modal table td.cancel_btn:hover { 
+  background-color: rgb(201, 45, 45); 
+}
 
 .btn_div {
   text-align: center;
