@@ -252,7 +252,7 @@ class User(UserMixin):
         
     if not new_values:
       response = {"msg": "No hay valores nuevos", "error": True}
-      return
+      return response
     
     sql = f"UPDATE users SET "
     for index, column in enumerate(new_columns):
@@ -265,6 +265,21 @@ class User(UserMixin):
     db.session.commit()
     
     return response
+
+  @classmethod
+  def deleteUser(self, db, id):
+    try:  
+      response = {"msg": "Eliminado exitosamente", "error": False}
+      
+      sql = f"DELETE FROM users WHERE id = {id}"
+      
+      db.session.execute(text(sql))
+      db.session.commit()
+      
+      return response
+      
+    except Exception as error:
+      return {"msg": error, "error": True}
     
   @classmethod
   def convertToColumns(self, columns):
@@ -295,5 +310,3 @@ class User(UserMixin):
     if column == "Fecha de creacion":         column = "created_at" 
     
     return column
-    
-    

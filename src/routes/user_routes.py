@@ -7,6 +7,7 @@ from src.models.User      import User
 from src.utils.db         import db
 from src.utils.data       import data
 import json
+import re
 
 user_router = Blueprint("user", __name__)
 
@@ -81,20 +82,24 @@ def users_filter():
   response = Response(modal_content, headers={'Access-Control-Allow-Origin': "*"})
   return response
 
-@user_router.route("/user/edit", methods=["POST"])
+@user_router.route("/user/edit")
 def user_edit():
-  user_info = request.get_json()
-  slash = \
-  test  = request.args.get("test")
-  test  = json.dumps(test)
-  test  = test.replace(f"{slash}", "")
-  print(test)
-  print(list(user_info.keys()))
+  user_info = request.args.get("user_info")
+  user_info = json.loads(user_info) 
   id        = user_info["id"]
   user_info.pop("id") 
   columns   = User.convertToColumns(columns=list(user_info.keys()))
   values    = list(user_info.values())
   response  = User.editUser(db=db, id=id, columns=columns, values=values)
+  
+  flash(response["msg"])
+  return redirect("/admin")
+
+@user_router.route("/user/delete")
+def user_delete():
+  id = request.args.get("id")
+  id = int(id)
+  response = User.deleteUser(db=db, id=id)
   
   flash(response["msg"])
   return redirect("/admin")

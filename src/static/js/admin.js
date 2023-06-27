@@ -6,7 +6,6 @@ request_option.addEventListener("click", () => window.location = "/post/request"
 
 // se encarga de cubrir las opciones de editar y eliminar de cada registro
 function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
-  //se recorre cada boton de edicion para agregarle un addEventListener
   for(let e = 0; e < edit_btn.length; e++){
     edit_btn[e].addEventListener("click", () => {
       const cols          = rows[e].querySelectorAll(".register_cols")
@@ -23,9 +22,14 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
       
       for (let c = 0; c < cols.length; c++) {
         let input = document.createElement("input")
+        
         input.setAttribute("class", "edit_input")
-
+        
         if(parseInt(cols[0].innerHTML) && c <= 0) c++
+        
+        if(Date.parse(cols[c].innerHTML)){
+          input.type = "date"
+        }
 
         original_cols.push(cols[c].innerHTML)
         
@@ -58,15 +62,7 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
         if(from == "Cursos")      route = "course"
         if(from == "Categorias")  route = "category"
 
-        fetch(`/${route}/edit?test=${JSON.stringify(edit_info)}`, {
-          method: "POST",
-          body: JSON.stringify(edit_info),
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .finally(() => window.location.reload())
+        window.location.href = `/${route}/edit?user_info=${JSON.stringify(edit_info)}`
       })
 
       cancel_btn.addEventListener("click", () => { 
@@ -110,9 +106,14 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
       modal_bg.setAttribute("class", "modal_bg")
       warning.setAttribute("class", "modal")
       
-      title.innerText = `Seguro de eliminar el usuario con el id ${id.innerText}?` 
-      accept_btn.innerText = "Aceptar"
-      cancel_btn.innerText = "Cancelar"
+      title.innerText       = `Seguro de eliminar el usuario con el id ${id.innerText}?` 
+      title.style.padding   = "20px"
+
+      accept_btn.setAttribute("class", "accept_btn")
+      cancel_btn.setAttribute("class", "cancel_btn")
+
+      accept_btn.innerText  = "Aceptar"
+      cancel_btn.innerText  = "Cancelar"
       
       warning.appendChild(title)
       warning.appendChild(accept_btn)
@@ -131,6 +132,25 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
       
       modal_bg.appendChild(warning)
       body.appendChild(modal_bg)
+
+      accept_btn.addEventListener("click", () => {
+        let route = ""
+        if(from == "Usuarios")    route = "user"
+        if(from == "Eventos")     route = "event"
+        if(from == "Cursos")      route = "course"
+        if(from == "Categorias")  route = "category"
+
+        window.location.href = `/${route}/delete?id=${id.innerHTML}`
+      })
+
+      cancel_btn.addEventListener("click", () => {
+        warning.style.transform   = "translateY(-200px)"
+        modal_bg.style.opacity  = 0
+        setTimeout(() => {
+          modal_bg.style.visibility = "hidden"
+          modal_bg.innerHTML        = ""
+        }, 350)
+      })
     })
   }
 }

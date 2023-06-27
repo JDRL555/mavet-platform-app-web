@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% import 'macros/post.html' as posts %}
 
+{% block title %}Publicaciones{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/posts.css') }}">
 {% endblock %}

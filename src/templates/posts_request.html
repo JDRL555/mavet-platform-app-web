@@ -1,6 +1,8 @@
 {% extends 'layout.html' %}
 {% import 'macros/post.html' as posts %}
 
+{% block title %}Peticiones{% endblock %}
+
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/post_request.css') }}">
 {% endblock %}
