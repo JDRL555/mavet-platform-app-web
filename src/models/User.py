@@ -225,6 +225,75 @@ class User(UserMixin):
       
     except Exception as error:
       return {"msg": error, "error": True}
+  
+  @classmethod
+  def editUser(self, db, id, columns, values):
+    response = {"msg": "Editado exitosamente", "error": False}
+    user_sql  = text(f"SELECT name_user, last_name_user, datebirth, email_user, username_user, phone_user, specialty_id, type_id, created_at FROM users WHERE id = {id};")
+    user      = db.session.execute(user_sql)
+    user      = list(user)
     
+    if not user:
+      response = {"msg": "Usuario no encontrado", "error": True}
+      return response
+    
+    user        = list(user[0])
+    new_columns = []  
+    new_values  = []  
+    
+    for index, value in enumerate(values):
+      
+      if type(user[index]) != str:
+        user[index] = str(user[index])
+      
+      if user[index] != value:
+        new_columns.append(columns[index])
+        new_values.append(value)
+        
+    if not new_values:
+      response = {"msg": "No hay valores nuevos", "error": True}
+      return
+    
+    sql = f"UPDATE users SET "
+    for index, column in enumerate(new_columns):
+      sql += f"{column} = '{new_values[index]}'"
+      if index < len(new_columns) - 1: sql += ", "
+    
+    sql += f" WHERE id = {id};"
+    
+    db.session.execute(text(sql))
+    db.session.commit()
+    
+    return response
+    
+  @classmethod
+  def convertToColumns(self, columns):
+    
+    if columns[0] == "Nombres":                   columns[0] = "name_user" 
+    if columns[1] == "Apellidos":                 columns[1] = "last_name_user" 
+    if columns[2] == "Fecha de Nacimiento":       columns[2] = "datebirth" 
+    if columns[3] == "Correo":                    columns[3] = "email_user" 
+    if columns[4] == "Nombre de usuario":         columns[4] = "username_user" 
+    if columns[5] == "Telefono":                  columns[5] = "phone_user" 
+    if columns[6] == "Tipo de Usuario":           columns[6] = "type_id" 
+    if columns[7] == "Especialidad del usuario":  columns[7] = "specialty_id" 
+    if columns[8] == "Fecha de creacion":         columns[8] = "created_at" 
+    
+    return columns
+  
+  @classmethod
+  def convertToColumn(self, column):
+    
+    if column == "Nombres":                   column = "name_user" 
+    if column == "Apellidos":                 column = "last_name_user" 
+    if column == "Fecha de Nacimiento":       column = "datebirth" 
+    if column == "Correo":                    column = "email_user" 
+    if column == "Nombre de usuario":         column = "username_user" 
+    if column == "Telefono":                  column = "phone_user" 
+    if column == "Tipo de Usuario":           column = "type_id" 
+    if column == "Especialidad del usuario":  column = "specialty_id" 
+    if column == "Fecha de creacion":         column = "created_at" 
+    
+    return column
     
     

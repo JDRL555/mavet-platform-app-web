@@ -10,12 +10,7 @@ admin_router = Blueprint("admin", __name__)
 
 @admin_router.route("/admin")
 def admin():
-  data = {
-    "request": "Ver publicaciones solicitadas",
-    "buttons": ["Usuarios", "Eventos", "Cursos", "Categorias"],
-    "options": ["Crear", "Listar", "Actualizar", "Eliminar"],
-  }
-  return render_template("admin.html", data=data)
+  return render_template("admin.html", data=data["admin"])
 
 @admin_router.route("/modal", methods=["POST"])
 def modal():

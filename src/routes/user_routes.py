@@ -6,6 +6,7 @@ from src.models.Works_art import Works_art
 from src.models.User      import User
 from src.utils.db         import db
 from src.utils.data       import data
+import json
 
 user_router = Blueprint("user", __name__)
 
@@ -62,15 +63,7 @@ def users_filter():
 
     modal_content = modal_content(users_data)
   else:  
-    if filter_data["filter_selected"] == "Nombres": filter_data["filter_selected"]    = "name_user" 
-    if filter_data["filter_selected"] == "Apellidos": filter_data["filter_selected"]  = "last_name_user" 
-    if filter_data["filter_selected"] == "Fecha de Nacimiento": filter_data["filter_selected"]  = "datebirth" 
-    if filter_data["filter_selected"] == "Correo": filter_data["filter_selected"]  = "email_user" 
-    if filter_data["filter_selected"] == "Nombre de usuario": filter_data["filter_selected"]  = "username_user" 
-    if filter_data["filter_selected"] == "Telefono": filter_data["filter_selected"]  = "phone_user" 
-    if filter_data["filter_selected"] == "Tipo de Usuario": filter_data["filter_selected"]  = "type_id" 
-    if filter_data["filter_selected"] == "Especialidad del usuario": filter_data["filter_selected"]  = "specialty_id" 
-    if filter_data["filter_selected"] == "Fecha de creacion": filter_data["filter_selected"]  = "created_at" 
+    filter_data["filter_selected"] = User.convertToColumn(column=filter_data["filter_selected"])
     
     users = User.getByFilter(db=db, filter_data=filter_data)
     modal_content = get_template_attribute("macros/modal.html", "modal_content")
@@ -87,3 +80,21 @@ def users_filter():
   
   response = Response(modal_content, headers={'Access-Control-Allow-Origin': "*"})
   return response
+
+@user_router.route("/user/edit", methods=["POST"])
+def user_edit():
+  user_info = request.get_json()
+  slash = \
+  test  = request.args.get("test")
+  test  = json.dumps(test)
+  test  = test.replace(f"{slash}", "")
+  print(test)
+  print(list(user_info.keys()))
+  id        = user_info["id"]
+  user_info.pop("id") 
+  columns   = User.convertToColumns(columns=list(user_info.keys()))
+  values    = list(user_info.values())
+  response  = User.editUser(db=db, id=id, columns=columns, values=values)
+  
+  flash(response["msg"])
+  return redirect("/admin")

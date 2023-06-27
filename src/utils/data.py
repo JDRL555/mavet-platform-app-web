@@ -1,4 +1,9 @@
 data = {
+  'admin': {
+    "request": "Ver publicaciones solicitadas",
+    "buttons": ["Usuarios", "Eventos", "Cursos", "Categorias"],
+    "options": ["Crear", "Listar", "Actualizar", "Eliminar"],
+  },
   'index': {
     "navbar": [
       {"element": "Iniciar Sesión", "link": "/signin"},
