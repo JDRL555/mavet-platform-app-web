@@ -82,9 +82,60 @@ def users_filter():
   response = Response(modal_content, headers={'Access-Control-Allow-Origin': "*"})
   return response
 
+@user_router.route("/user/new")
+def user_new():
+  
+  if request.args:
+    user_info = request.args.get("info")
+    user_info = json.loads(user_info)
+    
+    if not user_info["type"]: user_info["type"]           = None
+    if not user_info["specialty"]: user_info["specialty"] = None
+    
+    user_info = {
+      "name": user_info["Nombres"],
+      "lastname": user_info["Apellidos"],
+      "datebirth": user_info["Fecha de Nacimiento"],
+      "username": user_info["Nombre de Usuario"],
+      "phone": user_info["Telefono"],
+      "email": user_info["Correo"],
+      "type": user_info["Tipo de usuario"],
+      "specialty": user_info["Especialidad del usuario"],
+      "password": user_info["Clave"],
+    }
+    
+    response = User.register(db=db, user=user_info)
+    
+    flash(response["msg"])
+    return redirect("/admin")
+  
+  else:
+    if not request.form["type"]: request.form["type"]           = None
+    if not request.form["specialty"]: request.form["specialty"] = None
+    user_info = {
+        "name": request.form["name"],
+        "lastname": request.form["lastname"],
+        "datebirth": request.form["datebirth"],
+        "username": request.form["username"],
+        "phone": request.form["phone"],
+        "email": request.form["email"],
+        "type": request.form["type"],
+        "specialty": request.form["specialty"],
+        "password": request.form["password"],
+        "confirm": request.form["confirm"],
+      }
+      
+    response = User.register(db=db, user=user_info)
+    
+    if response["error"]:
+      flash(response["msg"])
+      return redirect("/signup")
+    
+    return redirect("/signin")
+
 @user_router.route("/user/edit")
 def user_edit():
-  user_info = request.args.get("user_info")
+  user_info = request.args.get("info")
   user_info = json.loads(user_info) 
   id        = user_info["id"]
   user_info.pop("id") 

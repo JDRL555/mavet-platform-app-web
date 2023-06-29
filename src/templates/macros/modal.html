@@ -40,10 +40,10 @@
 {% endmacro %}
 
 {% macro modal_content(data) %}
-{% if not data %}
-  <h1>No hay usuarios registrados:(</h1>
-{% else %}
-  <table class="modal_content" cellspacing="0" cellpadding="0">
+<table class="modal_content" cellspacing="0" cellpadding="0">
+  {% if not data %}
+    <h1>No hay usuarios registrados:(</h1>
+  {% else %}
     <thead>
       <tr>
         {% for col in data.cols %} <th>{{ col }}</th> {% endfor %}
@@ -60,12 +60,12 @@
           <td class="delete_col">Eliminar</td>
         </tr>
       {% endfor %}
-      <tr>
-        <td class="create_col" colspan="{{ data.cols|length + 2 }}">Crear</td>
-      </tr>
     </tbody>
-  </table>
-{% endif %}
+  {% endif %}
+  <tr>
+    <td class="create_col" colspan="{{ data.cols|length + 2 }}">Crear</td>
+  </tr>
+</table>
 {% endmacro %}
 
 {% macro modal_form(inputs) %}

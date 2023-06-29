@@ -4,8 +4,8 @@ const modal_bg        = document.querySelector(".modal_bg") // ventana para most
 
 request_option.addEventListener("click", () => window.location = "/post/request")
 
-// se encarga de cubrir las opciones de editar y eliminar de cada registro
-function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
+// se encarga de cubrir las opciones de editar los registros
+function edit_operation(table, rows, edit_btn, delete_btn, from){
   for(let e = 0; e < edit_btn.length; e++){
     edit_btn[e].addEventListener("click", () => {
       const cols          = rows[e].querySelectorAll(".register_cols")
@@ -22,7 +22,6 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
       
       for (let c = 0; c < cols.length; c++) {
         let input = document.createElement("input")
-        
         input.setAttribute("class", "edit_input")
         
         if(parseInt(cols[0].innerHTML) && c <= 0) c++
@@ -62,7 +61,7 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
         if(from == "Cursos")      route = "course"
         if(from == "Categorias")  route = "category"
 
-        window.location.href = `/${route}/edit?user_info=${JSON.stringify(edit_info)}`
+        window.location.href = `/${route}/edit?info=${JSON.stringify(edit_info)}`
       })
 
       cancel_btn.addEventListener("click", () => { 
@@ -91,7 +90,10 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
     })
 
   }
+}
 
+// se encarga de cubrir las opciones de eliminar los registros
+function delete_operation(table, delete_btn, from){
   for(let d = 0; d < delete_btn.length; d++){
     delete_btn[d].addEventListener("click", () => {
       const rows        = table.querySelectorAll(".register_rows")
@@ -155,6 +157,95 @@ function edit_delete_operations(i, table, rows, edit_btn, delete_btn, from){
   }
 }
 
+function create_operation(table, create_btn, from){
+  create_btn.addEventListener("click", () => {
+    create_btn.style.display  = "none"
+    const tbody               = table.querySelector("tbody")
+    const cols                = table.querySelectorAll("th")
+    const new_row             = document.createElement("tr")
+    const save_btn            = document.createElement("td")
+    const cancel_btn          = document.createElement("td")
+
+    save_btn.setAttribute("class", "save_btn")
+    cancel_btn.setAttribute("class", "cancel_btn")
+
+    save_btn.innerText    = "Guardar"
+    cancel_btn.innerText  = "Cancelar"
+
+    
+    for (let c = 0; c < cols.length; c++) {
+      if(cols[c].innerHTML != "Acciones") {
+        const new_col = document.createElement("td")
+        let input     = document.createElement("input")
+        
+        input.setAttribute("class", "create_input")
+        
+        if(cols[c].innerHTML.includes("Fecha") && cols[c].innerHTML != "Fecha de creacion"){
+          input.onclick = () => input.type = "date"
+        }
+
+        if(cols[c].innerHTML == "Correo"){
+          input.type = "email"
+        }
+
+        if(cols[c].innerHTML == "Telefono"){
+          input.type = "number"
+        }
+        
+        if(cols[c].innerHTML == "Fecha de creacion"){
+          input.type = "password"
+        }
+  
+        if(c == 0 && cols[c].innerHTML == "ID") new_col.colSpan = "1" 
+  
+        else{
+          if(cols[c].innerHTML == "ID"){
+            input.placeholder = cols[0].innerHTML
+          }else if (cols[c].innerHTML == "Fecha de creacion") {
+            input.placeholder = "Clave"
+          }else{
+            input.placeholder = cols[c].innerHTML
+          }
+          new_col.appendChild(input)
+        }
+        new_row.appendChild(new_col)
+      }
+    }
+
+    new_row.appendChild(save_btn)
+    new_row.appendChild(cancel_btn)
+
+    tbody.appendChild(new_row)
+
+    save_btn.addEventListener("click", () => {
+        const values    = table.querySelectorAll(".create_input")
+        const cols      = table.querySelectorAll("th")
+        const save_info = {}
+        let index       = 0
+        
+        cols[0].innerHTML == "ID" && index++
+        
+        for (let g = index; g <= values.length; g++) {
+          save_info[cols[g].innerHTML] = values[g - 1].value
+        }
+        
+        let route = ""
+        if(from == "Usuarios")    route = "user"
+        if(from == "Eventos")     route = "event"
+        if(from == "Cursos")      route = "course"
+        if(from == "Categorias")  route = "category"
+
+        window.location.href = `/${route}/new?info=${JSON.stringify(save_info)}`
+    })
+
+    cancel_btn.addEventListener("click", () => {
+      new_row.remove()
+      create_btn.style.display  = ""
+    })
+  })
+}
+
+//recorre las entidades que el administrador puede manipular (usuarios, eventos, cursos y categorias)
 for (let i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", async () => {
     
@@ -199,8 +290,8 @@ for (let i = 0; i < btns.length; i++) {
       const table       = modal.querySelector(".modal_content")
       let edit_btn      = table.querySelectorAll(".edit_col")
       let delete_btn    = table.querySelectorAll(".delete_col")
+      let create_btn    = table.querySelector(".create_col")
       let rows          = table.querySelectorAll(".register_rows")
-  
   
       if(modal.querySelector(".modal_filters")){
         const search_btn    = modal.querySelector(".search_btn")
@@ -234,8 +325,11 @@ for (let i = 0; i < btns.length; i++) {
             rows        = new_table.querySelectorAll(".register_rows")
             edit_btn    = new_table.querySelectorAll(".edit_col")
             delete_btn  = new_table.querySelectorAll(".delete_col")
+            create_btn  = new_table.querySelector(".create_btn") 
     
-            edit_delete_operations(i, new_table, rows, edit_btn, delete_btn, from)
+            edit_operation(new_table, rows, edit_btn, delete_btn, from)
+            delete_operation(new_table, delete_btn, from)
+            create_operation(new_table, create_btn, from)
           }else{
             const notFound            = document.createElement("h1")
   
@@ -247,9 +341,9 @@ for (let i = 0; i < btns.length; i++) {
           }
         })
       }
-      
-      edit_delete_operations(i, table, rows, edit_btn, delete_btn, from)
-  
+      edit_operation(table, rows, edit_btn, delete_btn, from)
+      delete_operation(table, delete_btn, from)
+      create_operation(table, create_btn, from)
     }
     const close_btn = modal.querySelector(".close_btn")
     
