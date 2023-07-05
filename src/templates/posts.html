@@ -1,5 +1,7 @@
 {% extends 'layout.html' %}
 {% import 'macros/post.html' as posts %}
+{% import 'macros/mavet.html' as mavet %}
+
 
 {% block title %}Publicaciones{% endblock %}
 
@@ -10,12 +12,32 @@
 {% block content %}
   <main>
     <div class="posts_container">
-        {{ posts.new_post( data.inputs ) }}
-      {% if not data.works_art %}
-        <h1>No hay publicaciones aun...</h1>
+      {{ posts.new_post( data.inputs ) }}
+
+      {% if not data.events %}
+        <div class="post">
+          <h1 class="not_post">No hay eventos aun...</h1>
+        </div>
       {% else %}
+        {{ mavet.event(data.events) }}
+      {% endif %}
+      
+      {% if not data.courses %}
+        <div class="post">
+          <h1 class="not_post">No hay cursos aun...</h1>
+        </div>
+    {% else %}
+        {{ mavet.course(data.courses) }}
+      {% endif %}
+
+      {% if not data.works_art %}
+        <div class="post">
+          <h1 class="not_post">No hay publicaciones aun...</h1>
+        </div>
+    {% else %}
         {{ posts.post(data.works_art, current_user) }}
       {% endif %}
+
       </div>
     <div class="news_container">
       <div class="new_artists">

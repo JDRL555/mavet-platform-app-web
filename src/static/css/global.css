@@ -17,6 +17,10 @@
 
   --btn-bg: #b18f65;
   --btn-bg-h: #dab180;
+
+  --save: #59c444;
+  --edit: #2d49c9;
+  --delete: #c92d2d;
 }
 
 body {

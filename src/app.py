@@ -1,16 +1,19 @@
-from flask                      import Flask, render_template, redirect
-from flask_login                import LoginManager
-from cloudinary                 import config
-from .models.User                import User
-from .routes.index_routes        import index_router
-from .routes.auth_routes         import auth_router
-from .routes.user_routes         import user_router
-from .routes.posts_routes        import posts_router 
-from .routes.post_request_routes import post_request_router
-from .routes.admin_routes        import admin_router
-from .utils.db                   import db
-from .utils.data                 import data 
-from .utils.var                  import *
+from flask                        import Flask, render_template, redirect
+from flask_login                  import LoginManager
+from cloudinary                   import config
+from .models.User                 import User
+from .routes.index_routes         import index_router
+from .routes.auth_routes          import auth_router
+from .routes.user_routes          import user_router
+from .routes.posts_routes         import posts_router 
+from .routes.post_request_routes  import post_request_router
+from .routes.admin_routes         import admin_router
+from .routes.event_routes         import event_router
+from .routes.course_routes        import course_router
+from .routes.category_routes      import category_router
+from .utils.db                    import db
+from .utils.data                  import data 
+from .utils.var                   import *
 
 def create_app():
   app = Flask(__name__)
@@ -61,5 +64,8 @@ def create_app():
   app.register_blueprint(posts_router)
   app.register_blueprint(post_request_router)
   app.register_blueprint(admin_router)
-
+  app.register_blueprint(event_router)
+  app.register_blueprint(course_router)
+  app.register_blueprint(category_router)
+    
   return app

@@ -21,14 +21,29 @@ class Category:
   
   @classmethod
   def createCategory(self, db, category):
-    sql             = text(f"SELECT * FROM categories WHERE name_category = '{category}';")
-    category_exists = db.session.execute(sql)
-    category_exists = tuple(category_exists)
-    if category_exists:
-      return False
+    response = {"msg": "Categoria registrado exitosamente", "error": False}
+    try:
+      sql             = text(f"SELECT * FROM categories WHERE name_category = '{category}';")
+      category_exists = db.session.execute(sql)
+      category_exists = tuple(category_exists)
+      if category_exists:
+        return {"msg": "La categoria ya existe", "error": True}
     
-    new_category = Category_model(category)
-    db.session.add(new_category)
-    db.session.commit()
-    return category
+      
+      new_category = Category_model(
+        name=category["name"]
+      )
+      
+      db.session.add(new_category)
+      db.session.commit()
+      
+      return response  
+    except Exception as error:
+      response = {"msg": error, "error": True}
+      return response
     
+  @classmethod
+  def convertToColumns(self, columns):
+    columns[0] = "name_category" 
+    
+    return columns

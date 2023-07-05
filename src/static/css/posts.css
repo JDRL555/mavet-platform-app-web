@@ -138,11 +138,15 @@ form input:focus, form .file_container:active, form select:focus{
   margin-top: 20px;
 }
 
-.post_header {
+.post_header, .not_post {
   background-color: #fff;
   border-radius: 10px;
   padding: 10px 20px;
 }
+
+.post_header p { padding: 3px 0; }
+
+.not_post { text-align: center; }
 
 .img_title {
   display: flex;

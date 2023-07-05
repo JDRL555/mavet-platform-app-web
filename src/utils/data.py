@@ -102,6 +102,8 @@ data = {
       },
     ],
     "works_art": [],
+    "events": [],
+    "courses": [],
     "new": {
       "recent_artists": []
     }
@@ -181,6 +183,7 @@ data = {
       "Listar": {
         "title": "Listar",
         "filters": [
+          "ID",
           "Nombre",
           "Descripcion",
           "Fecha de inicio",

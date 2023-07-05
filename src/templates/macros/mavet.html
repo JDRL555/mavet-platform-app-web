@@ -1,0 +1,45 @@
+{% macro event(events) %}
+  {% for event in events %}
+    <div class="post">
+      <div class="post_header">
+        <div class="img_title">
+          <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" alt="Img del autor">
+          <h2>MAVET</h2>
+        </div>
+        <p><b>Nombre del evento:</b> {{ event.name }}</p>
+        <p><b>Descripción:</b> {{ event.description }}</p>
+        <p><b>Fecha de Inicio:</b> {{ event.startdate }}</p>
+        <p><b>Fecha de Finalizacion:</b> {{ event.enddate }}</p>
+        <p><b>Hora de Inicio:</b> {{ event.starttime }}</p>
+        <p><b>Hora de Finalizacion:</b> {{ event.starttime }}</p>
+      </div>
+      <div class="post_content">
+        <img src="{{event.media}}" alt="Media" oncontextmenu="return false">
+      </div>
+    </div>
+  {% endfor %}
+{% endmacro %}
+
+{% macro course(courses) %}
+  {% for course in courses %}
+    <div class="post">
+      <div class="post_header">
+        <div class="img_title">
+          <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" alt="Img del autor">
+          <h2>MAVET</h2>
+        </div>
+        <p><b>Nombre del curso: {{ course.name }}</b></p>
+        <p>Descripción: {{ course.description }}</p>
+        <p>Profesor: {{ course.teacher }}</p>
+        <p>Fecha de Inicio: {{ course.startdate }}</p>
+        <p>Fecha de Finalizacion: {{ course.enddate }}</p>
+        <p>Hora de Inicio: {{ course.starttime }}</p>
+        <p>Hora de Finalizacion: {{ course.starttime }}</p>
+        <p>Precio: {{ course.price }}$</p>
+      </div>
+      <div class="post_content">
+        <img src="{{event.media}}" alt="Media" oncontextmenu="return false">
+      </div>
+    </div>
+  {% endfor %}
+{% endmacro %}

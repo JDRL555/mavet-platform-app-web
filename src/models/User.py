@@ -10,7 +10,8 @@ class User(UserMixin):
     self.email    = email
   @classmethod
   def register(self, db, user):
-    response = {"msg": "", "error": False}
+    print(user)
+    response = {"msg": "Registrado exitosamente", "error": False}
     try:
       if user["password"] != user["confirm"]:
         response["msg"]   = "Las contraseñas no coinciden"
@@ -62,6 +63,8 @@ class User(UserMixin):
     
       return response
     except Exception as error:
+      print("ERROR EN MODELO")
+      print(error)
       response["msg"]   = error
       response["error"] = True
       return response
@@ -290,9 +293,10 @@ class User(UserMixin):
     if columns[3] == "Correo":                    columns[3] = "email_user" 
     if columns[4] == "Nombre de usuario":         columns[4] = "username_user" 
     if columns[5] == "Telefono":                  columns[5] = "phone_user" 
-    if columns[6] == "Tipo de Usuario":           columns[6] = "type_id" 
-    if columns[7] == "Especialidad del usuario":  columns[7] = "specialty_id" 
+    if columns[6] == "Especialidad del usuario":  columns[6] = "specialty_id" 
+    if columns[7] == "Tipo de usuario":           columns[7] = "type_id" 
     if columns[8] == "Fecha de creacion":         columns[8] = "created_at" 
+    if columns[8] == "Clave":                     columns[8] = "password_user" 
     
     return columns
   

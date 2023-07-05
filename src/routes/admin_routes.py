@@ -36,6 +36,7 @@ def modal():
     
   if req_from == "Eventos":
     events = Event.getAll(db=db)
+    for event in events: event.pop("media")
     if not events: 
       data["modal"]["Eventos"]["Listar"]["data"] = []
     else:  

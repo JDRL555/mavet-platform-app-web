@@ -145,16 +145,23 @@ body{
   animation-timing-function: cubic-bezier(1,-0.35,.99,.94);
 }
 
-.edit {
+.edit, .delete {
   color: var(--header-bg);
   font-size: 30px;
   text-align: end;
   cursor: pointer;
-  margin-left: auto;
   transition: .5s;
 }
 
-.edit:hover { color: var(--header-bg-dark); }
+.edit:hover { color: var(--edit); }
+.delete:hover { color: var(--delete); }
+
+.options_container { 
+  margin-left: auto;
+  width: 12%;
+  display: flex; 
+  justify-content: space-around; 
+}
 
 @keyframes message {
   from { top: 10%; opacity: 1; visibility: visible; }

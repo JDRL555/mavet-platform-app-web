@@ -2,6 +2,8 @@ from flask                    import Blueprint, render_template, redirect, reque
 from flask_login              import current_user
 from src.models.Category      import Category
 from src.models.Works_art     import Works_art
+from src.models.Event         import Event
+from src.models.Course        import Course
 from src.models.User          import User
 from src.utils.db             import db
 from src.utils.data           import data
@@ -16,9 +18,13 @@ def renderPosts():
     categories      = Category.getAll(db=db)
     works_art       = Works_art.getPaginated(db=db)
     recent_artists  = User.getRecent(db=db)
+    events          = Event.getAll(db=db) 
+    courses         = Course.getAll(db=db) 
     
     data["posts"]["inputs"][2]["options"]   = categories
     data["posts"]["works_art"]              = works_art
+    data["posts"]["events"]                 = events
+    data["posts"]["courses"]                = courses
     data["posts"]["new"]["recent_artists"]  = recent_artists["users"]
     
     return render_template("posts.html", data=data["posts"])

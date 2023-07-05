@@ -84,54 +84,71 @@ def users_filter():
 
 @user_router.route("/user/new")
 def user_new():
-  
-  if request.args:
-    user_info = request.args.get("info")
-    user_info = json.loads(user_info)
-    
-    if not user_info["type"]: user_info["type"]           = None
-    if not user_info["specialty"]: user_info["specialty"] = None
-    
-    user_info = {
-      "name": user_info["Nombres"],
-      "lastname": user_info["Apellidos"],
-      "datebirth": user_info["Fecha de Nacimiento"],
-      "username": user_info["Nombre de Usuario"],
-      "phone": user_info["Telefono"],
-      "email": user_info["Correo"],
-      "type": user_info["Tipo de usuario"],
-      "specialty": user_info["Especialidad del usuario"],
-      "password": user_info["Clave"],
-    }
-    
-    response = User.register(db=db, user=user_info)
-    
-    flash(response["msg"])
-    return redirect("/admin")
-  
-  else:
-    if not request.form["type"]: request.form["type"]           = None
-    if not request.form["specialty"]: request.form["specialty"] = None
-    user_info = {
-        "name": request.form["name"],
-        "lastname": request.form["lastname"],
-        "datebirth": request.form["datebirth"],
-        "username": request.form["username"],
-        "phone": request.form["phone"],
-        "email": request.form["email"],
-        "type": request.form["type"],
-        "specialty": request.form["specialty"],
-        "password": request.form["password"],
-        "confirm": request.form["confirm"],
+  try:
+    if request.args:
+      user_info = request.args.get("info")
+      user_info = json.loads(user_info)
+      
+      old_columns   = list(user_info.keys())
+      new_columns   = User.convertToColumns(old_columns)
+      new_user_info = {}
+      
+      for index, value in enumerate(user_info.values()): 
+        if not value: 
+          flash("Faltan campos por llenar")
+          print(request.path)
+          return redirect("/admin")
+        new_user_info[new_columns[index]] = value
+      
+      user_info = new_user_info
+      
+      print(user_info)
+      
+      user_info = {
+        "name": user_info["name_user"],
+        "lastname": user_info["last_name_user"],
+        "datebirth": user_info["datebirth"],
+        "username": user_info["username_user"],
+        "phone": user_info["phone_user"],
+        "email": user_info["email_user"],
+        "type": user_info["type_id"],
+        "specialty": user_info["specialty_id"],
+        "password": user_info["password_user"],
+        "confirm": user_info["password_user"]
       }
       
-    response = User.register(db=db, user=user_info)
-    
-    if response["error"]:
+      response = User.register(db=db, user=user_info)
+      
       flash(response["msg"])
-      return redirect("/signup")
+      return redirect("/admin")
     
-    return redirect("/signin")
+    else:
+      if not request.form["type"]: request.form["type"]           = None
+      if not request.form["specialty"]: request.form["specialty"] = None
+      user_info = {
+          "name": request.form["name"],
+          "lastname": request.form["lastname"],
+          "datebirth": request.form["datebirth"],
+          "username": request.form["username"],
+          "phone": request.form["phone"],
+          "email": request.form["email"],
+          "type": request.form["type"],
+          "specialty": request.form["specialty"],
+          "password": request.form["password"],
+          "confirm": request.form["confirm"],
+        }
+        
+      response = User.register(db=db, user=user_info)
+      
+      if response["error"]:
+        flash(response["msg"])
+        return redirect("/signup")
+      
+      return redirect("/signin")
+  except Exception as error:
+    print("ERROR EN CONTROLADOR")
+    print(error)
+    return {"msg": error, "error": True}
 
 @user_router.route("/user/edit")
 def user_edit():

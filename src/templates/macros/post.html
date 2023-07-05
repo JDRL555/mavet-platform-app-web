@@ -10,12 +10,15 @@
           {% endif %}
           <h2>{{ work_art.username }}</h2>
           {% if current_user.username == work_art.username %}
-            <i class="fa-sharp fa-solid fa-pencil edit"></i>
+            <div class="options_container">
+              <i class="fa-sharp fa-solid fa-pencil edit"></i>
+              <i class="fa-solid fa-trash delete"></i>
+            </div>
           {% endif %}
         </div>
-        <p><b>Título: {{ work_art.title }}</b></p>
-        <p>Descripción: {{ work_art.description }}</p>
-        <p>Categoría: {{ work_art.category }}</p>
+        <p><b>Título:</b> {{ work_art.title }}</p>
+        <p><b>Descripción:</b> {{ work_art.description }}</p>
+        <p><b>Categoría:</b> {{ work_art.category }}</p>
       </div>
       <div class="post_content">
         <img src="{{work_art.img_work}}" alt="Obra" oncontextmenu="return false">

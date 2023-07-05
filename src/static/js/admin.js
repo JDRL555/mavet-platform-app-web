@@ -157,14 +157,69 @@ function delete_operation(table, delete_btn, from){
   }
 }
 
-function create_operation(table, create_btn, from){
+function create_operation(table, modal, create_btn, from){
   create_btn.addEventListener("click", () => {
     create_btn.style.display  = "none"
-    const tbody               = table.querySelector("tbody")
-    const cols                = table.querySelectorAll("th")
+    const cols = []
+    if(from == "Usuarios") {
+      cols.push("Nombres")
+      cols.push("Apellidos")
+      cols.push("Fecha de Nacimiento")
+      cols.push("Correo")
+      cols.push("Nombre de usuario")
+      cols.push("Telefono")
+      cols.push("Especialidad del usuario")
+      cols.push("Tipo de usuario")
+      cols.push("Clave")
+    }
+
+    if(from == "Eventos") {
+      cols.push("Nombre")
+      cols.push("Descripcion")
+      cols.push("Fecha de inicio")
+      cols.push("Fecha de finalizacion")
+      cols.push("Hora de inicio")
+      cols.push("Hora de finalizacion")
+      cols.push("Multimedia")
+    }
+
+    if(from == "Cursos") {
+      cols.push("Nombre")
+      cols.push("Descripcion")
+      cols.push("Profesor")
+      cols.push("Fecha de inicio")
+      cols.push("Fecha de finalizacion")
+      cols.push("Hora de inicio")
+      cols.push("Hora de finalizacion")
+      cols.push("Precio")
+      cols.push("Multimedia")
+    }
+
+    if(from == "Categorias") {
+      cols.push("Nombre")
+    }
+    const body = table?.querySelector("tbody")
+    
     const new_row             = document.createElement("tr")
-    const save_btn            = document.createElement("td")
-    const cancel_btn          = document.createElement("td")
+    const save_container      = document.createElement("td")
+    const cancel_container    = document.createElement("td")
+    const form                = document.createElement("form")
+    const save_btn            = document.createElement("button")
+    const cancel_btn          = document.createElement("button")
+    const file_container      = document.createElement("div")
+    const file_text           = document.createElement("p")
+    const file_logo           = document.createElement("i")
+    
+    let route = ""
+
+    if(from == "Usuarios")    route = "user"
+    if(from == "Eventos")     route = "event"
+    if(from == "Cursos")      route = "course"
+    if(from == "Categorias")  route = "category"
+
+    form.action = `/${route}/new`
+    form.method = "POST"
+    form.enctype = "multipart/form-data"
 
     save_btn.setAttribute("class", "save_btn")
     cancel_btn.setAttribute("class", "cancel_btn")
@@ -172,71 +227,105 @@ function create_operation(table, create_btn, from){
     save_btn.innerText    = "Guardar"
     cancel_btn.innerText  = "Cancelar"
 
+    file_container.setAttribute("class", "file_container")
+    file_logo.setAttribute("class", "fa-solid fa-upload")
+    file_text.innerText = "Multimedia"
     
-    for (let c = 0; c < cols.length; c++) {
-      if(cols[c].innerHTML != "Acciones") {
-        const new_col = document.createElement("td")
-        let input     = document.createElement("input")
-        
+    file_text.appendChild(file_logo)
+    file_container.appendChild(file_text)
+
+    for (let c = -1; c < cols.length; c++) {
+      const new_col = document.createElement("td")
+      let input     = document.createElement("input")
+
+      if(c == -1){
+        new_row.appendChild(new_col)
+      }else{
         input.setAttribute("class", "create_input")
         
-        if(cols[c].innerHTML.includes("Fecha") && cols[c].innerHTML != "Fecha de creacion"){
+        if(cols[c].includes("Fecha")){
           input.onclick = () => input.type = "date"
+          input.onfocus = () => input.type = "date"
+        }
+  
+        if(cols[c].includes("Hora")){
+          input.onclick = () => input.type = "time"
+          input.onfocus = () => input.type = "time"
         }
 
-        if(cols[c].innerHTML == "Correo"){
+        if(cols[c].includes("Multimedia")){
+          input.setAttribute("class", "create_input file")
+          input.type    = "file"
+          input.accept  = "image/*"
+          input.addEventListener("change", () => {
+            input.files.length
+            ? file_container.style.backgroundColor = "#59c444"
+            : file_container.style.backgroundColor = "#c92d2d"
+          })
+          file_container.appendChild(input)
+        }
+  
+        if(cols[c].includes("Correo")){
           input.type = "email"
         }
-
-        if(cols[c].innerHTML == "Telefono"){
+  
+        if(cols[c].includes("Telefono")){
           input.type = "number"
         }
         
-        if(cols[c].innerHTML == "Fecha de creacion"){
+        if(cols[c].includes("Clave")){
           input.type = "password"
-        }
+        } 
   
-        if(c == 0 && cols[c].innerHTML == "ID") new_col.colSpan = "1" 
-  
-        else{
-          if(cols[c].innerHTML == "ID"){
-            input.placeholder = cols[0].innerHTML
-          }else if (cols[c].innerHTML == "Fecha de creacion") {
-            input.placeholder = "Clave"
-          }else{
-            input.placeholder = cols[c].innerHTML
-          }
-          new_col.appendChild(input)
-        }
+        input.placeholder = cols[c]
+        input.name        = cols[c]
+        
+        cols[c].includes("Multimedia") 
+        ? new_col.appendChild(file_container)
+        : new_col.appendChild(input)
+
         new_row.appendChild(new_col)
       }
     }
 
-    new_row.appendChild(save_btn)
-    new_row.appendChild(cancel_btn)
+    save_container.appendChild(save_btn)
+    cancel_container.appendChild(cancel_btn)
 
-    tbody.appendChild(new_row)
+    new_row.appendChild(save_container)
+    new_row.appendChild(cancel_container)
 
-    save_btn.addEventListener("click", () => {
-        const values    = table.querySelectorAll(".create_input")
-        const cols      = table.querySelectorAll("th")
-        const save_info = {}
-        let index       = 0
-        
-        cols[0].innerHTML == "ID" && index++
-        
-        for (let g = index; g <= values.length; g++) {
-          save_info[cols[g].innerHTML] = values[g - 1].value
-        }
-        
-        let route = ""
-        if(from == "Usuarios")    route = "user"
-        if(from == "Eventos")     route = "event"
-        if(from == "Cursos")      route = "course"
-        if(from == "Categorias")  route = "category"
+    console.log(modal)
+    
+    body.appendChild(new_row)
+    table.appendChild(body)
+    form.appendChild(table)
+    modal.appendChild(form)
 
-        window.location.href = `/${route}/new?info=${JSON.stringify(save_info)}`
-    })
+    // save_btn.addEventListener("click", async () => {
+    //   const values = table?.querySelectorAll(".create_input") || modal.querySelectorAll(".create_input") 
+    //   const save_info = {}
+
+    //   for (let g = 0; g < values.length; g++) { 
+    //     console.log(values[g].files[0])
+    //     if(cols[g].includes("Multimedia")) {
+    //       save_info[cols[g]] = values[g].files[0] 
+    //     } 
+    //     else save_info[cols[g]] = values[g].value
+    //   }
+      
+    //   console.log(JSON.stringify(save_info))
+
+    //   const response  = await fetch(`/${route}/new`, {
+    //     method: "POST",
+    //     body: JSON.stringify(save_info),
+    //     mode: "cors",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+
+    //   // window.location.href = `/${route}/new?info=${JSON.stringify(save_info)}`
+    // })
 
     cancel_btn.addEventListener("click", () => {
       new_row.remove()
@@ -269,6 +358,8 @@ for (let i = 0; i < btns.length; i++) {
 
     modal         = parser.parseFromString(modal, "text/html")
     modal         = modal.body.querySelector(".modal")
+
+    console.log(modal)
     
     modal.style.width = "auto" 
     
@@ -280,12 +371,19 @@ for (let i = 0; i < btns.length; i++) {
 
     if(!modal.querySelector(".modal_content")){
       modal.querySelector(".modal_filters").remove()
-      const empty = document.createElement("h1")
+      const empty       = document.createElement("h1")
+      const create_btn  = document.createElement("button")
+
+      create_btn.setAttribute("class", "create_col")
+      create_btn.innerText = "Crear"
 
       empty.innerHTML = "No hay registros aun"
       empty.style.textAlign = "center"
 
       modal.appendChild(empty)
+      modal.appendChild(create_btn)
+
+      create_operation(null, modal, create_btn, from)
     }else{
       const table       = modal.querySelector(".modal_content")
       let edit_btn      = table.querySelectorAll(".edit_col")
@@ -329,7 +427,7 @@ for (let i = 0; i < btns.length; i++) {
     
             edit_operation(new_table, rows, edit_btn, delete_btn, from)
             delete_operation(new_table, delete_btn, from)
-            create_operation(new_table, create_btn, from)
+            create_operation(new_table, modal, create_btn, from)
           }else{
             const notFound            = document.createElement("h1")
   
@@ -343,7 +441,7 @@ for (let i = 0; i < btns.length; i++) {
       }
       edit_operation(table, rows, edit_btn, delete_btn, from)
       delete_operation(table, delete_btn, from)
-      create_operation(table, create_btn, from)
+      create_operation(table, modal, create_btn, from)
     }
     const close_btn = modal.querySelector(".close_btn")
     
