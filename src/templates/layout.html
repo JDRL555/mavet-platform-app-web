@@ -1,3 +1,6 @@
+{% import 'macros/navbar.html' as navbar_macro %}
+{% import 'macros/footer.html' as footer_macro %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,82 +13,21 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/footer.css') }}">
   {% block styles %}{% endblock %}
   <title>{% block title %}{% endblock %}</title>
-  <link rel="shortcut icon" href="https://i.ibb.co/j579N3p/MAVET-logo.jpg">
+  <link rel="shortcut icon" href="{{ data.mavet.img }}">
 </head>
 <body>
-  <nav class="navbar">
-    <div class="left_side">
-      <a href="{{ '/' if not current_user else '/posts'}}">
-        <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
-      </a>
-      <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
-      <i class="fa-solid fa-bars fa-2xl" id="barras" onclick="openSideBar()"></i>
-    </div>
-    <div class="right_side">
-      {% for nav in data.navbar %}
-        {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
-          <a href="{{nav.link}}">{{nav.element}}</a>
-        {% endif %}
-      {% endfor %}
-      {% if current_user.username %}
-        {% if current_user.avatar %}
-          <img
-            src="{{current_user.avatar}}"
-            alt="The user image" 
-            class="user_img"  
-            onclick="userOptionsHandler()"
-          >
-        {% else %}
-          <i 
-            class="fa-solid fa-user fa-xl user_img"  
-            onclick="userOptionsHandler()"
-          >
-          </i>
-        {% endif %}
-        <div class="subnav">
-          <p><b>{{ current_user.username }}</b></p>
-          <a href="/user/{{current_user.id}}">Mi perfil</a>
-          <a href="/signout">Cerrar sesión</a>
-        </div>
-      {% endif %}
-    </div>
-    <div class="sidebar_bg" onclick="closeSideBar()">
-      <div class="sidebar">
-        {% for nav in data.navbar %}
-          {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
-            <a href="{{nav.link}}">{{nav.element}}</a>
-          {% endif %}
-        {% endfor %}
-        {% if current_user.username %}
-          <a href="/user/{{current_user.id}}">Mi perfil</a>
-          <a href="/signout">Cerrar sesión</a>
-        {% endif %}
-      </div>
-    </div>
-  </nav>
+  {{ navbar_macro.navbar(data, current_user) }}
+
   {% with messages = get_flashed_messages()  %}
-        {% if messages %} 
-          {% for message in messages %} <p class="msg">{{ message }}</p> {% endfor %} 
-        {% endif %}
-      {% endwith %} 
+    {% if messages %} 
+      {% for message in messages %} <p class="msg">{{ message }}</p> {% endfor %} 
+    {% endif %}
+  {% endwith %}
+   
   {% block content %}
   {% endblock %}
-  <footer>
-    <div class="title">
-      <h2>Museo de Artes Visuales y del Espacio del Tachira</h2>
-    </div>
-    <div class="social_media">
-      <i class="fa-brands fa-facebook">
-        <a href="https://www.facebook.com/profile.php?id=100010641850296">Museo Mavet</a>
-      </i>
-      <i class="fa-brands fa-instagram">
-        <a href="https://www.instagram.com/museomavet/">@museomavet</a>
-      </i>
-      <i class="fa-brands fa-twitter">
-        <a href="https://twitter.com/mavetmuseo?lang=es">@mavetmuseo</a>
-      </i>
-    </div>
-  </footer>
+
+  {{ footer_macro.footer(data) }}
 </body>
 <script src="{{ url_for('static',filename='js/sidebar.js') }}"></script>
 <script src="{{ url_for('static', filename='js/user.js') }}"></script>

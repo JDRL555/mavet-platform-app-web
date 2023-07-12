@@ -9,12 +9,9 @@
 {% block content %}
   <main>
     <form action="/signin" method="post">
-      <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
+      <img src="{{ data.mavet.img }}" class="logo">
       <h1>Inicia sesion</h1>
-      {% if data.msg %}
-        <p>{{ data.msg }}</p>
-      {% endif %}
-      {% for input in data.inputs %}
+      {% for input in data.login.inputs %}
         <input 
           name="{{input.name}}"
           type="{{input.type}}" 

@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 
-{% block title %}Bivenido al MAVET{% endblock %}
+{% block title %}Bienvenido al MAVET{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
@@ -19,7 +19,7 @@
     </header>
     
     <div class="content_container">
-      {% for content in data.contents %}
+      {% for content in data.index.contents %}
         <h2>{{ content.title }}</h2>
         <p>{{ content.description }}</p>
       {% endfor %}

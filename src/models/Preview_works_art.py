@@ -26,7 +26,8 @@ class Preview_works_art:
       
       return response  
     except Exception as error:
-      return {"msg": error, "error": True}
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
     
   @classmethod
   def getPaginated(self, db, page = 0):
@@ -56,7 +57,8 @@ class Preview_works_art:
     
       return data
     except Exception as error:
-      return {"msg": error, "error": True}
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
 
   @classmethod
   def getById(self, db, id):
@@ -87,7 +89,8 @@ class Preview_works_art:
       
       return response
     except Exception as error:
-      return {"msg": error, "error": True}
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
     
   @classmethod
   def deleteRequest(self, db, id):
@@ -102,7 +105,8 @@ class Preview_works_art:
       
       return response
     except Exception as error:
-      return {"msg": error, "error": True}
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
     
     
     

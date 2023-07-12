@@ -27,7 +27,7 @@ def renderPosts():
     data["posts"]["courses"]                = courses
     data["posts"]["new"]["recent_artists"]  = recent_artists["users"]
     
-    return render_template("posts.html", data=data["posts"])
+    return render_template("posts.html", data=data)
   except TypeError:
     return redirect("/signin")
   except KeyError:

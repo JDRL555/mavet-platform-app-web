@@ -148,7 +148,7 @@ def user_new():
   except Exception as error:
     print("ERROR EN CONTROLADOR")
     print(error)
-    return {"msg": error, "error": True}
+    return {"msg": "ERROR, intentelo mas tarde", "error": True}
 
 @user_router.route("/user/edit")
 def user_edit():

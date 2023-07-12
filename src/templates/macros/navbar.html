@@ -1,14 +1,14 @@
-{% macro navbar(navbar_data) %}
+{% macro navbar(data, current_user) %}
 <nav class="navbar">
   <div class="left_side">
-    <a href="{{ '/' if not current_user else '/posts'}}">
-      <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
+    <a href="{{ '/' }}">
+      <img src="{{ data.mavet.img }}" class="logo">
     </a>
     <a href="/" class="nav_title">Museo De Artes Visuales y del Espacio del estado Táchira</a>
-    <i class="fa-solid fa-bars fa-2xl" id="barras"></i> <!-- onclick="openSideBar()"  -->
+    <i class="fa-solid fa-bars fa-2xl open_sidebar" id="barras"></i> 
   </div>
   <div class="right_side">
-    {% for nav in data.navbar %}
+    {% for nav in data.index.navbar %}
       {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
         <a href="{{nav.link}}">{{nav.element}}</a>
       {% endif %}
@@ -19,29 +19,35 @@
           src="{{current_user.avatar}}"
           alt="The user image" 
           class="user_img"   
-        > <!-- onclick="userOptionsHandler()"  -->
+        > 
       {% else %}
         <i 
           class="fa-solid fa-user fa-xl user_img"  
         >
-        </i> <!-- onclick="userOptionsHandler()"  -->
+        </i> 
       {% endif %}
       <div class="subnav">
         <p><b>{{ current_user.username }}</b></p>
         <a href="/user/{{current_user.id}}">Mi perfil</a>
+        {% if current_user.type == 'Administrador' %}
+          <a href="/admin">Panel administrativo</a>
+        {% endif %}
         <a href="/signout">Cerrar sesión</a>
       </div>
     {% endif %}
   </div>
-  <div class="sidebar_bg"> <!-- onclick="closeSideBar()"  -->
+  <div class="sidebar_bg close_sidebar"> 
     <div class="sidebar">
-      {% for nav in data.navbar %}
+      {% for nav in data.index.navbar %}
         {% if not (current_user.username and (nav.link == "/signin" or nav.link == "/signup")) %}
           <a href="{{nav.link}}">{{nav.element}}</a>
         {% endif %}
       {% endfor %}
       {% if current_user.username %}
         <a href="/user/{{current_user.id}}">Mi perfil</a>
+        {% if current_user.type == 'Administrador' %}
+          <a href="/admin">Panel administrativo</a>
+        {% endif %}
         <a href="/signout">Cerrar sesión</a>
       {% endif %}
     </div>

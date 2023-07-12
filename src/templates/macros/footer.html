@@ -1,0 +1,18 @@
+{% macro footer(data) %}
+<footer>
+  <div class="title">
+    <h2>Museo de Artes Visuales y del Espacio del Tachira</h2>
+  </div>
+  <div class="social_media">
+    <i class="fa-brands fa-facebook">
+      <a href="{{ data.mavet.facebook }}">Museo Mavet</a>
+    </i>
+    <i class="fa-brands fa-instagram">
+      <a href="{{ data.mavet.instagram }}">@museomavet</a>
+    </i>
+    <i class="fa-brands fa-twitter">
+      <a href="{{ data.mavet.twitter }}">@mavetmuseo</a>
+    </i>
+  </div>
+</footer>
+{% endmacro %}

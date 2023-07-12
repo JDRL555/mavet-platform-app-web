@@ -1,3 +1,5 @@
+const user_img = document.querySelector(".user_img")
+
 function userOptionsHandler(){
   const userOptions = document.querySelector(".subnav")
   if(userOptions.style.opacity == 0){
@@ -8,3 +10,5 @@ function userOptionsHandler(){
     setTimeout(() => userOptions.style.visibility = "hidden", 500)
   }   
 }
+
+user_img.addEventListener("click", userOptionsHandler)

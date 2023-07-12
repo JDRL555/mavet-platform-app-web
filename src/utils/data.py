@@ -4,6 +4,12 @@ data = {
     "buttons": ["Usuarios", "Eventos", "Cursos", "Categorias"],
     "options": ["Crear", "Listar", "Actualizar", "Eliminar"],
   },
+  "mavet": {
+    "img": "https://i.ibb.co/j579N3p/MAVET-logo.jpg",
+    "facebook": "https://www.facebook.com/profile.php?id=100010641850296",
+    "instagram": "https://www.instagram.com/museomavet/",
+    "twitter": "https://twitter.com/mavetmuseo?lang=es"
+  },
   'index': {
     "navbar": [
       {"element": "Iniciar Sesión", "link": "/signin"},
@@ -187,9 +193,9 @@ data = {
           "Nombre",
           "Descripcion",
           "Fecha de inicio",
-          "Fecha de cierre",
+          "Fecha de finalizacion",
           "Hora de inicio",
-          "Hora de cierre",
+          "Hora de finalizacion",
           "Fecha de creacion"
         ],
         "data": []
@@ -202,9 +208,9 @@ data = {
           {"name": "name_event", "placeholder": "Nombre del evento", "value": "", "type": "text"},
           {"name": "description_event", "placeholder": "Descripcion del evento", "value": "", "type": "text"},
           {"name": "startdate_event", "placeholder": "Fecha de inicio", "value": "", "type": "date"},
-          {"name": "enddate_event", "placeholder": "Fecha de cierre", "value": "", "type": "date"},
+          {"name": "enddate_event", "placeholder": "Fecha de finalizacion", "value": "", "type": "date"},
           {"name": "starttime_event", "placeholder": "Hora de inicio", "value": "", "type": "time"},
-          {"name": "endtime_event", "placeholder": "Hora de cierre", "value": "", "type": "time"},
+          {"name": "endtime_event", "placeholder": "Hora de finalizacion", "value": "", "type": "time"},
         ]
       },
       "Eliminar": {
@@ -224,22 +230,23 @@ data = {
           {"name": "description_course", "placeholder": "Descripcion del curso", "type": "text"},
           {"name": "teacher_course", "placeholder": "Profesor del curso", "type": "text"},
           {"name": "startdate_course", "placeholder": "Fecha de inicio", "type": "date"},
-          {"name": "enddate_course", "placeholder": "Fecha de cierre", "type": "date"},
+          {"name": "enddate_course", "placeholder": "Fecha de finalizacion", "type": "date"},
           {"name": "starttime_course", "placeholder": "Hora de inicio", "type": "time"},
-          {"name": "endtime_course", "placeholder": "Hora de cierre", "type": "time"},
+          {"name": "endtime_course", "placeholder": "Hora de finalizacion", "type": "time"},
           {"name": "price", "placeholder": "Precio del curso", "type": "number"},
         ]
       },
       "Listar": {
         "title": "Listar",
         "filters": [
+          "ID",
           "Nombre",
           "Descripcion",
           "Profesor",
           "Fecha de inicio",
-          "Fecha de cierre",
+          "Fecha de finalizacion",
           "Hora de inicio",
-          "Hora de cierre",
+          "Hora de finalizacion",
           "Precio",
           "Fecha de creacion"
         ],
@@ -254,9 +261,9 @@ data = {
           {"name": "description_course", "placeholder": "Descripcion del curso", "value": "", "type": "text"},
           {"name": "teacher_course", "placeholder": "Profesor del curso", "value": "", "type": "text"},
           {"name": "startdate_course", "placeholder": "Fecha de inicio", "value": "", "type": "date"},
-          {"name": "enddate_course", "placeholder": "Fecha de cierre", "value": "", "type": "date"},
+          {"name": "enddate_course", "placeholder": "Fecha de finalizacion", "value": "", "type": "date"},
           {"name": "starttime_course", "placeholder": "Hora de inicio", "value": "", "type": "time"},
-          {"name": "endtime_course", "placeholder": "Hora de cierre", "value": "", "type": "time"},
+          {"name": "endtime_course", "placeholder": "Hora de finalizacion", "value": "", "type": "time"},
           {"name": "price", "placeholder": "Precio del curso", "value": "", "type": "number"},
         ]
       },

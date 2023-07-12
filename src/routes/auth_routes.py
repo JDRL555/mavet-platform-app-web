@@ -9,7 +9,7 @@ auth_router = Blueprint("auth", __name__)
 
 @auth_router.route("/signup", methods=["GET", "POST"])
 def signup():
-    return render_template("register.html", data=data['register'])
+    return render_template("register.html", data=data)
     
 
 @auth_router.route("/signin", methods=["GET", "POST"])
@@ -18,7 +18,7 @@ def signin():
     if current_user.is_authenticated:
       return redirect("/posts")
     if request.method == "GET":
-      return render_template("login.html", data=data['login'])
+      return render_template("login.html", data=data)
 
     user_info = {
       "email": request.form["email"],

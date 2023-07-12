@@ -10,10 +10,10 @@
 <main>
   <div class="btn_container">
     <button class="request_option">
-      {{ data.request }}
+      {{ data.admin.request }}
     </button>
   </div>
-  {% for button in data.buttons %}
+  {% for button in data.admin.buttons %}
     <div class="btn_container">
       <button class="admin_option">
         {{ button }}
@@ -26,4 +26,7 @@
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/create_admin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/edit_admin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/delete_admin.js') }}"></script>
 {% endblock %}

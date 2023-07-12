@@ -8,7 +8,6 @@ event_router = Blueprint("event", __name__)
 @event_router.route("/event/new" , methods=["POST"])
 def event_new():
   try:
-    
     event_info = {
       "Nombre": request.form["Nombre"], 
       "Descripcion": request.form["Descripcion"], 
@@ -65,7 +64,7 @@ def event_edit():
   event_info.pop("id") 
   columns   = Event.convertToColumns(columns=list(event_info.keys()))
   values    = list(event_info.values())
-  response  = Event.editEvent(db=db, id=id, columns=columns, values=values)
+  response  = Event.updateEvent(db=db, id=id, columns=columns, values=values)
   
   flash(response["msg"])
   return redirect("/admin")

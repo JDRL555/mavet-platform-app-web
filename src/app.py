@@ -50,7 +50,7 @@ def create_app():
 
   @app.context_processor
   def render_layout():
-    return dict(data=data['index'])
+    return dict(data=data)
 
   config(
     cloud_name=CLOUD_NAME,

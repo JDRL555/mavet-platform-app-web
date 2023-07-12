@@ -12,37 +12,37 @@
 {% block content %}
   <main>
     <div class="posts_container">
-      {{ posts.new_post( data.inputs ) }}
+      {{ posts.new_post( data.posts.inputs ) }}
 
-      {% if not data.events %}
+      {% if not data.posts.events %}
         <div class="post">
           <h1 class="not_post">No hay eventos aun...</h1>
         </div>
       {% else %}
-        {{ mavet.event(data.events) }}
+        {{ mavet.event(data) }}
       {% endif %}
       
-      {% if not data.courses %}
+      {% if not data.posts.courses %}
         <div class="post">
           <h1 class="not_post">No hay cursos aun...</h1>
         </div>
-    {% else %}
-        {{ mavet.course(data.courses) }}
+      {% else %}
+        {{ mavet.course(data) }}
       {% endif %}
 
-      {% if not data.works_art %}
+      {% if not data.posts.works_art %}
         <div class="post">
           <h1 class="not_post">No hay publicaciones aun...</h1>
         </div>
-    {% else %}
-        {{ posts.post(data.works_art, current_user) }}
+      {% else %}
+        {{ posts.post(data.posts.works_art, current_user) }}
       {% endif %}
 
       </div>
     <div class="news_container">
       <div class="new_artists">
         <h1>Artistas Recientes</h1>
-        {% for artist in data.new.recent_artists %}
+        {% for artist in data.posts.new.recent_artists %}
           <div class="artist_container" onclick="window.location.href = '/user/{{artist.id}}'" >
             {% if artist.avatar %}
               <img src="{{artist.avatar}}" alt="user_img">

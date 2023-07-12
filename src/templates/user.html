@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% import 'macros/post.html' as posts %}
 
-{% block title %}Bienvenido {{ data.user.username }}{% endblock %}
+{% block title %}{{ data.user.username }}{% endblock %}
 
 {% block styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">

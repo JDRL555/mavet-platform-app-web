@@ -227,7 +227,8 @@ class User(UserMixin):
       return response
       
     except Exception as error:
-      return {"msg": error, "error": True}
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
   
   @classmethod
   def editUser(self, db, id, columns, values):
@@ -282,7 +283,8 @@ class User(UserMixin):
       return response
       
     except Exception as error:
-      return {"msg": error, "error": True}
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
     
   @classmethod
   def convertToColumns(self, columns):

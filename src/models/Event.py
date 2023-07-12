@@ -30,12 +30,12 @@ class Event:
     except Exception as error:
       print("ERROR EN EL MODELO")
       print(error)
-      response = {"msg": error, "error": True}
+      response = {"msg": "ERROR, intentelo mas tarde", "error": True}
       return response
     
   @classmethod
   def getAll(self, db):
-    sql         = text("SELECT * FROM events;")
+    sql         = text("SELECT * FROM events ORDER BY created_at DESC;")
     events      = db.session.execute(sql)
     events      = tuple(events)
     
@@ -59,15 +59,95 @@ class Event:
     return data
   
   @classmethod
+  def updateEvent(self, db, id, columns, values):
+    try:
+      response  = {"msg": "Editado exitosamente", "error": False}
+      sql = f'''
+        SELECT name_event, description_event, startdate_event, enddate_event, starttime_event, endtime_event 
+        FROM events WHERE id = {id};
+      '''
+      
+      event     = db.session.execute(text(sql))
+      event     = list(event)
+
+      print(event)
+
+      if not event:
+        response["msg"] = "Evento no encontrado"
+        response["error"] = True
+        
+        return response
+      
+      event       = event[0]
+      new_values  = []
+      new_columns = []
+
+      for index, row in enumerate(event):
+        print(row)
+        print(values[index])
+
+        if type(row) != str:
+          row = str(row) 
+
+        if row != values[index]:
+          new_values.append(values[index])
+          new_columns.append(columns[index])
+
+      print(new_values)
+      print(new_columns)
+
+      if not len(new_values):
+        response["msg"]   = "No hay campos por modificar"
+        response["error"] = True
+        
+        return response
+
+      sql = "UPDATE events SET "
+
+      for index, column in enumerate(new_columns):
+        sql += f"{column} = '{new_values[index]}'"
+
+        if index != len(new_values) - 1: sql += ", "
+
+      sql += f" WHERE id = {id}"
+
+      print(sql)
+
+      db.session.execute(text(sql))
+      db.session.commit()
+
+      return response
+
+    except Exception as error:
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
+    
+  @classmethod
+  def deleteEvent(self, db, id):
+    try:
+      response  = {"msg": "Eliminado exitosamente", "error": True}
+      sql       = f"DELETE FROM events WHERE id = {id};"
+      
+      db.session.execute(text(sql))
+      db.session.commit()
+
+      return response
+
+    except Exception as error:
+      print(error)
+      return {"msg": "ERROR, intentelo mas tarde", "error": True}
+  
+  @classmethod
   def convertToColumns(self, columns):
     try:
-      if columns[0] == "Nombre":                  columns[0] = "name_event" 
-      if columns[1] == "Descripcion":             columns[1] = "description_event" 
-      if columns[2] == "Fecha de inicio":         columns[2] = "startdate_event" 
-      if columns[3] == "Fecha de finalizacion":   columns[3] = "enddate_event" 
-      if columns[4] == "Hora de inicio":          columns[4] = "starttime_event" 
-      if columns[5] == "Hora de finalizacion":    columns[5] = "endtime_event" 
-      if columns[6] == "Multimedia":              columns[6] = "media_event" 
+      for index, _ in enumerate(columns):
+        if columns[index] == "Nombre":                  columns[index] = "name_event" 
+        if columns[index] == "Descripcion":             columns[index] = "description_event" 
+        if columns[index] == "Fecha de inicio":         columns[index] = "startdate_event" 
+        if columns[index] == "Fecha de finalizacion":   columns[index] = "enddate_event" 
+        if columns[index] == "Hora de inicio":          columns[index] = "starttime_event" 
+        if columns[index] == "Hora de finalizacion":    columns[index] = "endtime_event" 
+        if columns[index] == "Multimedia":              columns[index] = "media_event" 
     
       return columns
     except Exception as error:

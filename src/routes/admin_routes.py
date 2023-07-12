@@ -1,4 +1,5 @@
-from flask            import Blueprint, render_template, get_template_attribute, request, Response
+from flask                import Blueprint, render_template, get_template_attribute, request, Response, redirect
+from flask_login          import current_user
 from src.models.User      import User
 from src.models.Event     import Event
 from src.models.Course    import Course
@@ -10,7 +11,13 @@ admin_router = Blueprint("admin", __name__)
 
 @admin_router.route("/admin")
 def admin():
-  return render_template("admin.html", data=data["admin"])
+  try:
+    if current_user["type"] != "Administrador":
+      return redirect("/posts")
+  except TypeError:
+    return redirect("/signin")
+
+  return render_template("admin.html", data=data)
 
 @admin_router.route("/modal", methods=["POST"])
 def modal():
@@ -54,6 +61,7 @@ def modal():
       
   if req_from == "Cursos":
     courses = Course.getAll(db=db)
+    for course in courses: course.pop("media") 
     if not courses: 
       data["modal"]["Cursos"]["Listar"]["data"] = []
     else:

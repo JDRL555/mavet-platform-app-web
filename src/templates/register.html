@@ -7,29 +7,29 @@
 {% endblock %}
 
 {% block content %}
-  <main>
-    <form action="/user/new" method="post">
-      <img src="https://i.ibb.co/j579N3p/MAVET-logo.jpg" class="logo">
-      <h1>Registrate</h1>
-      {% for input in data.inputs %}
-        {% if input.name == "datebirth" %}
-          <input 
-            name="{{input.name}}"
-            type="{{input.type}}" 
-            placeholder="{{input.placeholder}}"
-            onfocus="(this.type='date')" 
-            required
-          >
-        {% else %}
-          <input 
-            name="{{input.name}}"
-            type="{{input.type}}" 
-            placeholder="{{input.placeholder}}"
-            required
-          >
-        {% endif %}
-      {% endfor %}
-      <button type="submit">Crear cuenta</button>
-    </form>
-  </main>  
+<main>
+  <form action="/user/new" method="post">
+    <img src="{{ data.mavet.img }}" class="logo">
+    <h1>Registrate</h1>
+    {% for input in data.register.inputs %}
+      {% if input.name == "datebirth" %}
+        <input 
+          name="{{input.name}}"
+          type="{{input.type}}" 
+          placeholder="{{input.placeholder}}"
+          onfocus="(this.type='date')" 
+          required
+        >
+      {% else %}
+        <input 
+          name="{{input.name}}"
+          type="{{input.type}}" 
+          placeholder="{{input.placeholder}}"
+          required
+        >
+      {% endif %}
+    {% endfor %}
+    <button type="submit">Crear cuenta</button>
+  </form>
+</main>  
 {% endblock %}

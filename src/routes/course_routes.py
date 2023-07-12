@@ -5,20 +5,31 @@ import json
 
 course_router = Blueprint("course", __name__)
 
-@course_router.route("/course/new")
+@course_router.route("/course/new", methods=["POST"])
 def course_new():
   try:
-    course_info = request.args.get("info")
-    course_info = json.loads(course_info)
+    course_info = {
+      "Nombre": request.form["Nombre"], 
+      "Descripcion": request.form["Descripcion"], 
+      "Profesor": request.form["Profesor"], 
+      "Fecha de inicio": request.form["Fecha de inicio"], 
+      "Fecha de finalizacion": request.form["Fecha de finalizacion"],
+      "Hora de inicio": request.form["Hora de inicio"],  
+      "Hora de finalizacion": request.form["Hora de finalizacion"],  
+      "Precio": request.form["Precio"],  
+      "Multimedia": request.files["Multimedia"],  
+    } 
     
-    old_columns   = list(course_info.keys())
-    new_columns   = Course.convertToColumns(old_columns)
-    new_course_info = {}
+    print(course_info)
+    
+    old_columns     = list(course_info.keys())
+    new_columns     = Course.convertToColumns(old_columns)
+    new_course_info  = {}
+    
     
     for index, value in enumerate(course_info.values()): 
       if not value: 
         flash("Faltan campos por llenar")
-        print(request.path)
         return redirect("/admin")
       new_course_info[new_columns[index]] = value
     
@@ -34,7 +45,7 @@ def course_new():
       "enddate": course_info["enddate_course"],
       "starttime": course_info["starttime_course"],
       "endtime": course_info["endtime_course"],
-      "price": course_info["price_course"],
+      "price": course_info["price"],
       "media": course_info["media_course"],
     }
     
@@ -46,26 +57,38 @@ def course_new():
   except Exception as error:
     print("ERROR EN CONTROLADOR")
     print(error)
-    return {"msg": error, "error": True}
+    flash(response["msg"])
+    return redirect("/admin")
 
 @course_router.route("/course/edit")
 def course_edit():
-  course_info = request.args.get("info")
-  course_info = json.loads(course_info) 
-  id        = course_info["id"]
-  course_info.pop("id") 
-  columns   = Course.convertToColumns(columns=list(course_info.keys()))
-  values    = list(course_info.values())
-  response  = Course.editCourse(db=db, id=id, columns=columns, values=values)
+  try:
+    course_info = request.args.get("info")
+    course_info = json.loads(course_info) 
+    id        = course_info["id"]
+    course_info.pop("id") 
+    columns   = Course.convertToColumns(columns=list(course_info.keys()))
+    values    = list(course_info.values())
+    response  = Course.updateCourse(db=db, id=id, columns=columns, values=values)
+    
+    flash(response["msg"])
+    return redirect("/admin")
   
-  flash(response["msg"])
-  return redirect("/admin")
+  except Exception as error:
+    print(error)
+    flash(response["msg"])
+    return redirect("/admin")
 
 @course_router.route("/course/delete")
 def course_delete():
-  id = request.args.get("id")
-  id = int(id)
-  response = Course.deleteCourse(db=db, id=id)
-  
-  flash(response["msg"])
-  return redirect("/admin")
+  try:
+    id = request.args.get("id")
+    id = int(id)
+    response = Course.deleteCourse(db=db, id=id)
+    
+    flash(response["msg"])
+    return redirect("/admin")
+  except Exception as error:
+    print(error)
+    flash(response["msg"])
+    return redirect("/admin")
