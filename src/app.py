@@ -1,6 +1,7 @@
 from flask                        import Flask, render_template, redirect
 from flask_login                  import LoginManager
 from cloudinary                   import config
+#routes
 from .models.User                 import User
 from .routes.index_routes         import index_router
 from .routes.auth_routes          import auth_router
@@ -11,6 +12,8 @@ from .routes.admin_routes         import admin_router
 from .routes.event_routes         import event_router
 from .routes.course_routes        import course_router
 from .routes.category_routes      import category_router
+from .routes.api_routes           import api_router
+#utils
 from .utils.db                    import db
 from .utils.data                  import data 
 from .utils.var                   import *
@@ -67,5 +70,7 @@ def create_app():
   app.register_blueprint(event_router)
   app.register_blueprint(course_router)
   app.register_blueprint(category_router)
+
+  app.register_blueprint(api_router)
     
   return app
