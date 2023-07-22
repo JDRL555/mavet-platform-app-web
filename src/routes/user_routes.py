@@ -96,13 +96,10 @@ def user_new():
       for index, value in enumerate(user_info.values()): 
         if not value: 
           flash("Faltan campos por llenar")
-          print(request.path)
           return redirect("/admin")
         new_user_info[new_columns[index]] = value
       
       user_info = new_user_info
-      
-      print(user_info)
       
       user_info = {
         "name": user_info["name_user"],
