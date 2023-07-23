@@ -1,4 +1,24 @@
 data = {
+  'styles': {
+    "main-bg":"#fab96e",
+    "content-bg":"#fafad2",
+
+    "nav-bg":"#b6262e",
+    "nav-bg-dark":"#881c21",
+    "nav-bg-hover":"#cc4e55",
+
+    "header-bg":"#8a7151cc",
+    "header-bg-dark":"#5c4c37cc",
+
+    "post-bg":"#c2a389",
+
+    "btn-bg":"#b18f65",
+    "btn-bg-h":"#dab180",
+
+    "save":"#59c444",
+    "edit":"#2d49c9",
+    "delete":"#c92d2d",
+  },
   'admin': {
     "request": "Ver publicaciones solicitadas",
     "buttons": ["Usuarios", "Eventos", "Cursos", "Categorias"],
