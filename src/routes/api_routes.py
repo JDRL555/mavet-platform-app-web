@@ -1,4 +1,4 @@
-from flask                        import Blueprint
+from flask                        import Blueprint, request
 
 from src.utils.data               import data
 from src.utils.db                 import db
@@ -10,6 +10,8 @@ from src.models.Event             import Event
 from src.models.Specialty         import Specialty_user
 from src.models.Type              import Type_user
 from src.models.Preview_works_art import Preview_works_art
+
+import json
 
 api_router = Blueprint("api", __name__)
 
@@ -26,6 +28,32 @@ def get_works_art():
 def get_users():
   users = User.getAll(db)
   return users
+
+@api_router.route("/api/signin", methods=["POST"])
+def signin_user():
+  data = request.get_data()
+  data = json.loads(data)
+
+  user = User.login(db, data)
+  user = user['user']
+
+  if not user: 
+    return {
+      "error": True, 
+      "msg": "El usuario no existe o las credenciales son incorrentas. Intente de nuevo"
+    }
+
+  if user["type"] != "Supervisor":
+    return {
+      "error": True, 
+      "msg": "El usuario no posee los permisos suficientes para acceder al panel de reportes. Debe ser un usuario supervisor para poder acceder"
+    }
+  
+  return {
+    "error": False, 
+    "msg": f"Bienvenido {user['username']}",
+    "user": user
+  }
 
 @api_router.route("/api/categories")
 def get_categories():
