@@ -50,8 +50,8 @@ class Event:
         "description": row[2],
         "startdate": row[3],
         "enddate": row[4],
-        "starttime": row[5],
-        "endtime": row[6],
+        "starttime": str(row[5]),
+        "endtime": str(row[6]),
         "created_at": row[8],
         "media": row[7],
       })
