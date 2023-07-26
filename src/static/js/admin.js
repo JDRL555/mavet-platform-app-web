@@ -1,8 +1,11 @@
 const btns            = document.querySelectorAll(".admin_option") // opciones del admin
+const report_btn      = document.querySelector(".drive") // opcion para acceder a los reportes PDF
 const request_option  = document.querySelector(".request_option") // ver publicaciones solicitadas
 const modal_bg        = document.querySelector(".modal_bg") // ventana para mostrar registros
 
 request_option.addEventListener("click", () => window.location = "/post/request")
+
+report_btn.addEventListener("click", () => window.location.href = "https://drive.google.com/drive/folders/15rHza6q2PXrrcEnctiFHPSxF_tGqrfTF?usp=sharing")
 
 //recorre las entidades que el administrador puede manipular (usuarios, eventos, cursos y categorias)
 for (let i = 0; i < btns.length; i++) {
