@@ -1,6 +1,5 @@
 body {
   background-color: var(--content-bg);
-  font-family: var(--main-font);
   overflow: hidden;
 }
 

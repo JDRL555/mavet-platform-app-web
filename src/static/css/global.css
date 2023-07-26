@@ -23,6 +23,10 @@
   --delete: #c92d2d;
 }
 
+* {
+  font-family: var(--main-font);
+}
+
 body {
   background-color: var(--main-bg);
   overflow-x: hidden;
@@ -31,5 +35,4 @@ body {
 
 main {
   background-color: var(--main-bg);
-  font-family: var(--main-font);
 }
