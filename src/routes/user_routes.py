@@ -82,7 +82,7 @@ def users_filter():
   response = Response(modal_content, headers={'Access-Control-Allow-Origin': "*"})
   return response
 
-@user_router.route("/user/new")
+@user_router.route("/user/new", methods=["POST"])
 def user_new():
   try:
     if request.args:
@@ -120,19 +120,31 @@ def user_new():
       return redirect("/admin")
     
     else:
-      if not request.form["type"]: request.form["type"]           = None
-      if not request.form["specialty"]: request.form["specialty"] = None
+      user_info     = request.form 
+      old_columns   = list(user_info.keys())
+      new_columns   = User.convertToColumns(old_columns)
+      new_user_info = {}
+      
+      for index, value in enumerate(user_info.values()): 
+        if not value: 
+          flash("Faltan campos por llenar")
+          return redirect("/admin")
+        new_user_info[new_columns[index]] = value
+      
+      user_info = new_user_info
+
+      print(user_info)
       user_info = {
-          "name": request.form["name"],
-          "lastname": request.form["lastname"],
-          "datebirth": request.form["datebirth"],
-          "username": request.form["username"],
-          "phone": request.form["phone"],
-          "email": request.form["email"],
-          "type": request.form["type"],
-          "specialty": request.form["specialty"],
-          "password": request.form["password"],
-          "confirm": request.form["confirm"],
+          "name": user_info["name_user"],
+          "lastname": user_info["last_name_user"],
+          "datebirth": user_info["datebirth"],
+          "username": user_info["username_user"],
+          "phone": user_info["phone_user"],
+          "email": user_info["email_user"],
+          "type": user_info["type_id"],
+          "specialty": user_info["specialty_id"],
+          "password": user_info["password_user"],
+          "confirm": user_info.get("confirm"),
         }
         
       response = User.register(db=db, user=user_info)

@@ -4,7 +4,7 @@ function edit_operation(table, rows, edit_btn, delete_btn, from){
     edit_btn[e].addEventListener("click", () => {
       const registers           = rows[e].querySelectorAll(".register_cols")
       const cols                = table.querySelectorAll("th")
-      const id                  = cols[0].innerText
+      const id                  = registers[0].innerText
       let name                  = ""
       const save_btn            = document.createElement("td")
       const cancel_btn          = document.createElement("td")

@@ -13,6 +13,7 @@ class User(UserMixin):
     print(user)
     response = {"msg": "Registrado exitosamente", "error": False}
     try:
+      if not user['confirm']: user['confirm'] = user['password']
       if user["password"] != user["confirm"]:
         response["msg"]   = "Las contraseñas no coinciden"
         response["error"] = True
@@ -246,7 +247,7 @@ class User(UserMixin):
     new_values  = []  
     
     for index, value in enumerate(values):
-      
+
       if type(user[index]) != str:
         user[index] = str(user[index])
       
@@ -288,17 +289,17 @@ class User(UserMixin):
     
   @classmethod
   def convertToColumns(self, columns):
-    
-    if columns[0] == "Nombres":                   columns[0] = "name_user" 
-    if columns[1] == "Apellidos":                 columns[1] = "last_name_user" 
-    if columns[2] == "Fecha de Nacimiento":       columns[2] = "datebirth" 
-    if columns[3] == "Correo":                    columns[3] = "email_user" 
-    if columns[4] == "Nombre de usuario":         columns[4] = "username_user" 
-    if columns[5] == "Telefono":                  columns[5] = "phone_user" 
-    if columns[6] == "Especialidad del usuario":  columns[6] = "specialty_id" 
-    if columns[7] == "Tipo de usuario":           columns[7] = "type_id" 
-    if columns[8] == "Fecha de creacion":         columns[8] = "created_at" 
-    if columns[8] == "Clave":                     columns[8] = "password_user" 
+    for index, _ in enumerate(columns):
+      if columns[index] == "Nombres":                   columns[index] = "name_user" 
+      if columns[index] == "Apellidos":                 columns[index] = "last_name_user" 
+      if columns[index] == "Fecha de Nacimiento":       columns[index] = "datebirth" 
+      if columns[index] == "Correo":                    columns[index] = "email_user" 
+      if columns[index] == "Nombre de usuario":         columns[index] = "username_user" 
+      if columns[index] == "Telefono":                  columns[index] = "phone_user" 
+      if columns[index] == "Especialidad del usuario":  columns[index] = "specialty_id" 
+      if columns[index] == "Tipo de usuario":           columns[index] = "type_id" 
+      if columns[index] == "Fecha de creacion":         columns[index] = "created_at" 
+      if columns[index] == "Clave":                     columns[index] = "password_user" 
     
     return columns
   

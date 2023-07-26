@@ -60,8 +60,7 @@ function create_operation(table, modal, create_btn, from){
 
     form.action = `/${route}/new`
     form.method = "POST"
-    form.enctype = "multipart/form-data"
-
+    
     save_btn.setAttribute("class", "save_btn")
     cancel_btn.setAttribute("class", "cancel_btn")
 
@@ -88,13 +87,14 @@ function create_operation(table, modal, create_btn, from){
           input.onclick = () => input.type = "date"
           input.onfocus = () => input.type = "date"
         }
-  
+        
         if(cols[c].includes("Hora")){
           input.onclick = () => input.type = "time"
           input.onfocus = () => input.type = "time"
         }
-
+        
         if(cols[c].includes("Multimedia")){
+          form.enctype = "multipart/form-data"
           input.setAttribute("class", "create_input file")
           input.type    = "file"
           input.accept  = "image/*"
