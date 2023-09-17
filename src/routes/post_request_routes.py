@@ -8,7 +8,7 @@ post_request_router = Blueprint("post_request", __name__)
 
 @post_request_router.route("/post/request")
 def post_request():
-  posts_request = Preview_works_art.getPaginated(db=db)
+  posts_request = Preview_works_art.getPaginated(db=db, page=0)
   return render_template("posts_request.html", posts_request=posts_request, admin=True)
 
 @post_request_router.route("/new/post/request", methods=["POST"])

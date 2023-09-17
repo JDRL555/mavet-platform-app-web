@@ -36,7 +36,8 @@ class Preview_works_art:
         SELECT previews.id, users.username_user, previews.title_work, previews.description_work, previews.category, previews.img_work, users.avatar_user 
         FROM previews 
         INNER JOIN users 
-        ON previews.author_id = users.id ORDER BY previews.id DESC LIMIT {page}, 5;
+        ON previews.author_id = users.id 
+        ORDER BY previews.id DESC LIMIT {page}, 2;
       ''')
       
       works_art_data = db.session.execute(sql)
